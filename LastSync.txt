@@ -1,11 +1,12 @@
-commit ebd0052f456299b911443690d4d4f6a95e0725cc (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Nick Hainke <vincent@systemli.org>
-Date:   Sun Jul 27 18:22:59 2025 +0200
+commit d6200f2502546e036d1b99ff5c7e3ac59b4616db (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Konstantin Demin <rockdrilla@gmail.com>
+Date:   Sun Jul 27 11:36:39 2025 +0300
 
-    tools: pkgconf: update to 2.5.1
+    toolchain: glibc: Update glibc 2.41 to recent HEAD
     
-    Changelog:
-    https://github.com/pkgconf/pkgconf/blob/4fc570f91d9d8d843ab32d2198a5c064538d8ffd/NEWS
+    1e16d0096d80 posix: Fix double-free after allocation failure in regcomp (bug 33185) [CVE-2025-8058]
+    e7c419a29575 iconv: iconv -o should not create executable files (bug 33164)
     
-    Link: https://github.com/openwrt/openwrt/pull/19557
-    Signed-off-by: Nick Hainke <vincent@systemli.org>
+    Signed-off-by: Konstantin Demin <rockdrilla@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/19543
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
