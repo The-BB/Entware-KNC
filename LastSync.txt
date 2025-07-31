@@ -1,11 +1,15 @@
-commit fd123d6d13979c30b58262c4e0ee24e8cd7aba3a (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Coia Prant <coiaprant@gmail.com>
-Date:   Sat Jul 5 07:53:09 2025 +0000
+commit e15d5cf7522e1d921b42305447990cab6f3e809e (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Rosen Penev <rosenp@gmail.com>
+Date:   Tue Jul 29 13:46:18 2025 -0700
 
-    qualcommax: ipq6018: remove unused reserved memory
+    tools/util-linux: build with meson
     
-    Deleted useless content, since it is the same as the mainline kernel
+    Simplifies Makefile by quite a bit.
     
-    Signed-off-by: Coia Prant <coiaprant@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/19300
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Added an upstream backport fixing compilation with older OS.
+    
+    Added a curses patch so -Dauto_features=disabled can work properly.
+    
+    Signed-off-by: Rosen Penev <rosenp@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/19598
+    Signed-off-by: Nick Hainke <vincent@systemli.org>
