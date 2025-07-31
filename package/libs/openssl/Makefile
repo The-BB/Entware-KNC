@@ -395,6 +395,9 @@ define Build/InstallDev
 	$(INSTALL_DIR) $(1)/opt/lib/pkgconfig
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/pkgconfig/{openssl,libcrypto,libssl}.pc $(1)/opt/lib/pkgconfig/
 	[ -n "$(TARGET_LDFLAGS)" ] && $(SED) 's#$(TARGET_LDFLAGS)##g' $(1)/opt/lib/pkgconfig/{openssl,libcrypto,libssl}.pc || true
+	# for cmake build system
+	$(INSTALL_DIR) $(1)/opt/lib/cmake
+	$(CP) $(PKG_INSTALL_DIR)/opt/lib/cmake/OpenSSL $(1)/opt/lib/cmake/
 endef
 
 define Package/libopenssl/install
