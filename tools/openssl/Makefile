@@ -41,20 +41,20 @@ endif
 
 HOST_CFLAGS += $(HOST_FPIC)
 
-OPENSSL_OPTIONS:= no-engine no-shared zlib
+OPENSSL_OPTIONS:= no-engine shared zlib
 
 OPENSSL_OPTIONS += \
 	no-aria no-async no-blake2 no-camellia no-idea no-mdc2 no-rfc3779 \
 	no-seed no-sm2 no-sm3 no-sm4 no-sse2 no-tests no-whirlpool 
 
 define Host/Configure
-	(cd $(HOST_BUILD_DIR); \
+	( cd $(HOST_BUILD_DIR); \
 		./Configure $(OPENSSL_TARGET) \
 		--prefix=$(STAGING_DIR_HOST) \
 		--libdir=lib \
 		$(HOST_CPPFLAGS) \
 		$(HOST_LDFLAGS) \
-		$(OPENSSL_OPTIONS) \
+		$(OPENSSL_OPTIONS); \
 	)
 endef
 
@@ -66,6 +66,10 @@ endef
 
 define Host/Install
 	:
+endef
+
+define Host/Uninstall
+	-$(call Host/Compile/Default,uninstall_dev)
 endef
 
 $(eval $(call HostBuild))
