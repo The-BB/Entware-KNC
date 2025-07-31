@@ -37,7 +37,10 @@ HOST_CONFIGURE_ARGS := \
 	--system-liblzma \
 	--system-zlib \
 	--system-zstd \
-	--generator=Ninja
+	--generator=Ninja \
+	-- \
+	-DOPENSSL_CRYPTO_LIBRARY=$(STAGING_DIR_HOST)/lib/libcrypto.a \
+	-DOPENSSL_SSL_LIBRARY=$(STAGING_DIR_HOST)/lib/libssl.a
 
 define Host/Compile/Default
 	+$(NINJA) -C $(HOST_BUILD_DIR) $(1)
