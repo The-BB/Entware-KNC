@@ -1,12 +1,11 @@
-commit d6200f2502546e036d1b99ff5c7e3ac59b4616db (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Konstantin Demin <rockdrilla@gmail.com>
-Date:   Sun Jul 27 11:36:39 2025 +0300
+commit fd123d6d13979c30b58262c4e0ee24e8cd7aba3a (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Coia Prant <coiaprant@gmail.com>
+Date:   Sat Jul 5 07:53:09 2025 +0000
 
-    toolchain: glibc: Update glibc 2.41 to recent HEAD
+    qualcommax: ipq6018: remove unused reserved memory
     
-    1e16d0096d80 posix: Fix double-free after allocation failure in regcomp (bug 33185) [CVE-2025-8058]
-    e7c419a29575 iconv: iconv -o should not create executable files (bug 33164)
+    Deleted useless content, since it is the same as the mainline kernel
     
-    Signed-off-by: Konstantin Demin <rockdrilla@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/19543
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Coia Prant <coiaprant@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/19300
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
