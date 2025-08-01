@@ -1,15 +1,19 @@
-commit e15d5cf7522e1d921b42305447990cab6f3e809e (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Rosen Penev <rosenp@gmail.com>
-Date:   Tue Jul 29 13:46:18 2025 -0700
+commit 40ad990ebf96e979ffff528de72823f8e6583a4c (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Nick Hainke <vincent@systemli.org>
+Date:   Thu Jul 31 18:05:07 2025 +0200
 
-    tools/util-linux: build with meson
+    gettext-full: fix m4 path after gettextize update
     
-    Simplifies Makefile by quite a bit.
+    Recent changes to gettextize altered the default path for .m4 files from
+    $datadir/aclocal to $datadir/gettext/m4 [0]. This caused build issues when
+    compiling gettext-full in OpenWrt.
     
-    Added an upstream backport fixing compilation with older OS.
+    This patch, originally provided by @nxhack [1], updates the OpenWrt
+    Makefile accordingly to ensure compatibility with the new path.
     
-    Added a curses patch so -Dauto_features=disabled can work properly.
+    [0] https://gitweb.git.savannah.gnu.org/gitweb/?p=gettext.git;a=commit;h=fa98427c774aad9dade7702becc2c3eef5a8434d
+    [1] https://github.com/openwrt/openwrt/commit/da541f7acd62bc33e7b0a891cf65a39d4bfe0b96#commitcomment-163048847
     
-    Signed-off-by: Rosen Penev <rosenp@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/19598
+    Fixes: da541f7acd62 ("gettext-full: update to 0.24.1")
+    Link: https://github.com/openwrt/openwrt/pull/19614
     Signed-off-by: Nick Hainke <vincent@systemli.org>
