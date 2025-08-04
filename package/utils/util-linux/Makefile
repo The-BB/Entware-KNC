@@ -12,7 +12,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=util-linux
 PKG_VERSION:=2.41.1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=@KERNEL/linux/utils/$(PKG_NAME)/v2.41
@@ -383,6 +383,18 @@ define Package/ipcs/description
   which the calling process has read access. By default it shows information
   about all three resources: shared memory segments, message queues, and
   semaphore arrays.
+endef
+
+define Package/last
+$(call Package/util-linux/Default)
+  TITLE:=display history of user logins and logout sessions
+  LICENSE=BSD-4-Clause-UC
+  LICENSE_FILES:=Documentation/licenses/COPYING.BSD-4-Clause-UC
+endef
+
+define Package/last/description
+ last utility displays a history of user login and logout sessions, system reboots,
+ and other events recorded in /var/log/wtmp (or a specified file)
 endef
 
 define Package/logger
@@ -783,7 +795,6 @@ MESON_ARGS += \
 	-Dbuild-rfkill=disabled \
 	-Dbuild-tunelp=disabled \
 	-Dbuild-kill=disabled \
-	-Dbuild-last=disabled \
 	-Dbuild-utmpdump=disabled \
 	-Dbuild-line=disabled \
 	-Dbuild-mesg=disabled \
@@ -982,6 +993,11 @@ define Package/ipcs/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/ipcs $(1)/opt/bin/
 endef
 
+define Package/last/install
+	$(INSTALL_DIR) $(1)/opt/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/last $(1)/opt/bin/
+endef
+
 define Package/logger/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/logger $(1)/opt/bin/util-linux-logger
@@ -1160,6 +1176,7 @@ $(eval $(call BuildPackage,hardlink))
 $(eval $(call BuildPackage,hwclock))
 $(eval $(call BuildPackage,ionice))
 $(eval $(call BuildPackage,ipcs))
+$(eval $(call BuildPackage,last))
 $(eval $(call BuildPackage,logger))
 $(eval $(call BuildPackage,look))
 $(eval $(call BuildPackage,losetup))
