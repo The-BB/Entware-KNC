@@ -1,19 +1,9 @@
-commit 40ad990ebf96e979ffff528de72823f8e6583a4c (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Nick Hainke <vincent@systemli.org>
-Date:   Thu Jul 31 18:05:07 2025 +0200
+commit 7d570a489b12e997b5500b4b22516ecdba51fbab (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Felix Fietkau <nbd@nbd.name>
+Date:   Sun Aug 3 21:52:06 2025 +0200
 
-    gettext-full: fix m4 path after gettextize update
+    wifi-scripts: fix handling hotplug-added wireless vifs
     
-    Recent changes to gettextize altered the default path for .m4 files from
-    $datadir/aclocal to $datadir/gettext/m4 [0]. This caused build issues when
-    compiling gettext-full in OpenWrt.
+    Pass the correct ifname and state
     
-    This patch, originally provided by @nxhack [1], updates the OpenWrt
-    Makefile accordingly to ensure compatibility with the new path.
-    
-    [0] https://gitweb.git.savannah.gnu.org/gitweb/?p=gettext.git;a=commit;h=fa98427c774aad9dade7702becc2c3eef5a8434d
-    [1] https://github.com/openwrt/openwrt/commit/da541f7acd62bc33e7b0a891cf65a39d4bfe0b96#commitcomment-163048847
-    
-    Fixes: da541f7acd62 ("gettext-full: update to 0.24.1")
-    Link: https://github.com/openwrt/openwrt/pull/19614
-    Signed-off-by: Nick Hainke <vincent@systemli.org>
+    Signed-off-by: Felix Fietkau <nbd@nbd.name>
