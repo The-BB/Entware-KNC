@@ -1,9 +1,13 @@
-commit 7d570a489b12e997b5500b4b22516ecdba51fbab (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Felix Fietkau <nbd@nbd.name>
-Date:   Sun Aug 3 21:52:06 2025 +0200
+commit bf917ea792d890f7ea431bd3dffb763c231857e0 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Nick Hainke <vincent@systemli.org>
+Date:   Sun Jul 27 18:49:43 2025 +0200
 
-    wifi-scripts: fix handling hotplug-added wireless vifs
+    tools: lz4: update to 1.10.0
     
-    Pass the correct ifname and state
+    Changelog:
+    https://github.com/lz4/lz4/blob/08bfdbe222fe2681600bdbef6fea885745583e61/NEWS
     
-    Signed-off-by: Felix Fietkau <nbd@nbd.name>
+    Switch the lz4 source from codeload to git.
+    
+    Link: https://github.com/openwrt/openwrt/pull/19560
+    Signed-off-by: Nick Hainke <vincent@systemli.org>
