@@ -1,13 +1,11 @@
-commit bf917ea792d890f7ea431bd3dffb763c231857e0 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+commit 56b083221f22d370682ff8dcbb3041f3d719a581 (HEAD -> master, origin/master, origin/main, origin/HEAD)
 Author: Nick Hainke <vincent@systemli.org>
-Date:   Sun Jul 27 18:49:43 2025 +0200
+Date:   Sun Aug 3 10:43:56 2025 +0200
 
-    tools: lz4: update to 1.10.0
+    strace: update to 6.15
     
-    Changelog:
-    https://github.com/lz4/lz4/blob/08bfdbe222fe2681600bdbef6fea885745583e61/NEWS
+    Release Notes:
+    - https://github.com/strace/strace/releases/tag/v6.15
     
-    Switch the lz4 source from codeload to git.
-    
-    Link: https://github.com/openwrt/openwrt/pull/19560
+    Link: https://github.com/openwrt/openwrt/pull/19643
     Signed-off-by: Nick Hainke <vincent@systemli.org>
