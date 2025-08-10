@@ -1,11 +1,9 @@
-commit 56b083221f22d370682ff8dcbb3041f3d719a581 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Nick Hainke <vincent@systemli.org>
-Date:   Sun Aug 3 10:43:56 2025 +0200
+commit 886c4f054e5e34bc3de23d65da76180eea358c4a (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Felix Fietkau <nbd@nbd.name>
+Date:   Sat Aug 9 16:47:45 2025 +0200
 
-    strace: update to 6.15
+    mac80211: fix division by zero in expected throughput estimation
     
-    Release Notes:
-    - https://github.com/strace/strace/releases/tag/v6.15
-    
-    Link: https://github.com/openwrt/openwrt/pull/19643
-    Signed-off-by: Nick Hainke <vincent@systemli.org>
+    Fixes: https://github.com/openwrt/openwrt/issues/19729
+    Fixes: f10732fb5632 ("mac80211: estimate expected throughput if not provided by driver/rc")
+    Signed-off-by: Felix Fietkau <nbd@nbd.name>
