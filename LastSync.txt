@@ -1,9 +1,11 @@
-commit 886c4f054e5e34bc3de23d65da76180eea358c4a (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Felix Fietkau <nbd@nbd.name>
-Date:   Sat Aug 9 16:47:45 2025 +0200
+commit f21475839f10eec2ad48a2a7b24db1867793efbc (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Markus Stockhausen <markus.stockhausen@gmx.de>
+Date:   Sat Jul 19 16:14:28 2025 -0400
 
-    mac80211: fix division by zero in expected throughput estimation
+    realtek: fix stall after restart of otto timer
     
-    Fixes: https://github.com/openwrt/openwrt/issues/19729
-    Fixes: f10732fb5632 ("mac80211: estimate expected throughput if not provided by driver/rc")
-    Signed-off-by: Felix Fietkau <nbd@nbd.name>
+    Once tested this will go upstream.
+    
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Link: https://github.com/openwrt/openwrt/pull/19468
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
