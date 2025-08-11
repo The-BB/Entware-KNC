@@ -1,11 +1,30 @@
-commit f21475839f10eec2ad48a2a7b24db1867793efbc (HEAD -> master, origin/master, origin/main, origin/HEAD)
+commit 0724412c58896b765fff77d63907729d298fbb67 (HEAD -> master, origin/master, origin/main, origin/HEAD)
 Author: Markus Stockhausen <markus.stockhausen@gmx.de>
-Date:   Sat Jul 19 16:14:28 2025 -0400
+Date:   Tue Aug 5 11:46:40 2025 -0400
 
-    realtek: fix stall after restart of otto timer
+    realtek: RTL838x harden ethernet driver against fuzzying
     
-    Once tested this will go upstream.
+    While checking setup routines for stability and completeness,
+    random RTL838x SoC I/O areas were intentionally overwritten.
+    As soon as L2_CTRL_1->FAST_AGE_OUT is set to 1, the system
+    stalls during bootup. Analysis shows that it loops endlessly
+    in rtl838x_hw_stop()
+    
+    /* Flush L2 address cache */
+    if (priv->family_id == RTL8380_FAMILY_ID) {
+            for (int i = 0; i <= priv->cpu_port; i++) {
+                    sw_w32(1 << 26 | 1 << 23 | i << 5, priv->r->l2_tbl_flush_ctrl);
+                    do { } while (sw_r32(priv->r->l2_tbl_flush_ctrl) & (1 << 26));
+            }
+    
+    This is exactly the same logic as in the vendor GPL. There
+    are no hints about possible timeouts or issues. The reason is
+    still unclear. Nevertheless harden the function for further fuzzy
+    tests. Do this by resetting the configuration value to its SoC
+    default.
+    
+    Additionally convert some shifts to BIT() for better readability.
     
     Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-    Link: https://github.com/openwrt/openwrt/pull/19468
+    Link: https://github.com/openwrt/openwrt/pull/19679
     Signed-off-by: Robert Marko <robimarko@gmail.com>
