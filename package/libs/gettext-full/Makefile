@@ -25,8 +25,6 @@ PKG_INSTALL:=1
 PKG_BUILD_DEPENDS:=gettext-full/host libunistring libxml2
 PKG_BUILD_PARALLEL:=0
 
-PKG_FIXUP:=autoreconf
-
 HOST_BUILD_DEPENDS:=gnulib-l10n/host gperf/host libiconv-full/host libunistring/host libxml2/host
 HOST_BUILD_PARALLEL:=0
 
@@ -73,6 +71,8 @@ endef
 export GNULIB_SRCDIR:=$(HOST_GNULIB_SRCDIR)
 
 TARGET_CFLAGS += $(FPIC)
+# Entware specifics: old toolchain
+#TARGET_CFLAGS += -std=gnu23
 ifneq ($(HOST_OS),Linux)
   TARGET_CFLAGS += -I$(STAGING_DIR_HOSTPKG)/include
 endif
@@ -108,7 +108,7 @@ HOST_CONFIGURE_ARGS += \
 HOST_CONFIGURE_VARS += \
 	EMACS="no"
 
-HOST_CFLAGS += $(HOST_FPIC) -DBISON_LOCALEDIR='\"$(STAGING_DIR_HOST)/share/locale\"'
+HOST_CFLAGS += $(HOST_FPIC)
 
 define Host/Bootstrap
 	( \
