@@ -1,30 +1,14 @@
-commit 0724412c58896b765fff77d63907729d298fbb67 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Markus Stockhausen <markus.stockhausen@gmx.de>
-Date:   Tue Aug 5 11:46:40 2025 -0400
+commit be1c301cdcbca0c3be05d30fe157a7db8675443b (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Felix Fietkau <nbd@nbd.name>
+Date:   Tue Aug 12 20:19:14 2025 +0200
 
-    realtek: RTL838x harden ethernet driver against fuzzying
+    netifd: update to Git HEAD (2025-08-12)
     
-    While checking setup routines for stability and completeness,
-    random RTL838x SoC I/O areas were intentionally overwritten.
-    As soon as L2_CTRL_1->FAST_AGE_OUT is set to 1, the system
-    stalls during bootup. Analysis shows that it loops endlessly
-    in rtl838x_hw_stop()
+    843a736a4e26 ubus: fix type check in procd ubus data callback
+    94c3869941b0 interface: avoid memleaks on invalid interfaces
+    6ead304877ad global: use blobmsg_parse_attr
+    813b9882dbab config: add support for defining devices via procd data
+    575b04326e32 config: add support for defining interfaces via procd data
+    a0be934399cf examples: sync wireless.uc
     
-    /* Flush L2 address cache */
-    if (priv->family_id == RTL8380_FAMILY_ID) {
-            for (int i = 0; i <= priv->cpu_port; i++) {
-                    sw_w32(1 << 26 | 1 << 23 | i << 5, priv->r->l2_tbl_flush_ctrl);
-                    do { } while (sw_r32(priv->r->l2_tbl_flush_ctrl) & (1 << 26));
-            }
-    
-    This is exactly the same logic as in the vendor GPL. There
-    are no hints about possible timeouts or issues. The reason is
-    still unclear. Nevertheless harden the function for further fuzzy
-    tests. Do this by resetting the configuration value to its SoC
-    default.
-    
-    Additionally convert some shifts to BIT() for better readability.
-    
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-    Link: https://github.com/openwrt/openwrt/pull/19679
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Signed-off-by: Felix Fietkau <nbd@nbd.name>
