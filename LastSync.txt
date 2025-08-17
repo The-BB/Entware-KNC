@@ -1,14 +1,10 @@
-commit be1c301cdcbca0c3be05d30fe157a7db8675443b (HEAD -> master, origin/master, origin/main, origin/HEAD)
+commit 9736d42141289455eb47b6088800fd384ab732be (HEAD -> master, origin/master, origin/main, origin/HEAD)
 Author: Felix Fietkau <nbd@nbd.name>
-Date:   Tue Aug 12 20:19:14 2025 +0200
+Date:   Fri Aug 15 19:41:44 2025 +0200
 
-    netifd: update to Git HEAD (2025-08-12)
+    wifi-scripts: ucode: add support for scan_list
     
-    843a736a4e26 ubus: fix type check in procd ubus data callback
-    94c3869941b0 interface: avoid memleaks on invalid interfaces
-    6ead304877ad global: use blobmsg_parse_attr
-    813b9882dbab config: add support for defining devices via procd data
-    575b04326e32 config: add support for defining interfaces via procd data
-    a0be934399cf examples: sync wireless.uc
+    Speed up connecting in client mode by allowing to limit the channels that
+    need to be scanned.
     
     Signed-off-by: Felix Fietkau <nbd@nbd.name>
