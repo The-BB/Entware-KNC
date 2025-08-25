@@ -1,10 +1,13 @@
-commit 9736d42141289455eb47b6088800fd384ab732be (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Felix Fietkau <nbd@nbd.name>
-Date:   Fri Aug 15 19:41:44 2025 +0200
+commit 57a127c9e79db96f4dbf262db9e1a808bd474ddf (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Paul Donald <newtwen+github@gmail.com>
+Date:   Mon Jul 21 19:54:43 2025 +0200
 
-    wifi-scripts: ucode: add support for scan_list
+    mediatek: remove the aquantia kmod from filogic mediatek platforms
     
-    Speed up connecting in client mode by allowing to limit the channels that
-    need to be scanned.
+    The kmod is installed on all filogic mediatek images, even for devices
+    that do not have any aquantia hardware. Remove it.
     
-    Signed-off-by: Felix Fietkau <nbd@nbd.name>
+    Signed-off-by: Paul Donald <newtwen+github@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/19488
+    [Do not explicitly remove kmod-phy-aquantia from gatonetworks_gdsp]
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
