@@ -1,13 +1,12 @@
-commit 57a127c9e79db96f4dbf262db9e1a808bd474ddf (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Paul Donald <newtwen+github@gmail.com>
-Date:   Mon Jul 21 19:54:43 2025 +0200
+commit 43ae8e17e1bcc9730cbc0c9fd06568348a308ae8 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Shiji Yang <yangshiji66@outlook.com>
+Date:   Mon Aug 25 21:17:39 2025 +0800
 
-    mediatek: remove the aquantia kmod from filogic mediatek platforms
+    mediatek: dts: use dt-bindings documented bias type for UniFi 6 Plus
     
-    The kmod is installed on all filogic mediatek images, even for devices
-    that do not have any aquantia hardware. Remove it.
+    Use macro defined bias types instead of some magic numbers. This can
+    help reviewers better understand bias types.
     
-    Signed-off-by: Paul Donald <newtwen+github@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/19488
-    [Do not explicitly remove kmod-phy-aquantia from gatonetworks_gdsp]
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
+    Link: https://github.com/openwrt/openwrt/pull/19855
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
