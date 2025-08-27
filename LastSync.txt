@@ -1,12 +1,13 @@
-commit 43ae8e17e1bcc9730cbc0c9fd06568348a308ae8 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Shiji Yang <yangshiji66@outlook.com>
-Date:   Mon Aug 25 21:17:39 2025 +0800
+commit 44f76177d564c9c5d24f5bdf3329d19eba26740d (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Paul Spooren <mail@aparcar.org>
+Date:   Tue Aug 26 13:36:54 2025 +0200
 
-    mediatek: dts: use dt-bindings documented bias type for UniFi 6 Plus
+    include: make APK .list files even more reproducible
     
-    Use macro defined bias types instead of some magic numbers. This can
-    help reviewers better understand bias types.
+    This commit fixes "aff2f096235 include: make APK .list files reproducible"
+    since it would create the .list file while `find` still runs. This causes the
+    .list file to be part of itself. As an alternative, write the file to a
+    temporary folder first and then move it.
     
-    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
-    Link: https://github.com/openwrt/openwrt/pull/19855
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Fix: aff2f096235 include: make APK .list files reproducible
+    Signed-off-by: Paul Spooren <mail@aparcar.org>
