@@ -1,11 +1,16 @@
-commit 664424aaeb4a7b74123cc94c536e42fa925cf8c3 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Igor Dyatlov <dyatlov.igor@gmail.com>
-Date:   Sun Aug 3 17:20:00 2025 +0300
+commit 886382ba256cc795c1bf2bf5d990ced9f23071e8 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Damien Dejean <dam.dejean@gmail.com>
+Date:   Wed Aug 20 18:07:37 2025 +0200
 
-    ath79: add calibtation variant for Xiaomi AIoT AC2350
+    realtek: add 2500base-x patch sequence.
     
-    Add calibration variant and ipq-wifi package for Xiaomi AIoT AC2350
+    Adds the SerDes patch sequence for 2500base-x to improve the support of
+    devices with minimal bootloaders (like BootBase). The sequences were
+    imported from [1] for even lanes and [2] for odd lanes.
     
-    Signed-off-by: Igor Dyatlov <dyatlov.igor@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/19707
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    [1] https://github.com/ddejean/dms-1250-oss-release/blob/main/sdk/sdk_rtk_switch/rtk-sdk/src/dal/longan/dal_longan_construct.c#L641
+    [2] https://github.com/ddejean/dms-1250-oss-release/blob/main/sdk/sdk_rtk_switch/rtk-sdk/src/dal/longan/dal_longan_construct.c#L664
+    
+    Signed-off-by: Damien Dejean <dam.dejean@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/19834
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
