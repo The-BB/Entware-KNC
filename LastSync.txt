@@ -1,16 +1,26 @@
-commit 886382ba256cc795c1bf2bf5d990ced9f23071e8 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Damien Dejean <dam.dejean@gmail.com>
-Date:   Wed Aug 20 18:07:37 2025 +0200
+commit 1c92e468d544db98018c55d5d18e41fc1a3af20b (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Goetz Goerisch <ggoerisch@gmail.com>
+Date:   Fri Aug 29 11:03:10 2025 +0200
 
-    realtek: add 2500base-x patch sequence.
+    kernel: bump 6.6 to 6.6.103
     
-    Adds the SerDes patch sequence for 2500base-x to improve the support of
-    devices with minimal bootloaders (like BootBase). The sequences were
-    imported from [1] for even lanes and [2] for odd lanes.
+    Changelog: https://cdn.kernel.org/pub/linux/kernel/v6.x/ChangeLog-6.6.103
     
-    [1] https://github.com/ddejean/dms-1250-oss-release/blob/main/sdk/sdk_rtk_switch/rtk-sdk/src/dal/longan/dal_longan_construct.c#L641
-    [2] https://github.com/ddejean/dms-1250-oss-release/blob/main/sdk/sdk_rtk_switch/rtk-sdk/src/dal/longan/dal_longan_construct.c#L664
+    removed upstream patches:
+    generic-backport/220-v6.16-powerpc-boot-fix-build-with-gcc-15.patch [1]
+    generic-backport/847-v6.17-Revert-leds-trigger-netdev-Configure-LED-blink-inter.patch [2]
     
-    Signed-off-by: Damien Dejean <dam.dejean@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/19834
+    update patch to upstream function change
+    bcm53x/patches-6.6/180-usb-xhci-add-support-for-performing-fake-doorbell.patch
+    changed function xhci_disable_and_free_slot() upstream [3]
+    
+    All other patches auto-refreshed.
+    
+    [1] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=v6.6.103&id=93879b3ba967a33834727abf34ea08764339fe0b
+    [2] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=v6.6.103&id=c66caf21b1d0a0847adc34d368e3f6753a2cbd53
+    [3] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/drivers/usb/host?h=v6.6.103&id=e600de541c37f97482fea2a7a26f186141e7ddea
+    
+    Suggested-by: Leo Barsky <leobrsky@proton.me>
+    Signed-off-by: Goetz Goerisch <ggoerisch@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/19898
     Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
