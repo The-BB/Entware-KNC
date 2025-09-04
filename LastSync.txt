@@ -1,26 +1,26 @@
-commit 1c92e468d544db98018c55d5d18e41fc1a3af20b (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Goetz Goerisch <ggoerisch@gmail.com>
-Date:   Fri Aug 29 11:03:10 2025 +0200
+commit 6fdff789cdca01c1294a49a84b586c148047fb3b (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Markus Stockhausen <markus.stockhausen@gmx.de>
+Date:   Sat Aug 30 13:01:06 2025 -0400
 
-    kernel: bump 6.6 to 6.6.103
+    realtek: Rename ZyXEL XGS1210-12 to XGS1210-12 a1
     
-    Changelog: https://cdn.kernel.org/pub/linux/kernel/v6.x/ChangeLog-6.6.103
+    A new version of the ZyXEL XGS1210-12 has been discovered in
+    the wild. It includes at least two known hardware changes
     
-    removed upstream patches:
-    generic-backport/220-v6.16-powerpc-boot-fix-build-with-gcc-15.patch [1]
-    generic-backport/847-v6.17-Revert-leds-trigger-netdev-Configure-LED-blink-inter.patch [2]
+    - lan9/lan10 use RTL8221B instead of RTL8226
+    - lan9/lan10 use different SMI busses
     
-    update patch to upstream function change
-    bcm53x/patches-6.6/180-usb-xhci-add-support-for-performing-fake-doorbell.patch
-    changed function xhci_disable_and_free_slot() upstream [3]
+    Pave the new device the way by splitting the existing DTS.
+    According to the vendor website the models are named
     
-    All other patches auto-refreshed.
+    - A1 (first version): not explicetly labeled
+    - B1 (second version): Label Rev. B1 on device
     
-    [1] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=v6.6.103&id=93879b3ba967a33834727abf34ea08764339fe0b
-    [2] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=v6.6.103&id=c66caf21b1d0a0847adc34d368e3f6753a2cbd53
-    [3] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/drivers/usb/host?h=v6.6.103&id=e600de541c37f97482fea2a7a26f186141e7ddea
+    Rename the current OpenWrt device definition to A1 as it was
+    made for the first version. To stay compatible with older
+    installations, add the old device name to the list of
+    supported devices.
     
-    Suggested-by: Leo Barsky <leobrsky@proton.me>
-    Signed-off-by: Goetz Goerisch <ggoerisch@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/19898
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Link: https://github.com/openwrt/openwrt/pull/19908
     Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
