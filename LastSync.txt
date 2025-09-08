@@ -1,26 +1,11 @@
-commit 6fdff789cdca01c1294a49a84b586c148047fb3b (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Markus Stockhausen <markus.stockhausen@gmx.de>
-Date:   Sat Aug 30 13:01:06 2025 -0400
+commit 672e45e69f09f62f9b4237b368d976fa993dcd0f (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Tianling Shen <cnsztl@immortalwrt.org>
+Date:   Sun Aug 31 22:32:15 2025 +0800
 
-    realtek: Rename ZyXEL XGS1210-12 to XGS1210-12 a1
+    rockchip: increase the number of serial ports for rk35xx
     
-    A new version of the ZyXEL XGS1210-12 has been discovered in
-    the wild. It includes at least two known hardware changes
+    The RK356x/RK3588 SoCs support up to 10 serial ports.
     
-    - lan9/lan10 use RTL8221B instead of RTL8226
-    - lan9/lan10 use different SMI busses
-    
-    Pave the new device the way by splitting the existing DTS.
-    According to the vendor website the models are named
-    
-    - A1 (first version): not explicetly labeled
-    - B1 (second version): Label Rev. B1 on device
-    
-    Rename the current OpenWrt device definition to A1 as it was
-    made for the first version. To stay compatible with older
-    installations, add the old device name to the list of
-    supported devices.
-    
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-    Link: https://github.com/openwrt/openwrt/pull/19908
+    Signed-off-by: Tianling Shen <cnsztl@immortalwrt.org>
+    Link: https://github.com/openwrt/openwrt/pull/19917
     Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
