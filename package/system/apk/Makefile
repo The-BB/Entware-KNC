@@ -49,9 +49,11 @@ define Package/apk-openssl
   VARIANT:=openssl
 endef
 
-# Entware specific(?)
-# dso_dlfcn.c:(.text+0x13): undefined reference to `dlopen'
-HOST_LDFLAGS += -ldl
+# Entware specific: link openssl statically
+HOST_LDFLAGS += \
+	-ldl \
+	$(STAGING_DIR_HOST)/lib/libssl.a \
+	$(STAGING_DIR_HOST)/lib/libcrypto.a
 
 MESON_HOST_VARS+=VERSION=$(PKG_VERSION)
 MESON_VARS+=VERSION=$(PKG_VERSION)
