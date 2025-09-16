@@ -1,11 +1,12 @@
-commit 672e45e69f09f62f9b4237b368d976fa993dcd0f (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Tianling Shen <cnsztl@immortalwrt.org>
-Date:   Sun Aug 31 22:32:15 2025 +0800
+commit 415a0d54c9ead2504d7e879f28c59ec7cde25c9b (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Paweł Owoc <frut3k7@gmail.com>
+Date:   Fri May 16 17:53:46 2025 +0200
 
-    rockchip: increase the number of serial ports for rk35xx
+    qualcommax: ipq807x: use label MAC to set addresses for wireless interfaces
     
-    The RK356x/RK3588 SoCs support up to 10 serial ports.
+    Use label MAC to set addresses for wireless interfaces
+    for Linksys MX4200v2 and MX4300.
     
-    Signed-off-by: Tianling Shen <cnsztl@immortalwrt.org>
-    Link: https://github.com/openwrt/openwrt/pull/19917
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Paweł Owoc <frut3k7@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/18759
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
