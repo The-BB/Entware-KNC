@@ -1,12 +1,13 @@
-commit 415a0d54c9ead2504d7e879f28c59ec7cde25c9b (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Paweł Owoc <frut3k7@gmail.com>
-Date:   Fri May 16 17:53:46 2025 +0200
+commit 6b681fd285cbaaba1b0c05e15c43c49614cf39f5 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Markus Stockhausen <markus.stockhausen@gmx.de>
+Date:   Sat Sep 20 16:18:33 2025 -0400
 
-    qualcommax: ipq807x: use label MAC to set addresses for wireless interfaces
+    realtek: dts: add pcs-handle to switch ports
     
-    Use label MAC to set addresses for wireless interfaces
-    for Linksys MX4200v2 and MX4300.
+    For all switch ports where the assigned SerDes is known, add the new
+    pcs-handle to the dts. Leave the existing <sds> assignments to the
+    PHYs as is because the driver has not yet been updated.
     
-    Signed-off-by: Paweł Owoc <frut3k7@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/18759
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Link: https://github.com/openwrt/openwrt/pull/20111
     Signed-off-by: Robert Marko <robimarko@gmail.com>
