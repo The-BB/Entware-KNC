@@ -1,13 +1,18 @@
-commit 6b681fd285cbaaba1b0c05e15c43c49614cf39f5 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Markus Stockhausen <markus.stockhausen@gmx.de>
-Date:   Sat Sep 20 16:18:33 2025 -0400
+commit c5b12fc02ab133be1c18722e9b3c5b93e7772925 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Christian Marangi <ansuelsmth@gmail.com>
+Date:   Fri Sep 26 04:55:19 2025 +0200
 
-    realtek: dts: add pcs-handle to switch ports
+    airoha: Introduce support for Airoha AN7583 SoC
     
-    For all switch ports where the assigned SerDes is known, add the new
-    pcs-handle to the dts. Leave the existing <sds> assignments to the
-    PHYs as is because the driver has not yet been updated.
+    Introduce initial support for Airoha AN7583 SoC and add all the required
+    patch for basic functionality of the SoC.
     
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-    Link: https://github.com/openwrt/openwrt/pull/20111
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Airoha AN7583 is based on Airoha EN7581 SoC with some major changes on
+    the PHY handling and Serdes. It can be see as a lower spec of EN7581
+    with modern and simplified implementations.
+    
+    All the patch are sent upstream and are pending revision. Support for
+    PCIe and USB will come later as soon as DT structure is accepted
+    upstream.
+    
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
