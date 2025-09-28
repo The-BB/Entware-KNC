@@ -1,18 +1,11 @@
-commit c5b12fc02ab133be1c18722e9b3c5b93e7772925 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Christian Marangi <ansuelsmth@gmail.com>
-Date:   Fri Sep 26 04:55:19 2025 +0200
+commit 9b7d0c0d168edd5156a06b21e59b8379c270bdc9 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Ted Hess <thess@kitschensync.net>
+Date:   Sat Sep 27 21:49:12 2025 -0400
 
-    airoha: Introduce support for Airoha AN7583 SoC
+    odhcpd: update to Git HEAD (2025-09-27)
     
-    Introduce initial support for Airoha AN7583 SoC and add all the required
-    patch for basic functionality of the SoC.
+    bc9f9d93d4d6 dhcpv4: allow lease takeover (bugfix)
+    b1547922257e odhcpd: bump minimum cmake version
+    86c0200f8067 odhcpd: apply RFC9096 recommended lifetimes
     
-    Airoha AN7583 is based on Airoha EN7581 SoC with some major changes on
-    the PHY handling and Serdes. It can be see as a lower spec of EN7581
-    with modern and simplified implementations.
-    
-    All the patch are sent upstream and are pending revision. Support for
-    PCIe and USB will come later as soon as DT structure is accepted
-    upstream.
-    
-    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+    Signed-off-by: Ted Hess <thess@kitschensync.net>
