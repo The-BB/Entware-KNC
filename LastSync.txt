@@ -1,11 +1,12 @@
-commit 9b7d0c0d168edd5156a06b21e59b8379c270bdc9 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Ted Hess <thess@kitschensync.net>
-Date:   Sat Sep 27 21:49:12 2025 -0400
+commit 0147d213ffaf52a444bf0dd0c2ccd9b929ef448c (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Simonas Tamošaitis <simsasss@gmail.com>
+Date:   Fri Sep 26 22:32:43 2025 +0300
 
-    odhcpd: update to Git HEAD (2025-09-27)
+    ramips: mt76x8: fix 02_network typo
     
-    bc9f9d93d4d6 dhcpv4: allow lease takeover (bugfix)
-    b1547922257e odhcpd: bump minimum cmake version
-    86c0200f8067 odhcpd: apply RFC9096 recommended lifetimes
+    Remove unnecessary tab which breaks 02_network script with syntax error.
     
-    Signed-off-by: Ted Hess <thess@kitschensync.net>
+    Fixes: f29bc8736aac ("ramips: CREALITY BOX WB01")
+    Signed-off-by: Simonas Tamošaitis <simsasss@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/20195
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
