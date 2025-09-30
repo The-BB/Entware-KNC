@@ -1,12 +1,9 @@
-commit 0147d213ffaf52a444bf0dd0c2ccd9b929ef448c (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Simonas Tamošaitis <simsasss@gmail.com>
-Date:   Fri Sep 26 22:32:43 2025 +0300
+commit 1a79345b5dd9ab4a489698d303303693ca16c7d3 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Felix Fietkau <nbd@nbd.name>
+Date:   Tue Sep 30 16:44:01 2025 +0200
 
-    ramips: mt76x8: fix 02_network typo
+    hostapd: skip add call on already present MLD interfaces
     
-    Remove unnecessary tab which breaks 02_network script with syntax error.
+    Avoid tearing down running interfaces
     
-    Fixes: f29bc8736aac ("ramips: CREALITY BOX WB01")
-    Signed-off-by: Simonas Tamošaitis <simsasss@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/20195
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Felix Fietkau <nbd@nbd.name>
