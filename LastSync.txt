@@ -1,9 +1,27 @@
-commit 1a79345b5dd9ab4a489698d303303693ca16c7d3 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Felix Fietkau <nbd@nbd.name>
-Date:   Tue Sep 30 16:44:01 2025 +0200
+commit 133c91823cfb238c89c6a1b03032052cb09c2e57 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Thomas Martitz <thomas.martitz@mailbox.org>
+Date:   Wed Sep 24 14:49:07 2025 +0200
 
-    hostapd: skip add call on already present MLD interfaces
+    realtek: rtl930x: add XGS1250-12 B1 device
     
-    Avoid tearing down running interfaces
+    The A1 and B1 devices are largely the same. The differences
+    seem to be:
+    - RTL8218D (A1) vs RTL8218E (B1) PHY for the eight 1 Gbps TP ports
+    - Aquantia (A1) vs RTL8261N (B1) PHY for the three 10 Gbps TP ports
     
-    Signed-off-by: Felix Fietkau <nbd@nbd.name>
+    RTL8218D/E share the same driver and support was added already by
+    commit c8c187f0f0 ("realtek: add support for RTL8218E").
+    
+    The RTL8261N is also already supported but it's located at
+    different addresses compared to the A1 device. This requires
+    the device tree to be split. As a result, the devices are require
+    different images.
+    
+    I found the smi addresses on the forum:
+    https://forum.openwrt.org/t/support-for-rtl838x-based-managed-switches/57875/3622
+    And I can conform on my B1 device that this is working.
+    
+    Co-developed-by: Mathias Kresin <dev@kresin.me>
+    Signed-off-by: Thomas Martitz <thomas.martitz@mailbox.org>
+    Link: https://github.com/openwrt/openwrt/pull/20150
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
