@@ -1,27 +1,26 @@
-commit 133c91823cfb238c89c6a1b03032052cb09c2e57 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Thomas Martitz <thomas.martitz@mailbox.org>
-Date:   Wed Sep 24 14:49:07 2025 +0200
+commit 11820ef8016878482dc4aa61692ffc30464f3af5 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Erik Karlsson <erik.karlsson@iopsys.eu>
+Date:   Mon Oct 6 15:46:36 2025 +0200
 
-    realtek: rtl930x: add XGS1250-12 B1 device
+    rules.mk: do not set CCACHE_NOHASHDIR
     
-    The A1 and B1 devices are largely the same. The differences
-    seem to be:
-    - RTL8218D (A1) vs RTL8218E (B1) PHY for the eight 1 Gbps TP ports
-    - Aquantia (A1) vs RTL8261N (B1) PHY for the three 10 Gbps TP ports
+    Not hashing CWD is potentially unsafe since it involves deliberately
+    poisoning the cache in certain situations in exchange for performance
+    gain. It can lead to debug information pointing out either no longer
+    existing or much worse incorrect source files, possibly leading
+    developers onto a false track and wasting a lot of time.
     
-    RTL8218D/E share the same driver and support was added already by
-    commit c8c187f0f0 ("realtek: add support for RTL8218E").
+    If one wishes to save build time by sharing the cache between multiple
+    source trees, this can be achieved safely by enabling reproducible
+    debug information, like this:
     
-    The RTL8261N is also already supported but it's located at
-    different addresses compared to the A1 device. This requires
-    the device tree to be split. As a result, the devices are require
-    different images.
+    CONFIG_CCACHE_DIR="$(HOME)/.ccache"
+    CONFIG_REPRODUCIBLE_DEBUG_INFO=y
     
-    I found the smi addresses on the forum:
-    https://forum.openwrt.org/t/support-for-rtl838x-based-managed-switches/57875/3622
-    And I can conform on my B1 device that this is working.
+    Note that CWD hashing gets disabled implicitly when reproducible debug
+    information is enabled. The CCACHE_NOHASHDIR option is only for
+    disabling CWD hashing in cases where it is not safe to do so.
     
-    Co-developed-by: Mathias Kresin <dev@kresin.me>
-    Signed-off-by: Thomas Martitz <thomas.martitz@mailbox.org>
-    Link: https://github.com/openwrt/openwrt/pull/20150
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Erik Karlsson <erik.karlsson@iopsys.eu>
+    Link: https://github.com/openwrt/openwrt/pull/20317
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
