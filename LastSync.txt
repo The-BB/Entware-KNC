@@ -1,26 +1,11 @@
-commit 11820ef8016878482dc4aa61692ffc30464f3af5 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Erik Karlsson <erik.karlsson@iopsys.eu>
-Date:   Mon Oct 6 15:46:36 2025 +0200
+commit 987b1484a6a02770566ccb1b4d2f09e06d3ba04e (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Rosen Penev <rosenp@gmail.com>
+Date:   Mon Oct 6 13:42:05 2025 -0700
 
-    rules.mk: do not set CCACHE_NOHASHDIR
+    mediatek: fix wrong reset_gpio
     
-    Not hashing CWD is potentially unsafe since it involves deliberately
-    poisoning the cache in certain situations in exchange for performance
-    gain. It can lead to debug information pointing out either no longer
-    existing or much worse incorrect source files, possibly leading
-    developers onto a false track and wasting a lot of time.
+    Should be reset-gpio. Also added GPIO_ACTIVE_HIGH for clarity.
     
-    If one wishes to save build time by sharing the cache between multiple
-    source trees, this can be achieved safely by enabling reproducible
-    debug information, like this:
-    
-    CONFIG_CCACHE_DIR="$(HOME)/.ccache"
-    CONFIG_REPRODUCIBLE_DEBUG_INFO=y
-    
-    Note that CWD hashing gets disabled implicitly when reproducible debug
-    information is enabled. The CCACHE_NOHASHDIR option is only for
-    disabling CWD hashing in cases where it is not safe to do so.
-    
-    Signed-off-by: Erik Karlsson <erik.karlsson@iopsys.eu>
-    Link: https://github.com/openwrt/openwrt/pull/20317
+    Signed-off-by: Rosen Penev <rosenp@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/20116
     Signed-off-by: Robert Marko <robimarko@gmail.com>
