@@ -85,7 +85,7 @@
  
 --- a/src/context.c
 +++ b/src/context.c
-@@ -60,7 +60,7 @@ int apk_ctx_prepare(struct apk_ctx *ac)
+@@ -61,7 +61,7 @@ int apk_ctx_prepare(struct apk_ctx *ac)
  		ac->open_flags |= APK_OPENF_READ;
  	}
  	if (ac->flags & APK_ALLOW_UNTRUSTED) ac->trust.allow_untrusted = 1;
@@ -94,7 +94,7 @@
  	else ac->cache_dir_set = 1;
  	if (!ac->root) ac->root = "/";
  	if (ac->cache_predownload) ac->cache_packages = 1;
-@@ -70,7 +70,7 @@ int apk_ctx_prepare(struct apk_ctx *ac)
+@@ -71,7 +71,7 @@ int apk_ctx_prepare(struct apk_ctx *ac)
  		ac->flags |= APK_NO_CHROOT;
  
  		// Check uvol availability
@@ -103,7 +103,7 @@
  	} else {
  		ac->root_set = 1;
  		if (!ac->uvol) ac->uvol = ERR_PTR(-APKE_UVOL_ROOT);
-@@ -105,11 +105,11 @@ int apk_ctx_prepare(struct apk_ctx *ac)
+@@ -106,11 +106,11 @@ int apk_ctx_prepare(struct apk_ctx *ac)
  	}
  
  	if ((ac->open_flags & APK_OPENF_WRITE) && !(ac->flags & APK_NO_LOGFILE)) {
@@ -117,7 +117,7 @@
  			fd = openat(ac->root_fd, log_path, lflags, 0644);
  		}
  		if (fd < 0) {
-@@ -124,7 +124,7 @@ int apk_ctx_prepare(struct apk_ctx *ac)
+@@ -125,7 +125,7 @@ int apk_ctx_prepare(struct apk_ctx *ac)
  			if (strncmp(environ[i], "APK_", 4) != 0)
  				apk_string_array_add(&ac->script_environment, environ[i]);
  	} else {
@@ -126,7 +126,7 @@
  	}
  
  	return 0;
-@@ -148,8 +148,8 @@ struct apk_trust *apk_ctx_get_trust(stru
+@@ -149,8 +149,8 @@ struct apk_trust *apk_ctx_get_trust(stru
  			apk_dir_foreach_config_file(ac->root_fd,
  				__apk_ctx_load_pubkey, &ac->trust,
  				NULL,
@@ -139,7 +139,7 @@
  			apk_dir_foreach_file(
 --- a/src/database.c
 +++ b/src/database.c
-@@ -42,10 +42,10 @@
+@@ -41,10 +41,10 @@
  #include "apk_adb.h"
  #include "apk_fs.h"
  
@@ -154,7 +154,7 @@
  
  static struct apk_db_acl *apk_default_acl_dir, *apk_default_acl_file;
  
-@@ -1856,8 +1856,8 @@ static int setup_cache(struct apk_databa
+@@ -1855,8 +1855,8 @@ static int setup_cache(struct apk_databa
  const char *apk_db_layer_name(int layer)
  {
  	switch (layer) {
@@ -165,7 +165,7 @@
  	default:
  		assert(!"invalid layer");
  		return 0;
-@@ -2000,11 +2000,11 @@ int apk_db_open(struct apk_database *db)
+@@ -1999,11 +1999,11 @@ int apk_db_open(struct apk_database *db)
  		apk_db_parse_istream(db, ac->protected_paths, apk_db_add_protected_path);
  		ac->protected_paths = NULL;
  	} else {
@@ -181,7 +181,7 @@
  				     add_protected_paths_from_file, db);
  	}
  
-@@ -2056,12 +2056,12 @@ int apk_db_open(struct apk_database *db)
+@@ -2055,12 +2055,12 @@ int apk_db_open(struct apk_database *db)
  
  	if (!(ac->open_flags & APK_OPENF_NO_SYS_REPOS)) {
  		if (ac->repositories_file == NULL) {
@@ -197,7 +197,7 @@
  				NULL);
  		} else {
  			add_repos_from_file(db, AT_FDCWD, ac->repositories_file);
-@@ -2203,8 +2203,8 @@ int apk_db_write_config(struct apk_datab
+@@ -2202,8 +2202,8 @@ int apk_db_write_config(struct apk_datab
  		return 0;
  
  	if (db->ctx->open_flags & APK_OPENF_CREATE) {
@@ -210,7 +210,7 @@
  		return -1;
 --- a/src/io.c
 +++ b/src/io.c
-@@ -1278,7 +1278,7 @@ static void idcache_load_users(int root_
+@@ -1320,7 +1320,7 @@ static void idcache_load_users(int root_
  	if (!idh->empty) return;
  	idh->empty = 0;
  
@@ -219,7 +219,7 @@
  	if (!in) return;
  
  	do {
-@@ -1311,7 +1311,7 @@ static void idcache_load_groups(int root
+@@ -1353,7 +1353,7 @@ static void idcache_load_groups(int root
  	if (!idh->empty) return;
  	idh->empty = 0;
  
