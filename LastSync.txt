@@ -1,11 +1,7 @@
-commit 987b1484a6a02770566ccb1b4d2f09e06d3ba04e (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Rosen Penev <rosenp@gmail.com>
-Date:   Mon Oct 6 13:42:05 2025 -0700
+commit 7418c2d89b1c2bda3b14679abbcc45c716e469eb (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Felix Fietkau <nbd@nbd.name>
+Date:   Wed Oct 8 19:50:20 2025 +0200
 
-    mediatek: fix wrong reset_gpio
+    ucode: fix reusing the current environment in uloop.process()
     
-    Should be reset-gpio. Also added GPIO_ACTIVE_HIGH for clarity.
-    
-    Signed-off-by: Rosen Penev <rosenp@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/20116
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Signed-off-by: Felix Fietkau <nbd@nbd.name>
