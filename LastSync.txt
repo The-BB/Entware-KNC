@@ -1,7 +1,11 @@
-commit 7418c2d89b1c2bda3b14679abbcc45c716e469eb (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Felix Fietkau <nbd@nbd.name>
-Date:   Wed Oct 8 19:50:20 2025 +0200
+commit 1949fb996a3dbe584404e76d91b33ecfc8c71551 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Date:   Sat Oct 4 03:02:28 2025 +0300
 
-    ucode: fix reusing the current environment in uloop.process()
+    boot: airoha: apply network driver fixes
     
-    Signed-off-by: Felix Fietkau <nbd@nbd.name>
+    This series improve network reliability.
+    
+    Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+    Link: https://github.com/openwrt/openwrt/pull/20295
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
