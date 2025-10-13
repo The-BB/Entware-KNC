@@ -1,11 +1,16 @@
-commit 1949fb996a3dbe584404e76d91b33ecfc8c71551 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-Date:   Sat Oct 4 03:02:28 2025 +0300
+commit f4d7eee8e0c8b7d228726558c96b181cd84393d2 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: INAGAKI Hiroshi <musashino.open@gmail.com>
+Date:   Thu Oct 9 22:19:20 2025 +0900
 
-    boot: airoha: apply network driver fixes
+    uboot-ath79: update to v2025.10
     
-    This series improve network reliability.
+    Update the version of uboot-ath79 package to U-Boot v2025.10 release.
     
-    Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-    Link: https://github.com/openwrt/openwrt/pull/20295
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Tested on:
+    
+    - NEC Aterm WG600HP (AR9344)
+    - NEC Aterm WG1400HP (QCA9558)
+    
+    Signed-off-by: INAGAKI Hiroshi <musashino.open@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/20358
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
