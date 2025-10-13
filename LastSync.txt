@@ -1,16 +1,18 @@
-commit f4d7eee8e0c8b7d228726558c96b181cd84393d2 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: INAGAKI Hiroshi <musashino.open@gmail.com>
-Date:   Thu Oct 9 22:19:20 2025 +0900
+commit 297057f0f2ff961f2ec9e3634a55423368aff172 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Christian Marangi <ansuelsmth@gmail.com>
+Date:   Mon Oct 13 02:32:44 2025 +0200
 
-    uboot-ath79: update to v2025.10
+    sdk: set package as the root directory for base feed
     
-    Update the version of uboot-ath79 package to U-Boot v2025.10 release.
+    To produce consistent source entry for package compiled from non-SDK and
+    SDK build, set the "--root=package" flag for the base feed.
     
-    Tested on:
+    This will set the root directory for the base feed to the OpenWrt
+    core repository "package" directory.
     
-    - NEC Aterm WG600HP (AR9344)
-    - NEC Aterm WG1400HP (QCA9558)
+    This fix the reproducible problem of package build from SDK that have
+    the source entry set to "feeds/base/package/..." for every package
+    coming from the base feed.
     
-    Signed-off-by: INAGAKI Hiroshi <musashino.open@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/20358
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Link: https://github.com/openwrt/openwrt/pull/20396
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
