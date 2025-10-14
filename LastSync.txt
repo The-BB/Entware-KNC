@@ -1,18 +1,9 @@
-commit 297057f0f2ff961f2ec9e3634a55423368aff172 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Christian Marangi <ansuelsmth@gmail.com>
-Date:   Mon Oct 13 02:32:44 2025 +0200
+commit 7dd62db9a9006d9f3aa323fffca37ca7e80d590e (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Felix Fietkau <nbd@nbd.name>
+Date:   Tue Oct 14 11:03:11 2025 +0000
 
-    sdk: set package as the root directory for base feed
+    ucode: revert a broken commit
     
-    To produce consistent source entry for package compiled from non-SDK and
-    SDK build, set the "--root=package" flag for the base feed.
+    It causes an infinite loop when polling nl80211 netlink sockets
     
-    This will set the root directory for the base feed to the OpenWrt
-    core repository "package" directory.
-    
-    This fix the reproducible problem of package build from SDK that have
-    the source entry set to "feeds/base/package/..." for every package
-    coming from the base feed.
-    
-    Link: https://github.com/openwrt/openwrt/pull/20396
-    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+    Signed-off-by: Felix Fietkau <nbd@nbd.name>
