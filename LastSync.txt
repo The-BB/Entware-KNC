@@ -1,9 +1,16 @@
-commit 7dd62db9a9006d9f3aa323fffca37ca7e80d590e (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Felix Fietkau <nbd@nbd.name>
-Date:   Tue Oct 14 11:03:11 2025 +0000
+commit f21e8158fbff16ede6ee814929dc0f2738c0c3c2 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Pawel Dembicki <paweldembicki@gmail.com>
+Date:   Tue Oct 14 11:36:01 2025 +0200
 
-    ucode: revert a broken commit
+    mpc85xx: p1010: kernel: add missing symbol
     
-    It causes an infinite loop when polling nl80211 netlink sockets
+    CONFIG_MTD_CFI was disabled in p1010 subtarget.
+    It causes problem with Aerohive BR200-WP router.
     
-    Signed-off-by: Felix Fietkau <nbd@nbd.name>
+    This patch enables CONFIG_MTD_CFI in p1010 config-default file.
+    
+    Fixes: e9dd6da91661 ("mpc85xx: p1010: add missing symbols")
+    
+    Signed-off-by: Pawel Dembicki <paweldembicki@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/20419
+    Signed-off-by: Nick Hainke <vincent@systemli.org>
