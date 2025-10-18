@@ -1,16 +1,45 @@
-commit f21e8158fbff16ede6ee814929dc0f2738c0c3c2 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Pawel Dembicki <paweldembicki@gmail.com>
-Date:   Tue Oct 14 11:36:01 2025 +0200
+commit 9d531c0c5b4aeda92d711d373c96385325de04ce (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: John Thomson <git@johnthomson.fastmail.com.au>
+Date:   Sun Oct 5 13:45:41 2025 +1000
 
-    mpc85xx: p1010: kernel: add missing symbol
+    ipq40xx: mikrotik: kernel: pet watchdog during kernel uncompress
     
-    CONFIG_MTD_CFI was disabled in p1010 subtarget.
-    It causes problem with Aerohive BR200-WP router.
+    kernel 6.9 removed the KConfig entry our RouterBOOT watchdog pet hack was relying on:
+    Linux df59427a1122 ("ARM: qcom: merge remaining subplatforms into sensible Kconfig entry")
     
-    This patch enables CONFIG_MTD_CFI in p1010 config-default file.
+    Introduce a new specific KConfig entry for this hack,
+    and enable it for Mikrotik ipq40xx kernel.
+    CONFIG_ARCH_QCOM_IPQ40XX_BOOT_COMPRESSED_PET_WATCHDOG_EARLY
     
-    Fixes: e9dd6da91661 ("mpc85xx: p1010: add missing symbols")
+    With appropriate DEBUG_LL and DEBUG_UNCOMPRESS, this watchdog reset
+    can be typically seen on console as a reset before "Uncompressing Linux..."
+    reaches " done, booting the kernel."
     
-    Signed-off-by: Pawel Dembicki <paweldembicki@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/20419
-    Signed-off-by: Nick Hainke <vincent@systemli.org>
+    RouterBOOT
+    
+    loading kernel... OK
+    setting up elf image... OK
+    jumping to kernel code
+    Jumping to kernel
+    DTB:0x80381A60 (0x000048C4)
+    C:0x800000E0-0x80386420->0x80FAB500-0x81331840
+    DTB:0x8132CE80 (0x000049B8)
+    Uncompressing Linux...
+    Format: Log Type - Time(microsec) - Message - Optional Info
+    Log Type: B - Since Boot(Power On Reset),  D - Delta,  S - Statistic
+    S - QC_IMAGE_VERSION_STRING=BOOT.BF.3.1.1-00096
+    
+    versus:
+    
+    Uncompressing Linux... done, booting the kernel.
+    [    0.000000] Booting Linux on physical CPU 0x0
+    
+    On Mikrotik RouterBOOT devices, this is complicated by some RouterBOOT
+    versions successfully loading the same kernel that other RouterBOOT versions fail. Example:
+    RouterBOOT backup booter 6.45.9 fine, RouterBOOT booter 7.16 fail
+    
+    Fixes: openwrt#19841
+    
+    Signed-off-by: John Thomson <git@johnthomson.fastmail.com.au>
+    Link: https://github.com/openwrt/openwrt/pull/20305
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
