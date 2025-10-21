@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=lldpd
-PKG_VERSION:=1.0.19
+PKG_VERSION:=1.0.20
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/lldpd/lldpd/releases/download/$(PKG_VERSION)/
-PKG_HASH:=4de17fe5137b4d44a7bd57f8dfc80cffe2c8bb3691b4ae3012b5a6ea20d79ee0
+PKG_HASH:=c851ce102444b932b691f0d00142520333030822709fc4566ef20c651ae1714f
 
 PKG_MAINTAINER:=Stijn Tintel <stijn@linux-ipv6.be>
 PKG_LICENSE:=ISC
@@ -59,10 +59,40 @@ define Build/InstallDev
 endef
 
 define Package/lldpd/install
+#	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_DIR) $(1)/opt/etc/lldpd.d
+#	$(INSTALL_DIR) $(1)/etc/config
 	$(INSTALL_DIR) $(1)/opt/lib $(1)/opt/sbin
 	$(CP) $(PKG_INSTALL_DIR)/opt/sbin/lldp{cli,ctl,d} $(1)/opt/sbin/
 	$(CP) $(PKG_INSTALL_DIR)/opt/lib/liblldpctl.so* $(1)/opt/lib/
+#	$(INSTALL_BIN) ./files/lldpd.init $(1)/etc/init.d/lldpd
+#	$(INSTALL_CONF) ./files/lldpd.config $(1)/etc/config/lldpd
+#ifneq ($(CONFIG_LLDPD_WITH_CDP),y)
+#	sed -i -e 's/CONFIG_LLDPD_WITH_CDP=y/CONFIG_LLDPD_WITH_CDP=n/g' $(1)/etc/init.d/lldpd
+#	sed -i -e '/cdp/d' $(1)/etc/config/lldpd
+#endif
+#ifneq ($(CONFIG_LLDPD_WITH_FDP),y)
+#	sed -i -e 's/CONFIG_LLDPD_WITH_FDP=y/CONFIG_LLDPD_WITH_FDP=n/g' $(1)/etc/init.d/lldpd
+#	sed -i -e '/fdp/d' $(1)/etc/config/lldpd
+#endif
+#ifneq ($(CONFIG_LLDPD_WITH_EDP),y)
+#	sed -i -e 's/CONFIG_LLDPD_WITH_EDP=y/CONFIG_LLDPD_WITH_EDP=n/g' $(1)/etc/init.d/lldpd
+#	sed -i -e '/edp/d' $(1)/etc/config/lldpd
+#endif
+#ifneq ($(CONFIG_LLDPD_WITH_SONMP),y)
+#	sed -i -e 's/CONFIG_LLDPD_WITH_SONMP=y/CONFIG_LLDPD_WITH_SONMP=n/g' $(1)/etc/init.d/lldpd
+#	sed -i -e '/sonmp/d' $(1)/etc/config/lldpd
+#endif
+#ifneq ($(CONFIG_LLDPD_WITH_SNMP),y)
+#	sed -i -e 's/CONFIG_LLDPD_WITH_SNMP=y/CONFIG_LLDPD_WITH_SNMP=n/g' $(1)/etc/init.d/lldpd
+#	sed -i -e '/agentxsocket/d' $(1)/etc/config/lldpd
+#endif
+#ifneq ($(CONFIG_LLDPD_WITH_LLDPMED),y)
+#	sed -i -e 's/CONFIG_LLDPD_WITH_LLDPMED=y/CONFIG_LLDPD_WITH_LLDPMED=n/g' $(1)/etc/init.d/lldpd
+#	sed -i -e '/agentxsocket/d' $(1)/etc/config/lldpd
+#	sed -i -e '/lldp_class/d' $(1)/etc/config/lldpd
+#	sed -i -e '/lldp_location/d' $(1)/etc/config/lldpd
+#endif
 endef
 
 #define Package/lldpd/conffiles
