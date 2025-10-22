@@ -1,9 +1,14 @@
-commit 0408c5dfe69768facbc153a995dd4526c983559f (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Felix Fietkau <nbd@nbd.name>
-Date:   Mon Oct 20 19:10:26 2025 +0000
+commit 843e8a47e2bc81a1d447d08f614511006dbf9efe (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Harshal Gohel <hg@simonwunderlich.de>
+Date:   Tue Jul 15 20:20:00 2025 +0200
 
-    kernel: port page pool release fix to 6.12
+    realtek: rtl930x: Disable L3 offloading
     
-    Port missing fix from 610dd871aa59b
+    L3 Offloading caused DHCP packets to be dropped at hardware level
+    And potentially buggy route implementation can cause a crash
     
-    Signed-off-by: Felix Fietkau <nbd@nbd.name>
+    Signed-off-by: Harshal Gohel <hg@simonwunderlich.de>
+    Co-developed-by: Sven Eckelmann <se@simonwunderlich.de>
+    Signed-off-by: Sven Eckelmann <se@simonwunderlich.de>
+    Link: https://github.com/openwrt/openwrt/pull/20208
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
