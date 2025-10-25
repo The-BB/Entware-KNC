@@ -1,35 +1,21 @@
-commit 0211ecf682d5fb3b83c0b16ad0222b4acacefd9a (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: John Audia <therealgraysky@proton.me>
-Date:   Wed Oct 22 15:44:07 2025 -0400
+commit 8103b7977613b9712420296aba872efc519ce5c3 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Zxl hhyccc <zxlhhy@gmail.com>
+Date:   Fri Oct 24 23:56:59 2025 +0800
 
-    linux-firmware: update to 20251021
+    kernel: bump 6.6 to 6.6.114
     
-    % git log --no-merges --pretty=oneline --abbrev-commit 20251011...20251021
-    b0b775e5ad10 Revert "linux-firmware: update firmware for MT7922 WiFi device"
-    d06442f2b6f5 QCA: Update Bluetooth WCN6856 firmware 2.1.0-00653 to 2.1.0-00659
-    9440754a997a iwlwifi: add Bz/Fm and gl FW for core98-161 release
-    f2fbfd22d9d1 iwlwifi: update Bz/Hr and Bz/Gf firmwares for core98-161 release
-    dda8b9b09a1c iwlwifi: update ty/So/Ma firmwares for core98-161 release
-    822db3708dbc iwlwifi: update cc/Qu/QuZ firmwares for core98-161 release
-    edc9bbecf0fe intel: qat: Fix missing link
-    80bca4b3d75e amdgpu: DMCUB updates for various ASICs
-    7a1a266e22f1 nvidia: add generic bootloader for GSP-enabled systems
-    2121082a8884 linux-firmware: qcom: sync audioreach firmwares from v1.0.0 build
-    4ba7ff78711b qcom: vpu: rename firmware binaries
-    15cb201918e5 Intel IPU7: Update product signed firmware binary
-    10de40e2bb55 i915: Xe2LPD DMC v2.29
-    4bda88bd3a9f i915: Xe3LPD DMC v2.32
-    afae3516d1d8 i915: Xe3LPD_3002 DMC v2.27
-    bcce0efb5c4a WHENCE: nvidia: rearrange GSP-RM firmware lines
-    a96c15581a53 linux-firmware: Add ISH firmware file for Intel Pather Lake platform
-    55d8d2fa006b linux-firmware: Update firmware file for Intel Magnetar core
-    890cad9f8387 linux-firmware: Update firmware file for Intel BlazarU core
-    7bbab634ede0 linux-firmware: Update firmware file for Intel BlazarI core
+    https://cdn.kernel.org/pub/linux/kernel/v6.x/ChangeLog-6.6.114
     
-    Build system: x86/64
-    Build-tested: x86/64-glibc
-    Run-tested: x86/64-glibc
+    Removed upstreamed:
+    /target/linux/generic/backport-6.6/540-v6.12-ksmbd-browse-interfaces-list-on-FSCTL_QUERY_INTERFACE_INFO.patch
     
-    Signed-off-by: John Audia <therealgraysky@proton.me>
-    Link: https://github.com/openwrt/openwrt/pull/20504
-    Signed-off-by: Nick Hainke <vincent@systemli.org>
+    merged upstream with commit: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=v6.6.114&id=499089376206f3f7f09d6852b3ec92f2674d24bb
+    
+    All other patches automatically rebased.
+    
+    Build system: bcm4908
+    Build system: bcm53xx
+    
+    Signed-off-by: Zxl hhyccc <zxlhhy@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/20434
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
