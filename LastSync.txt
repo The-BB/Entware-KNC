@@ -1,21 +1,12 @@
-commit 8103b7977613b9712420296aba872efc519ce5c3 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Zxl hhyccc <zxlhhy@gmail.com>
-Date:   Fri Oct 24 23:56:59 2025 +0800
+commit 93f86627c45a03c2c100e54f5ef006487af3e6e3 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Hauke Mehrtens <hauke@hauke-m.de>
+Date:   Sun Oct 5 23:30:17 2025 +0200
 
-    kernel: bump 6.6 to 6.6.114
+    build: Add _FORTIFY_SOURCE=3 support
     
-    https://cdn.kernel.org/pub/linux/kernel/v6.x/ChangeLog-6.6.114
+    Add support for _FORTIFY_SOURCE level 3.
     
-    Removed upstreamed:
-    /target/linux/generic/backport-6.6/540-v6.12-ksmbd-browse-interfaces-list-on-FSCTL_QUERY_INTERFACE_INFO.patch
+    This is supported with glibc and with musl libc.
     
-    merged upstream with commit: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=v6.6.114&id=499089376206f3f7f09d6852b3ec92f2674d24bb
-    
-    All other patches automatically rebased.
-    
-    Build system: bcm4908
-    Build system: bcm53xx
-    
-    Signed-off-by: Zxl hhyccc <zxlhhy@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/20434
+    Link: https://github.com/openwrt/openwrt/pull/20313
     Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
