@@ -80,6 +80,7 @@ GLIBC_CONFIGURE:= \
 		  $(if $(CONFIG_GLIBC_USE_VERSION_2_27),--enable-obsolete-nsl) \
 		  $(if $(CONFIG_PKG_FORTIFY_SOURCE_1),--enable-fortify-source=1) \
 		  $(if $(CONFIG_PKG_FORTIFY_SOURCE_2),--enable-fortify-source=2) \
+		  $(if $(CONFIG_PKG_FORTIFY_SOURCE_3),--enable-fortify-source=3) \
 		--enable-kernel=4.9.0
 
 export libc_cv_ssp=no
