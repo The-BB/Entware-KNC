@@ -1,13 +1,11 @@
-commit 096739a93d16fa8a923d3f80e1a9c570be5d38d2 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Hannu Nyman <hannu.nyman@iki.fi>
-Date:   Sun Oct 26 12:29:54 2025 +0200
+commit 66e5e9671f8c02319109ba3391e355ccce98003f (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Leon M. Busch-George <leon@georgemail.eu>
+Date:   Fri Oct 24 11:54:52 2025 +0200
 
-    elfutils: add compatibility with new fortify-headers
+    wifi-scripts: ucode: fix check for empty crypto object while scanning
     
-    Add compatibility with the new fortify-headers 2.3.3 by
-    disabling two warnings.
+    it can be empty
     
-    Fixes: 6268692bd2bf ("toolchain: fortify-headers: Update to version 2.3.3")
-    Signed-off-by: Hannu Nyman <hannu.nyman@iki.fi>
-    Link: https://github.com/openwrt/openwrt/pull/20552
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Leon M. Busch-George <leon@georgemail.eu>
+    Link: https://github.com/openwrt/openwrt/pull/20526
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
