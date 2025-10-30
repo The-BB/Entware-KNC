@@ -1,11 +1,21 @@
-commit 66e5e9671f8c02319109ba3391e355ccce98003f (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Leon M. Busch-George <leon@georgemail.eu>
-Date:   Fri Oct 24 11:54:52 2025 +0200
+commit 130306fab93656865178c5a9d40a08885f9d70d6 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Kenneth Kasilag <kenneth@kasilag.me>
+Date:   Mon Oct 20 22:53:09 2025 +0000
 
-    wifi-scripts: ucode: fix check for empty crypto object while scanning
+    airoha: support openwrt,netdev-name for renaming interfaces
     
-    it can be empty
+    Add support to the airoha target for the OpenWrt-specific DT property
+    `openwrt,netdev-name`. In particular, this is for interfaces under
+    non-DSA `airoha_eth` interfaces.
     
-    Signed-off-by: Leon M. Busch-George <leon@georgemail.eu>
-    Link: https://github.com/openwrt/openwrt/pull/20526
+    This will avoid conflicts with upstream code[1]; and maintain forward
+    compatibility with OpenWrt configurations if/when `airoha_eth` becomes
+    a full DSA driver.
+    
+    [1] https://lore.kernel.org/netdev/20240709124503.pubki5nwjfbedhhy@skbuf/
+    
+    Borrowed from d4d6c48 (mediatek: filogic: support openwrt,netdev-name for renaming interfaces)
+    
+    Signed-off-by: Kenneth Kasilag <kenneth@kasilag.me>
+    Link: https://github.com/openwrt/openwrt/pull/20475
     Signed-off-by: Robert Marko <robimarko@gmail.com>
