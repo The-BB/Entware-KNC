@@ -1,21 +1,14 @@
-commit 130306fab93656865178c5a9d40a08885f9d70d6 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Kenneth Kasilag <kenneth@kasilag.me>
-Date:   Mon Oct 20 22:53:09 2025 +0000
+commit d44132e22fdbc664b5f8e31d2d37fd80bd1d0ab8 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Ayra Hikari <ayrahikari@linuxmail.org>
+Date:   Thu Oct 30 19:08:50 2025 +0700
 
-    airoha: support openwrt,netdev-name for renaming interfaces
+    mediatek/filogic: fix Totolink X6000R sysupgrade failed
     
-    Add support to the airoha target for the OpenWrt-specific DT property
-    `openwrt,netdev-name`. In particular, this is for interfaces under
-    non-DSA `airoha_eth` interfaces.
+    Fix Totolink X6000R image failing to upgrade via sysupgrade due to an
+    incorrect upgrade case. The fallback upgrade path used the NAND upgrade
+    routine, which caused the "layout volume not found" error on NOR flash
+    devices. By adding a specific case for this board, sysupgrade now uses
+    `default_do_upgrade`, which is compatible with the NOR flash layout.
     
-    This will avoid conflicts with upstream code[1]; and maintain forward
-    compatibility with OpenWrt configurations if/when `airoha_eth` becomes
-    a full DSA driver.
-    
-    [1] https://lore.kernel.org/netdev/20240709124503.pubki5nwjfbedhhy@skbuf/
-    
-    Borrowed from d4d6c48 (mediatek: filogic: support openwrt,netdev-name for renaming interfaces)
-    
-    Signed-off-by: Kenneth Kasilag <kenneth@kasilag.me>
-    Link: https://github.com/openwrt/openwrt/pull/20475
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Fixes: 7cd10ad
+    Signed-off-by: Ayra Hikari <ayrahikari@linuxmail.org>
