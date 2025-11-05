@@ -1,19 +1,11 @@
-commit 3b21f97641f9a03a01d1a40bc5ed740bae7a7c27 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Eric Fahlgren <ericfahlgren@gmail.com>
-Date:   Fri Sep 19 10:01:07 2025 -0700
+commit c686046625b4629620f11c06cd0e5f3b03ebf637 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Pawel Dembicki <paweldembicki@gmail.com>
+Date:   Sat Nov 1 23:41:55 2025 +0100
 
-    scripts/make-index-json: ensure that manifest output is in opkg format
+    layerscape: remove 6.6 kernel files
     
-    Certain existing tooling, such as 'package-metadata.pl', are written
-    to accept the output of 'opkg list' with package manifest delimited
-    by '-'.  The 'make-index-json.py --manifest' output was emulating
-    the 'apk list --manifest' format without the delimiting dash,
-    thus breaking these legacy tools.
+    After switching to the 6.12 kernel, time to remove 6.6 support.
     
-    We fix this by adding the dash to the manifest output, which allows
-    all existing tooling to process the output irrespective of whether
-    the build system uses opkg or apk.
-    
-    Signed-off-by: Eric Fahlgren <ericfahlgren@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/20094
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Signed-off-by: Pawel Dembicki <paweldembicki@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/20614
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
