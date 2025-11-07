@@ -1,11 +1,13 @@
-commit c686046625b4629620f11c06cd0e5f3b03ebf637 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Pawel Dembicki <paweldembicki@gmail.com>
-Date:   Sat Nov 1 23:41:55 2025 +0100
+commit 099633be82ee8a75a2f271b90f3a07e6e2c01ffc (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Goetz Goerisch <ggoerisch@gmail.com>
+Date:   Wed Nov 5 12:17:27 2025 +0100
 
-    layerscape: remove 6.6 kernel files
+    kernel: bump 6.6 to 6.6.116
     
-    After switching to the 6.12 kernel, time to remove 6.6 support.
+    Changelog: https://cdn.kernel.org/pub/linux/kernel/v6.x/ChangeLog-6.6.116
     
-    Signed-off-by: Pawel Dembicki <paweldembicki@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/20614
-    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+    All patches auto-refreshed.
+    
+    Signed-off-by: Goetz Goerisch <ggoerisch@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/20598
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
