@@ -5,7 +5,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=go-src
-PKG_VERSION:=1.25.3
+PKG_VERSION:=1.25.4
 PKG_RELEASE:=1
 
 PKG_SOURCE:=go$(PKG_VERSION).src.tar.gz
@@ -13,7 +13,7 @@ PKG_SOURCE_URL:=\
 		https://dl.google.com/go/ \
 		https://mirrors.ustc.edu.cn/golang/ \
 		https://mirrors.nju.edu.cn/golang/
-PKG_HASH:=a81a4ba593d0015e10c51e267de3ff07c7ac914dfca037d9517d029517097795
+PKG_HASH:=160043b7f17b6d60b50369436917fda8d5034640ba39ae2431c6b95a889cc98c
 
 HOST_BUILD_DIR:=$(STAGING_DIR_HOST)/go
 
