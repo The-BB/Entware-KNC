@@ -1,13 +1,15 @@
-commit 099633be82ee8a75a2f271b90f3a07e6e2c01ffc (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Goetz Goerisch <ggoerisch@gmail.com>
-Date:   Wed Nov 5 12:17:27 2025 +0100
+commit 231bbe528d3f6ae4a43117b38c41a2f62896ce4e (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Christian Marangi <ansuelsmth@gmail.com>
+Date:   Sun Nov 9 12:55:18 2025 +0100
 
-    kernel: bump 6.6 to 6.6.116
+    bcm53xx: use -ENOENT error for TRX parser workaround patch
     
-    Changelog: https://cdn.kernel.org/pub/linux/kernel/v6.x/ChangeLog-6.6.116
+    Change return value from -EINVAL to -ENOENT for the TRX parser
+    workaround patch as it's better suited and it's the common exit error
+    for parser failing parsing for expected condition (partition not init,
+    zero partition found in the schema, magic values not matching)
     
-    All patches auto-refreshed.
+    Also this is needed for a pending upstream patch that will permit parser
+    to fail and be skipped for subpartitions only with the -ENOENT error.
     
-    Signed-off-by: Goetz Goerisch <ggoerisch@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/20598
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
