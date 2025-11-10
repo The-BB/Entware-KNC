@@ -1,13 +1,13 @@
-commit d97e529f1fad6d09a71485367a0491ca8861f129 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Joe Holden <jwh@zorins.us>
-Date:   Sat Aug 30 21:54:51 2025 +0000
+commit 4ad22d03429d45f9f5769af58c4521b3ff26815a (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Andy Chiang <AndyChiang_git@outlook.com>
+Date:   Mon Oct 27 08:34:13 2025 +0700
 
-    realtek: RTL838x: make u-boot-env writeable ZyXEL GS1900
+    firewall: config: add dest addr restrictions for DHCPv6 rules
     
-    As per #19596 - this allows eg, modifying the bootcmd etc.
+    Some ISPs may use a GUA or other non-LLA as the source addr for the DHCPv6 response, but the destination addr is always LLA (fe80::/10).
+    Therefore, adding a dest addr restriction improves security.
+    See https://forum.mikrotik.com/t/xfinity-comcast-dhcpv6-configuration-change/156031/10
     
-    This has been useful when testing on e.g the -48, where `rtk network on` is required for the SFP ports.
-    
-    Signed-off-by: Joe Holden <jwh@zorins.us>
-    Link: https://github.com/openwrt/openwrt/pull/19913
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Andy Chiang <AndyChiang_git@outlook.com>
+    Link: https://github.com/openwrt/openwrt/pull/20562
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
