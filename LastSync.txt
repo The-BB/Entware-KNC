@@ -1,15 +1,13 @@
-commit 231bbe528d3f6ae4a43117b38c41a2f62896ce4e (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Christian Marangi <ansuelsmth@gmail.com>
-Date:   Sun Nov 9 12:55:18 2025 +0100
+commit d97e529f1fad6d09a71485367a0491ca8861f129 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Joe Holden <jwh@zorins.us>
+Date:   Sat Aug 30 21:54:51 2025 +0000
 
-    bcm53xx: use -ENOENT error for TRX parser workaround patch
+    realtek: RTL838x: make u-boot-env writeable ZyXEL GS1900
     
-    Change return value from -EINVAL to -ENOENT for the TRX parser
-    workaround patch as it's better suited and it's the common exit error
-    for parser failing parsing for expected condition (partition not init,
-    zero partition found in the schema, magic values not matching)
+    As per #19596 - this allows eg, modifying the bootcmd etc.
     
-    Also this is needed for a pending upstream patch that will permit parser
-    to fail and be skipped for subpartitions only with the -ENOENT error.
+    This has been useful when testing on e.g the -48, where `rtk network on` is required for the SFP ports.
     
-    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+    Signed-off-by: Joe Holden <jwh@zorins.us>
+    Link: https://github.com/openwrt/openwrt/pull/19913
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
