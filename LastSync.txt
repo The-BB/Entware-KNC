@@ -1,13 +1,18 @@
-commit 4ad22d03429d45f9f5769af58c4521b3ff26815a (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Andy Chiang <AndyChiang_git@outlook.com>
-Date:   Mon Oct 27 08:34:13 2025 +0700
+commit 356acef7946d5a123e4bda3ae9fbc96c4bae345f (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Sven Eckelmann <se@simonwunderlich.de>
+Date:   Sun Nov 9 09:45:39 2025 +0100
 
-    firewall: config: add dest addr restrictions for DHCPv6 rules
+    realtek: dsa: Clarify meaning of secondary lag member variable
     
-    Some ISPs may use a GUA or other non-LLA as the source addr for the DHCPv6 response, but the destination addr is always LLA (fe80::/10).
-    Therefore, adding a dest addr restriction improves security.
-    See https://forum.mikrotik.com/t/xfinity-comcast-dhcpv6-configuration-change/156031/10
+    The name "is_lagmember" implies that the port is part of a LAG. But this
+    information is already stored in lagmembers. In reality, it is stored the
+    non-primary LAG members. Renaming it accordingly, makes the code a lot more
+    readable
     
-    Signed-off-by: Andy Chiang <AndyChiang_git@outlook.com>
-    Link: https://github.com/openwrt/openwrt/pull/20562
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Also the type (u32 array) looks like it would contain some kind of large id
+    (like the group ID). But it only stores a single bit. It is more appropriate
+    to just use a single bit per port.
+    
+    Signed-off-by: Sven Eckelmann <se@simonwunderlich.de>
+    Link: https://github.com/openwrt/openwrt/pull/20707
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
