@@ -1,18 +1,10 @@
-commit 356acef7946d5a123e4bda3ae9fbc96c4bae345f (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Sven Eckelmann <se@simonwunderlich.de>
-Date:   Sun Nov 9 09:45:39 2025 +0100
+commit 971c058cf55f85a295378031ba7f7435cb2a0f6a (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Daniel Golle <daniel@makrotopia.org>
+Date:   Wed Nov 12 14:09:30 2025 +0000
 
-    realtek: dsa: Clarify meaning of secondary lag member variable
+    mediatek: add mt7987-2p5g-phy-firmware to MT7987 devices
     
-    The name "is_lagmember" implies that the port is part of a LAG. But this
-    information is already stored in lagmembers. In reality, it is stored the
-    non-primary LAG members. Renaming it accordingly, makes the code a lot more
-    readable
+    Add mt7987-2p5g-phy-firmware to DEVICES_PACKAGES of the MT7987A RFB as
+    well as the BananaPi R4 Lite.
     
-    Also the type (u32 array) looks like it would contain some kind of large id
-    (like the group ID). But it only stores a single bit. It is more appropriate
-    to just use a single bit per port.
-    
-    Signed-off-by: Sven Eckelmann <se@simonwunderlich.de>
-    Link: https://github.com/openwrt/openwrt/pull/20707
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Daniel Golle <daniel@makrotopia.org>
