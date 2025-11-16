@@ -1,10 +1,15 @@
-commit 971c058cf55f85a295378031ba7f7435cb2a0f6a (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Daniel Golle <daniel@makrotopia.org>
-Date:   Wed Nov 12 14:09:30 2025 +0000
+commit 501f4edb04c434ed966a9443788b2f968abca38f (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Sven Eckelmann <se@simonwunderlich.de>
+Date:   Wed Nov 5 09:43:36 2025 +0100
 
-    mediatek: add mt7987-2p5g-phy-firmware to MT7987 devices
+    realtek: dsa: Clarify statistic port iterator variable
     
-    Add mt7987-2p5g-phy-firmware to DEVICES_PACKAGES of the MT7987A RFB as
-    well as the BananaPi R4 Lite.
+    The functions iterating through the port statistic/counter (for
+    initialization or polling) use the generic name "i" for the iterator. This
+    makes reading the actual body of the loop cumbersome because it is not
+    clear that various parameters of functions are about a ports.
     
-    Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+    Suggested-by: Felix Baumann <felix.bau@gmx.de>
+    Signed-off-by: Sven Eckelmann <se@simonwunderlich.de>
+    Link: https://github.com/openwrt/openwrt/pull/20631
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
