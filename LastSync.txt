@@ -1,15 +1,18 @@
-commit 501f4edb04c434ed966a9443788b2f968abca38f (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Sven Eckelmann <se@simonwunderlich.de>
-Date:   Wed Nov 5 09:43:36 2025 +0100
+commit 2cce634a9e63d25cd23ab30e86263eed3bce4f3e (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Shiji Yang <yangshiji66@outlook.com>
+Date:   Sun Oct 26 17:30:29 2025 +0800
 
-    realtek: dsa: Clarify statistic port iterator variable
+    ramips: disable build TP-Link EAP235-Wall
     
-    The functions iterating through the port statistic/counter (for
-    initialization or polling) use the generic name "i" for the iterator. This
-    makes reading the actual body of the loop cumbersome because it is not
-    clear that various parameters of functions are about a ports.
+    After investigating the EAP235-Wall u-boot GPL code, it was found that
+    the u-boot of this device directly loads the kernel from the SPI NOR
+    Flash direct access address. However, due to hardware limitation, MT7621
+    can only remap the first 4MiB Flash. Excluding some partitions before
+    the kernel, this device can only boot kernels smaller than 0x360000.
+    This means that unless you install a modified bootloader, the mainline
+    OpenWrt will no longer work on this model.
     
-    Suggested-by: Felix Baumann <felix.bau@gmx.de>
-    Signed-off-by: Sven Eckelmann <se@simonwunderlich.de>
-    Link: https://github.com/openwrt/openwrt/pull/20631
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Closes: https://github.com/openwrt/openwrt/issues/20500
+    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
+    Link: https://github.com/openwrt/openwrt/pull/20509
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
