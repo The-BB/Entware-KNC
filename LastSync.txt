@@ -1,18 +1,12 @@
-commit 2cce634a9e63d25cd23ab30e86263eed3bce4f3e (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Shiji Yang <yangshiji66@outlook.com>
-Date:   Sun Oct 26 17:30:29 2025 +0800
+commit b947064db46f280ba4e2c937b3d79cedb22511db (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Rany Hany <rany_hany@riseup.net>
+Date:   Sun Nov 16 21:04:54 2025 +0000
 
-    ramips: disable build TP-Link EAP235-Wall
+    wifi-scripts: allow rssi_reject_assoc_timeout to be configured
     
-    After investigating the EAP235-Wall u-boot GPL code, it was found that
-    the u-boot of this device directly loads the kernel from the SPI NOR
-    Flash direct access address. However, due to hardware limitation, MT7621
-    can only remap the first 4MiB Flash. Excluding some partitions before
-    the kernel, this device can only boot kernels smaller than 0x360000.
-    This means that unless you install a modified bootloader, the mainline
-    OpenWrt will no longer work on this model.
+    This is useful to alter the default ban time after an STA
+    association is rejected for being below RSSI threshold.
     
-    Closes: https://github.com/openwrt/openwrt/issues/20500
-    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
-    Link: https://github.com/openwrt/openwrt/pull/20509
+    Signed-off-by: Rany Hany <rany_hany@riseup.net>
+    Link: https://github.com/openwrt/openwrt/pull/20811
     Signed-off-by: Robert Marko <robimarko@gmail.com>
