@@ -8,6 +8,7 @@ PKG_ASLR_PIE_REGULAR ?= 0
 PKG_SSP ?= 1
 PKG_FORTIFY_SOURCE ?= 1
 PKG_RELRO ?= 1
+PKG_DT_RELR ?= 1
 
 ifdef CONFIG_PKG_CHECK_FORMAT_SECURITY
   ifeq ($(strip $(PKG_CHECK_FORMAT_SECURITY)),1)
@@ -77,6 +78,14 @@ ifdef CONFIG_PKG_RELRO_FULL
     TARGET_CFLAGS += -Wl,-z,now -Wl,-z,relro
     TARGET_CXXFLAGS += -Wl,-z,now -Wl,-z,relro
     TARGET_LDFLAGS += -znow -zrelro
+  endif
+endif
+
+ifdef CONFIG_PKG_DT_RELR
+  ifeq ($(strip $(PKG_DT_RELR)),1)
+    TARGET_CFLAGS += -Wl,-z,pack-relative-relocs
+    TARGET_CXXFLAGS += -Wl,-z,pack-relative-relocs
+    TARGET_LDFLAGS += -zpack-relative-relocs
   endif
 endif
 
