@@ -1,37 +1,13 @@
-commit 7f5c7b862676fb212f026e1d9be17bef2d9b977b (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Janusz Dziedzic <janusz.dziedzic@gmail.com>
-Date:   Mon Nov 17 11:42:30 2025 +0000
+commit 8e5db148e96be5d1f17b6babfd445727714fdffc (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Rosen Penev <rosenp@gmail.com>
+Date:   Thu Nov 20 16:59:55 2025 -0800
 
-    mac80211: fix netns crash
+    apk: update to 3.0.0-rc8
     
-    [  201.286070] CPU: 0 UID: 0 PID: 34 Comm: kworker/u8:1 Tainted: G S         O       6.12.51 #0
-    [  201.294509] Tainted: [S]=CPU_OUT_OF_SPEC, [O]=OOT_MODULE
-    [  201.299812] Hardware name: Bananapi BPI-R64 (DT)
-    [  201.304422] Workqueue: netns cleanup_net
-    [  201.308347] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-    [  201.315304] pc : cfg80211_switch_netns+0x270/0x2d0 [cfg80211]
-    [  201.321086] lr : cfg80211_switch_netns+0x26c/0x2d0 [cfg80211]
-    [  201.326846] sp : ffffffc081143ca0
-    [  201.330153] x29: ffffffc081143ca0 x28: 61c8864680b583eb x27: 0000000000000000
-    [  201.337287] x26: ffffffc080c46000 x25: ffffff8000d28800 x24: ffffffc081143d80
-    [  201.344421] x23: ffffff800834e360 x22: ffffffc080d6b280 x21: ffffffc07904aeb8
-    [  201.351554] x20: ffffff800834c200 x19: ffffff8005e90000 x18: 0000000000000000
-    [  201.358688] x17: 0000000000000000 x16: 000000000000001d x15: ffffffc081143cf8
-    [  201.365821] x14: ffffff8005703600 x13: 00000000000003bb x12: 0000000000000000
-    [  201.372955] x11: 00000000000000c0 x10: 0000000000000000 x9 : ffffffc081143bd0
-    [  201.380088] x8 : 0000000000000000 x7 : 7f7f7f7f7f7f7f7f x6 : 1f1f1f1f1f1f6348
-    [  201.387222] x5 : 0000000000000004 x4 : ffffff8000ce8000 x3 : 0000000000000000
-    [  201.394355] x2 : 0000000000000000 x1 : ffffff8005e90800 x0 : 00000000ffffffea
-    [  201.401489] Call trace:
-    [  201.403926]  cfg80211_switch_netns+0x270/0x2d0 [cfg80211]
-    [  201.409340]  ops_exit_list+0x40/0x80
-    [  201.412910]  cleanup_net+0x344/0x558
-    [  201.416480]  process_one_work+0x174/0x300
-    [  201.420489]  worker_thread+0x278/0x430
-    [  201.424234]  kthread+0xd8/0xdc
-    [  201.427283]  ret_from_fork+0x10/0x20
+    Added compatibility patch for LibreSSL 4.0.
     
-    Fixes: e005cdea1028 ("mac80211: update to version 6.16")
-    Signed-off-by: Janusz Dziedzic <janusz.dziedzic@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/20829
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Refreshed other patches.
+    
+    Signed-off-by: Rosen Penev <rosenp@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/20851
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
