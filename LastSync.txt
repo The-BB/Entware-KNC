@@ -1,13 +1,21 @@
-commit 8e5db148e96be5d1f17b6babfd445727714fdffc (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Rosen Penev <rosenp@gmail.com>
-Date:   Thu Nov 20 16:59:55 2025 -0800
+commit 671898c7d266ac01b67de74107b8328edcde1e22 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Christian Lachner <gladiac@gmail.com>
+Date:   Sun Nov 23 10:48:47 2025 +0100
 
-    apk: update to 3.0.0-rc8
+    libpcre2: Default enable JIT support for aarch64
     
-    Added compatibility patch for LibreSSL 4.0.
+    JIT support in pcre2 allows for extra performance for regex operations in
+    applications that support it. As outlined in
+    https://pcre.org/current/doc/html/pcre2jit.html#SEC2 64-bit ARM is
+    supported.
     
-    Refreshed other patches.
+    I tested this on an GL.Inet MT6000 which is an aarch64 device and to my
+    knowledge everything works as expected. The primary application I tested
+    this on was haproxy, which makes use pcre for several operations.
     
-    Signed-off-by: Rosen Penev <rosenp@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/20851
+    If there are no known downsides or known breakages I suggest to
+    default-enable this feature for aarch64.
+    
+    Signed-off-by: Christian Lachner <gladiac@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/20891
     Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
