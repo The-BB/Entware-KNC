@@ -1,24 +1,30 @@
-commit 6c3eea4cfeb67cf12a6dc69f4682e13450de1662 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Aleksander Jan Bajkowski <olek2@wp.pl>
-Date:   Sun Jul 27 19:19:42 2025 +0200
+commit 31f5fc8fea89ab3ac73445412fee82569bf08d3d (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Caleb James DeLisle <cjd@cjdns.fr>
+Date:   Tue Oct 28 18:15:33 2025 +0000
 
-    mediatek: filogic: increase flash speed on ASUS TUF AX6000
+    econet: New device: Zyxel PMG5617GA
     
-    This commit increases the SPI bus frequency from 20 to 52 MHz. Reduces boot
-    time by 2s. Below is a performance comparison.
+    This device has one USB2.0 port, plus ethernet, 2x wifi, ethernet, xPON
+    and VoIP.
     
-    Before:
-    root@OpenWrt:~# dd if=/dev/mtd1 of=/dev/null bs=10M count=1 status=progress
-    10485760 bytes (10 MB, 10 MiB) copied, 1.68404 s, 6.2 MB/s
+    Installation instructions: (Assuming root shell via SSH or serial)
+    1. Place OpenWrt TRX file on a USB stick formatted VFAT
+    2. Plug in the stick to the modem
+    3. Type: mtd write -f -e tclinux /mnt/usb2_sda1/<name of file>.trx tclinux
     
-    After:
-    root@OpenWrt:~# dd if=/dev/mtd1 of=/dev/null bs=10M count=1 status=progress
-    10485760 bytes (10 MB, 10 MiB) copied, 0.819222 s, 12.8 MB/s
+    At this point, both OpenWrt and the vendor OS will be installed
+    because the device has space for two operating systems. Switch the OS
+    to boot to OpenWrt:
     
-    Taken from PR #18752 as each device should be tested individually, so I have
-    created a separate PR for this.
+    1. mtd readflash tmpdata 999999999 0 reservearea
+    2. echo -n '0' | dd of=./tmpdata bs=1 count=1 seek=397311 conv=notrunc
+    3. mtd write -f -e reservearea ./tmpdata reservearea
+    4. reboot
     
-    Signed-off-by: Sky Huang <SkyLake.Huang@mediatek.com>
-    Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
-    Link: https://github.com/openwrt/openwrt/pull/20853
+    WARNING: While you can install with SSH alone, you need serial to use
+    OpenWrt on EcoNet devices because the Ethernet driver has not yet been
+    developed.
+    
+    Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+    Link: https://github.com/openwrt/openwrt/pull/20580
     Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
