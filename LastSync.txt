@@ -1,30 +1,14 @@
-commit 31f5fc8fea89ab3ac73445412fee82569bf08d3d (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Caleb James DeLisle <cjd@cjdns.fr>
-Date:   Tue Oct 28 18:15:33 2025 +0000
+commit 2c2b04829583453bc654470f119eab173228068f (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Konstantin Meshkov <skyline@mail.ru>
+Date:   Tue Nov 25 16:18:31 2025 +0300
 
-    econet: New device: Zyxel PMG5617GA
+    kirkwood: add aliases and new partition for support D-Link DNS-325 A1
     
-    This device has one USB2.0 port, plus ethernet, 2x wifi, ethernet, xPON
-    and VoIP.
+    - Added fan0 alias
+    - Implemented LED aliases and thermal zones
+    - Restructured partitions: u-boot, u-boot-env, ubi
     
-    Installation instructions: (Assuming root shell via SSH or serial)
-    1. Place OpenWrt TRX file on a USB stick formatted VFAT
-    2. Plug in the stick to the modem
-    3. Type: mtd write -f -e tclinux /mnt/usb2_sda1/<name of file>.trx tclinux
-    
-    At this point, both OpenWrt and the vendor OS will be installed
-    because the device has space for two operating systems. Switch the OS
-    to boot to OpenWrt:
-    
-    1. mtd readflash tmpdata 999999999 0 reservearea
-    2. echo -n '0' | dd of=./tmpdata bs=1 count=1 seek=397311 conv=notrunc
-    3. mtd write -f -e reservearea ./tmpdata reservearea
-    4. reboot
-    
-    WARNING: While you can install with SSH alone, you need serial to use
-    OpenWrt on EcoNet devices because the Ethernet driver has not yet been
-    developed.
-    
-    Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
-    Link: https://github.com/openwrt/openwrt/pull/20580
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Konstantin Meshkov <skyline@mail.ru>
+    [ improve commit title ]
+    Link: https://github.com/openwrt/openwrt/pull/17924
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
