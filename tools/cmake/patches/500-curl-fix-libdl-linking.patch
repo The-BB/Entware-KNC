@@ -23,7 +23,7 @@ collect2: error: ld returned 1 exit status
 
 --- a/Utilities/cmcurl/CMakeLists.txt
 +++ b/Utilities/cmcurl/CMakeLists.txt
-@@ -1184,6 +1184,12 @@ if(CURL_DEFAULT_SSL_BACKEND AND NOT _val
+@@ -1187,6 +1187,12 @@ if(CURL_DEFAULT_SSL_BACKEND AND NOT _val
    message(FATAL_ERROR "CURL_DEFAULT_SSL_BACKEND '${CURL_DEFAULT_SSL_BACKEND}' not enabled.")
  endif()
  
