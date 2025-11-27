@@ -54,7 +54,7 @@ config KERNEL_ARM_PMU
 config KERNEL_ARM_PMUV3
 	bool
 	default y if TARGET_armsr_armv8
-	depends on (arm_v7 || aarch64) && LINUX_6_6
+	depends on (arm_v7 || aarch64) && !(LINUX_3_2||LINUX_3_4||LINUX_3_10||LINUX_4_9)
 
 config KERNEL_RISCV_PMU
 	bool
@@ -86,7 +86,7 @@ config KERNEL_X86_VSYSCALL_EMULATION
 config KERNEL_PERF_EVENTS
 	bool "Compile the kernel with performance events and counters"
 	select KERNEL_ARM_PMU if (arm || aarch64)
-	select KERNEL_ARM_PMUV3 if (arm_v7 || aarch64) && LINUX_6_6
+	select KERNEL_ARM_PMUV3 if (arm_v7 || aarch64) && !(LINUX_3_2||LINUX_3_4||LINUX_3_10||LINUX_4_9)
 	select KERNEL_RISCV_PMU if riscv64
 
 config KERNEL_PROFILING
@@ -588,8 +588,10 @@ config KERNEL_FANOTIFY
 config KERNEL_BLK_DEV_BSG
 	bool "Compile the kernel with SCSI generic v4 support for any block device"
 
+# Entware specifics: kernels too old (TRANSPARENT_HUGEPAGE since Linux 4.18(?))
 config KERNEL_TRANSPARENT_HUGEPAGE
 	bool
+	depends on !(LINUX_3_2||LINUX_3_4||LINUX_3_10||LINUX_4_9)
 
 choice
 	prompt "Transparent Hugepage Support sysfs defaults"
@@ -604,16 +606,12 @@ choice
 
 	config KERNEL_TRANSPARENT_HUGEPAGE_NEVER
 		bool "never"
-		depends on !LINUX_6_6
 endchoice
 
-# TRANSPARENT_HUGEPAGE since Linux 4.18(?)
 config KERNEL_ARM64_CONTPTE
 	bool "Compile the kernel with Contiguous PTE mappings for user memory"
-	depends on KERNEL_ARM64
+	depends on aarch64
 	depends on KERNEL_TRANSPARENT_HUGEPAGE
-	depends on !(LINUX_3_2||LINUX_3_4||LINUX_3_10||LINUX_4_9)
-	depends on !LINUX_6_6
 	default y
 
 config KERNEL_HUGETLBFS
@@ -873,7 +871,6 @@ if KERNEL_CGROUPS
 	config KERNEL_CPUSETS_V1
 		bool "Legacy cgroup v1 cpusets controller"
 		depends on KERNEL_CPUSETS
-		depends on !LINUX_6_6
 		default n
 		help
 		  Legacy cgroup v1 cpusets controller which has been deprecated by
@@ -932,7 +929,6 @@ if KERNEL_CGROUPS
 		bool "Legacy cgroup v1 memory controller"
 		default n
 		depends on KERNEL_MEMCG
-		depends on !LINUX_6_6
 		help
 		  Legacy cgroup v1 memory controller which has been deprecated by
 		  cgroup v2 implementation. The v1 is there for legacy applications
