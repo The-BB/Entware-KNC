@@ -1,105 +1,14 @@
-commit 68631b186e51281a67b4de32d1885f8be489e016 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Jimmy Cavanaugh <jamie@cavanaugh.co.nz>
-Date:   Sat Nov 15 14:28:19 2025 +1300
+commit 929a460bfa6ad8e894db97e4d6ca267cf848e3a2 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Anari Jalakas <anari.jalakas@gmail.com>
+Date:   Thu Nov 27 15:22:03 2025 +0200
 
-    mvebu: add support for Fortinet FortiWiFi 30E
+    config: add !USE_APK dependency to CLEAN_IPKG
     
-    Fortinet FortiWiFi 30E (FWF-30E) is a UTM, based on Armada 385 (88F6820).
+    When USE_APK is enabled, APK replaces opkg/ipkg, leading to a build
+    failure when CLEAN_IPKG is also selected. Add 'depends on !USE_APK' to
+    CLEAN_IPKG to ensure this option is only selectable when opkg/ipkg is
+    the active package manager.
     
-    Specification:
-    
-    - SoC          : Marvell Armada 385 88F6820
-    - RAM          : DDR3 1 GiB (4x Nanya NT5CC256M8IN-D1)
-    - Flash        : SPI-NOR 128 MiB (Macronix MX66L1G45GMI-10G)
-    - Ethernet     : 5x 10/100/1000 Mbps
-      - Switch     : Marvell 88E6176
-    - Wireless     : Atheros AR9382 2x2 802.11abgn (mini-PCIe)
-    - LEDs/Keys    : 16x/1x
-    - UART         : "CONSOLE" port (RJ-45, RS-232C level)
-      - port       : ttyS0
-      - settings   : 9600bps 8n1
-      - assignment : 1:NC , 2:NC , 3:TXD, 4:GND,
-                     5:GND, 6:RXD, 7:NC , 8:NC
-      - note       : compatible with Cisco console cable
-    - HW Monitoring: nuvoTon NCT7802Y
-    - USB          : 1x USB 3.0
-    - Power        : 12 VDC, 2 A
-      - plug       : Molex 5557-02R
-    
-    Flash instruction using initramfs image:
-    
-     1. Power on FWF-30E and interrupt to show bootmenu
-     2. Call "[I]: System information." -> "[S]: Set serial port baudrate."
-        and set baudrate to 9600 bps
-     3. Call "[R]: Review TFTP parameters.", check TFTP parameters and
-        connect computer to "Image download port" in the parameters
-     4. Prepare TFTP server with the parameters obtained above
-     5. Rename OpenWrt initramfs image to "image.out" and put to TFTP
-        directory
-     6. Call "[T]: Initiate TFTP firmware transfer." to download initramfs
-        image from TFTP server
-     7. Type "r" key when the following message is showed, to boot initramfs
-        image without flashing to spi-nor flash
-    
-        "Save as Default firmware/Backup firmware/Run image without saving:[D/B/R]?"
-    
-     8. On initramfs image, backup mtd if needed
-    
-        minimum:
-    
-        - "firmware-info"
-        - "kernel"
-        - "rootfs"
-    
-     9. On initramfs image, upload sysupgrade image to the device and perform
-        sysupgrade
-    10. Wait ~200 seconds to complete flashing and rebooting.
-        If the device is booted with stock firmware, login to bootmenu and
-        call "[B]: Boot with backup firmware and set as default." to set the
-        first OS image as default and boot it.
-    
-    Notes:
-    
-    - Both colors of Bi-color LEDs on the front panel cannot be turned on at
-      the same time.
-    
-    - "PWR" and "Logo" LEDs are connected to power source directly.
-    
-    - The following partitions are added for OpenWrt.
-      These partitions are contained in "uboot" partition (0x0-0x1fffff) on
-      stock firmware.
-    
-      - "firmware-info"
-      - "dtb"
-      - "u-boot-env"
-      - "board-info"
-    
-    Image header for bootmenu tftp:
-    
-      0x0 - 0xf  : ?
-     0x10 - 0x2f : Image Name
-     0x30 - 0x17f: ?
-    0x180 - 0x183: Kernel Offset*
-    0x184 - 0x187: Kernel Length*
-    0x188 - 0x18b: RootFS Offset (ext2)*
-    0x18c - 0x18f: RootFS Length (ext2)*
-    0x190 - 0x193: DTB Offset
-    0x194 - 0x197: DTB Length
-    0x198 - 0x19b: Data Offset (jffs2)
-    0x19c - 0x19f: Data Length (jffs2)
-    0x1a0 - 0x1ff: ?
-    
-    *: required for initramfs image
-    
-    MAC addresses:
-    
-    (eth0): 70:4C:A5:xx:xx:42 (board-info, 0xd880 (hex))
-    WAN   : 70:4C:A5:xx:xx:43
-    LAN 1 : 70:4C:A5:xx:xx:44
-    LAN 2 : 70:4C:A5:xx:xx:45
-    LAN 3 : 70:4C:A5:xx:xx:46
-    LAN 4 : 70:4C:A5:xx:xx:47
-    
-    Signed-off-by: Jimmy Cavanaugh <jamie@cavanaugh.co.nz>
-    Link: https://github.com/openwrt/openwrt/pull/20787
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Anari Jalakas <anari.jalakas@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/20957
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
