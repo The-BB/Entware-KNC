@@ -57,10 +57,9 @@ else
 CONFIGURE_ARGS += --disable-netlink --disable-pretty-dump
 endif
 
+# Entware specifics: 
 # enable support for input_xfrm with kernels newer than 6.6
-ifeq ($(CONFIG_LINUX_6_6),)
-CONFIGURE_ARGS += --enable-rss-input-xfrm
-endif
+#CONFIGURE_ARGS += --enable-rss-input-xfrm
 
 define Package/ethtool/install
 	$(INSTALL_DIR) $(1)/opt/sbin
