@@ -1,14 +1,13 @@
-commit 929a460bfa6ad8e894db97e4d6ca267cf848e3a2 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Anari Jalakas <anari.jalakas@gmail.com>
-Date:   Thu Nov 27 15:22:03 2025 +0200
+commit 66672e702189fa2200db0cf8d27e4a6d320fe163 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Rosen Penev <rosenp@gmail.com>
+Date:   Sun May 25 14:17:22 2025 -0700
 
-    config: add !USE_APK dependency to CLEAN_IPKG
+    ath79: tplink_tl-wdrxxxx: use led-sources for ath9k
     
-    When USE_APK is enabled, APK replaces opkg/ipkg, leading to a build
-    failure when CLEAN_IPKG is also selected. Add 'depends on !USE_APK' to
-    CLEAN_IPKG to ensure this option is only selectable when opkg/ipkg is
-    the active package manager.
+    The ath9k driver creates an ath9k LED by default. Instead of having a
+    non functional LED, configure it properly and remove the extra as it's
+    not needed.
     
-    Signed-off-by: Anari Jalakas <anari.jalakas@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/20957
-    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+    Signed-off-by: Rosen Penev <rosenp@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/19861
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
