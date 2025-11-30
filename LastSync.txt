@@ -1,13 +1,13 @@
-commit 66672e702189fa2200db0cf8d27e4a6d320fe163 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Rosen Penev <rosenp@gmail.com>
-Date:   Sun May 25 14:17:22 2025 -0700
+commit 95bd7a76a138d533c9b6b37bf91c4a006d94b22f (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Alexandru Gagniuc <mr.nuke.me@gmail.com>
+Date:   Thu Nov 6 21:52:11 2025 -0600
 
-    ath79: tplink_tl-wdrxxxx: use led-sources for ath9k
+    qualcommbe: update ipq9574 PCS driver
     
-    The ath9k driver creates an ath9k LED by default. Instead of having a
-    non functional LED, configure it properly and remove the extra as it's
-    not needed.
+    Update the ipq9574 PCS driver the version provided by Qualcomm via
+    github. The updated driver simplifies link up handling by removing
+    unnecessary clock rate changes.
     
-    Signed-off-by: Rosen Penev <rosenp@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/19861
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Alexandru Gagniuc <mr.nuke.me@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/20993
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
