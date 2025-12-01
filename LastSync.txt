@@ -1,13 +1,10 @@
-commit 95bd7a76a138d533c9b6b37bf91c4a006d94b22f (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Alexandru Gagniuc <mr.nuke.me@gmail.com>
-Date:   Thu Nov 6 21:52:11 2025 -0600
+commit d7f777b41c99fb0a26014037cf6f4d1838704816 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Álvaro Fernández Rojas <noltari@gmail.com>
+Date:   Sun Nov 30 17:09:46 2025 +0100
 
-    qualcommbe: update ipq9574 PCS driver
+    generic: 6.12: backport bcm63xx-spi CS deassertion fix
     
-    Update the ipq9574 PCS driver the version provided by Qualcomm via
-    github. The updated driver simplifies link up handling by removing
-    unnecessary clock rate changes.
+    Backport fix for premature SPI CS deassertion on RX-only transactions from
+    linux v6.18, which is needed for bmips (bcm63xx).
     
-    Signed-off-by: Alexandru Gagniuc <mr.nuke.me@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/20993
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Signed-off-by: Álvaro Fernández Rojas <noltari@gmail.com>
