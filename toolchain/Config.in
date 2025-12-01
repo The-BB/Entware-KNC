@@ -329,11 +329,9 @@ config HAS_PREBUILT_LLVM_TOOLCHAIN
 	def_bool $(shell, [ -f llvm-bpf/.llvm-version ] && echo y || echo n)
 
 config USE_LLVM_HOST
-	select HAS_BPF_TOOLCHAIN
 	bool
 
 config USE_LLVM_PREBUILT
-	select HAS_BPF_TOOLCHAIN
 	default y if !DEVEL && !BUILDBOT && HAS_PREBUILT_LLVM_TOOLCHAIN
 	bool
 
