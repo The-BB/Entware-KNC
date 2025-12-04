@@ -1,10 +1,18 @@
-commit d7f777b41c99fb0a26014037cf6f4d1838704816 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Álvaro Fernández Rojas <noltari@gmail.com>
-Date:   Sun Nov 30 17:09:46 2025 +0100
+commit 78a8cfb57772138ff5b925b9d69928e5878931bf (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Christian Marangi <ansuelsmth@gmail.com>
+Date:   Thu Dec 4 16:32:03 2025 +0100
 
-    generic: 6.12: backport bcm63xx-spi CS deassertion fix
+    tools: gnulib: fix broken install of .m4 files
     
-    Backport fix for premature SPI CS deassertion on RX-only transactions from
-    linux v6.18, which is needed for bmips (bcm63xx).
+    Makefile foreach works only on parsing the Makefile and in this specific
+    case only works if the package is already extracted and file actually
+    exist.
     
-    Signed-off-by: Álvaro Fernández Rojas <noltari@gmail.com>
+    On scenario where the package still has to be built, foreach doesn't
+    find any file causing Host/Install to not install any .m4 file.
+    
+    To handle this, use a shell for loop that scan files in the
+    Host/install.
+    
+    Fixes: c820f097e0be ("tools: gnulib: install .m4 file with gl_ prefix")
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
