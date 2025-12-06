@@ -1,18 +1,18 @@
-commit 78a8cfb57772138ff5b925b9d69928e5878931bf (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Christian Marangi <ansuelsmth@gmail.com>
-Date:   Thu Dec 4 16:32:03 2025 +0100
+commit 6c0ef7d4c813842d40dc95ac5606c38c75151684 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Goetz Goerisch <ggoerisch@gmail.com>
+Date:   Fri Dec 5 20:11:40 2025 +0100
 
-    tools: gnulib: fix broken install of .m4 files
+    odhcpd: update to Git HEAD (2025-12-04)
     
-    Makefile foreach works only on parsing the Makefile and in this specific
-    case only works if the package is already extracted and file actually
-    exist.
+    63f040e88b12 formal: fix workflow permissions
+    d970ae0ca4a3 router: improve RA PIO search logic
+    8fde62a82bdd router: rename router_clear_ra_pio
+    8b26b0124aed router: remove duplicated PIOs
+    d354ebb66cdc router: optimize duplicated PIO comparison
+    79252ed0c0c2 router: skip if branch in PIO clear functions
     
-    On scenario where the package still has to be built, foreach doesn't
-    find any file causing Host/Install to not install any .m4 file.
+    https://github.com/openwrt/odhcpd/compare/6fbd70c08342...79252ed0c0c2
     
-    To handle this, use a shell for loop that scan files in the
-    Host/install.
-    
-    Fixes: c820f097e0be ("tools: gnulib: install .m4 file with gl_ prefix")
-    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+    Signed-off-by: Goetz Goerisch <ggoerisch@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/21055
+    Signed-off-by: Álvaro Fernández Rojas <noltari@gmail.com>
