@@ -1,18 +1,15 @@
-commit 6c0ef7d4c813842d40dc95ac5606c38c75151684 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Goetz Goerisch <ggoerisch@gmail.com>
-Date:   Fri Dec 5 20:11:40 2025 +0100
+commit c2c38469a8d37c46161076cde873ad50cb5f5e35 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Kyle Hendry <kylehendrydev@gmail.com>
+Date:   Fri Jan 17 12:18:20 2025 -0800
 
-    odhcpd: update to Git HEAD (2025-12-04)
+    bmips: b53: enable bcm63268 internal PHYs
     
-    63f040e88b12 formal: fix workflow permissions
-    d970ae0ca4a3 router: improve RA PIO search logic
-    8fde62a82bdd router: rename router_clear_ra_pio
-    8b26b0124aed router: remove duplicated PIOs
-    d354ebb66cdc router: optimize duplicated PIO comparison
-    79252ed0c0c2 router: skip if branch in PIO clear functions
+    On the smartrg sr505n the bootloader only sets registers to enable the
+    PHYs if it's interrupted. When Linux boots this results in a -EINVAL
+    error when trying to read from the EPHYs and the GPHY doesn't work.
+    This patch disables low power mode in the GPHY/EPHYs and properly resets
+    the EPHYs.
     
-    https://github.com/openwrt/odhcpd/compare/6fbd70c08342...79252ed0c0c2
-    
-    Signed-off-by: Goetz Goerisch <ggoerisch@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/21055
+    Signed-off-by: Kyle Hendry <kylehendrydev@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/17648
     Signed-off-by: Álvaro Fernández Rojas <noltari@gmail.com>
