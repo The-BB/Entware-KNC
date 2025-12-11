@@ -1,25 +1,12 @@
-commit 4e4986aaf6e7f77da0f01fce54b067de3538e438 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Álvaro Fernández Rojas <noltari@gmail.com>
-Date:   Sat Dec 6 17:01:00 2025 +0100
+commit 86bd55c4fd0f3ffe6bf7df672b051900352af3ad (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Shiji Yang <yangshiji66@outlook.com>
+Date:   Sat Nov 29 00:21:04 2025 +0800
 
-    odhcpd: update to Git HEAD (2025-12-10)
+    bcm27xx: fix patch wrong CRLF line-ending
     
-    ca00527e5fc3 statefiles: don't write empty hosts files
-    24b70c5c2ff0 Revert "statefiles: fix escape sequence for broken hostname output"
-    5203ad13954c statefiles: fix stale pio handling for !ubus
-    a64760b30f67 odhcpd: rename piofolder to piodir
-    6779344a8c8a statefiles: use tmpfile functions for pio files
-    9f8abcc662d0 statefiles: rename prefix information functions
-    cb65b83e524e config: move pio json handling to statefiles.c
-    5b01849cc42c statefiles: add a dirfd helper function
-    eadde3d7dd74 statefiles: add tmp helper functions
-    c29aa7091498 statefiles: fix escape sequence for broken hostname output
-    00f2d7a4dbe5 dhcpv4: don't send zero IPv6-only preferred option
-    c86d29bb83d6 Revert "dhcpv6-ia: add some noise to the T1 and T2 periods"
-    b062769ab85f Revert "do not delegate ULA prefixes"
-    fd4714bb2dfe do not delegate ULA prefixes
-    81ea5bfef775 dhcpv6-ia: add some noise to the T1 and T2 periods
+    Use Unix LF style instead of Windows CRLF style.
     
-    https://github.com/openwrt/odhcpd/compare/79252ed0c0c2...ca00527e5fc3
-    
-    Signed-off-by: Álvaro Fernández Rojas <noltari@gmail.com>
+    Fixes: 738876e76bb2 ("kernel: bump 6.12 to 6.12.58")
+    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
+    Link: https://github.com/openwrt/openwrt/pull/20973
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
