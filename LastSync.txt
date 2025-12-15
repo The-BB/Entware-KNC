@@ -1,12 +1,17 @@
-commit 86bd55c4fd0f3ffe6bf7df672b051900352af3ad (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Shiji Yang <yangshiji66@outlook.com>
-Date:   Sat Nov 29 00:21:04 2025 +0800
+commit ff4546093e0146654007d71a2cc37034fe9f633e (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Álvaro Fernández Rojas <noltari@gmail.com>
+Date:   Sat Dec 13 12:53:39 2025 +0100
 
-    bcm27xx: fix patch wrong CRLF line-ending
+    odhcpd: update to Git HEAD (2025-12-13)
     
-    Use Unix LF style instead of Windows CRLF style.
+    cf51aeb93220 odhcpd: fix captive_portal_uri reset
+    e8b7fdea8d5e dhcpv4: fix DNS server option
+    b84553e496a3 router: Modify relayed RA PIO P flag according to interface policy
+    da3e2a9829cc router: Modify relayed RA PIO A flags according to interface policy
+    bad7138b70f0 README.md: update dhcp ubus events
     
-    Fixes: 738876e76bb2 ("kernel: bump 6.12 to 6.12.58")
-    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
-    Link: https://github.com/openwrt/openwrt/pull/20973
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    https://github.com/openwrt/odhcpd/compare/ca00527e5fc3...cf51aeb93220
+    
+    Also remove duplicated /usr/share/libubox/jshn.sh include.
+    
+    Signed-off-by: Álvaro Fernández Rojas <noltari@gmail.com>
