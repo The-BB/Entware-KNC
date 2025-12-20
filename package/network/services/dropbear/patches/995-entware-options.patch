@@ -33,7 +33,7 @@
  
  /* Specify the number of clients we will allow to be connected but
   * not yet authenticated. After this limit, connections are rejected */
-@@ -313,7 +313,7 @@ group1 in Dropbear server too */
+@@ -319,7 +319,7 @@ group1 in Dropbear server too */
   * scripts etc. This can be overridden with the -P flag.
   * Homedir is prepended if path begins with ~/
   */
@@ -42,7 +42,7 @@
  
  /* The command to invoke for xauth when using X11 forwarding.
   * "-q" for quiet */
-@@ -326,11 +326,11 @@ group1 in Dropbear server too */
+@@ -332,11 +332,11 @@ group1 in Dropbear server too */
   * Homedir is prepended if path begins with ~/
   */
  #define DROPBEAR_SFTPSERVER 1
@@ -56,7 +56,7 @@
  
  /* Whether to log commands executed by a client. This only logs the
   * (single) command sent to the server, not what a user did in a
-@@ -366,7 +366,7 @@ be overridden at runtime with -I. 0 disa
+@@ -372,7 +372,7 @@ be overridden at runtime with -I. 0 disa
  #define DEFAULT_IDLE_TIMEOUT 0
  
  /* The default path. This will often get replaced by the shell */
