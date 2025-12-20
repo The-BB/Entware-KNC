@@ -1,37 +1,12 @@
-commit d871e95e7f836435e8323074e3abab2c7608e016 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Mario Andrés Pérez <mapb_@outlook.com>
-Date:   Sun Dec 14 18:45:10 2025 +0100
+commit caef0a839a80749b7a125f09cb26814980fb7202 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Álvaro Fernández Rojas <noltari@gmail.com>
+Date:   Thu Dec 18 18:30:56 2025 +0100
 
-    sunxi: image: sync target profiles names with DT compatible
+    odhcpd: update to Git HEAD (2025-12-18)
     
-    Following up with errors reported in the ASU repo, these bananapi cases
-    do not match the DT compatible "bpi", sync with dts sources.
-    Also some profiles were overwriting SUPPORTED_DEVICES.
-    Sysupgrade would be failing in SUPPORTED_DEVICES check since
-    the DT compatible(/tmp/sysinfo/board_name) is not in SUPPORTED_DEVICES.
-    This should also fix errors when using ASU sysupgrade clients.
-    - Sync profile makefile target names with DT compatibles.
-    - Fix overwrites of SUPPORTED_DEVICES instead of appending.
-    - Adapt the uboot-sunxi profiles accordingly.
-    *bpi-p2-zero dts is still not upstream.
+    3fda5f8b121b dhcpv6-ia: reconfigure message length bug fix
+    6152cf5dab49 all: remove dead code
     
-    V2:
-    - Include fixes for arm926ejs(ARM926EJ-S) subtarget (LicheePi Nano and
-    PopStick v1.1) (profile rename for correct default SUPPORTED_DEVICES)
+    https://github.com/openwrt/odhcpd/compare/1450e1e2b7ff...3fda5f8b121b
     
-    Fixes: https://forum.openwrt.org/t/luci-attended-sysupgrade-support-thread/230552/246
-    Fixes: https://github.com/openwrt/asu/issues/486
-    Fixes: https://github.com/openwrt/asu/issues/524
-    Fixes: 9aa66b8ce730aebff76d353392151708a897a3a0 "sunxi: add support for Banana Pi M2 Berry"
-    Fixes: d5f615bf2a0434c15d13943b566d46f25da579bb "sunxi: add support for Sinovoip Banana Pi M2 Plus"
-    Fixes: 3819c1638a9d300840d0f869628891f9696be112 "sunxi: Add support for Banana Pi M2 Ultra"
-    Fixes: 6bf8193b25a147abfe3720104e63af890c1ca2b8 "sunxi: add support for Bananapi P2 Zero"
-    Fixes: 80edfaf675364835e6d2e17d97ebec6afc6b2103 "sunxi: add support for Banana Pi M3"
-    Fixes: 3c24a1d423a6052b101c00cb7d94e70d72702639 "sunxi: add support for NanoPi NEO Plus2 board"
-    Fixes: a689307c970e37c247c6452ba3963be8b109eb4f "sunxi: build image/uboot for the NanoPi NEO2"
-    Fixes: fde68cb80941a60be93ece75e808b5b407d11cc8 "sunxi: add support for FriendlyARM NanoPi R1S H5"
-    Fixes: 3ec468ff4fa3106d459ae58ec4bc4833715118c6 "sunxi: add F1C100 (arm926ej-s) support"
-    
-    Signed-off-by: Mario Andrés Pérez <mapb_@outlook.com>
-    Link: https://github.com/openwrt/openwrt/pull/21095
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Álvaro Fernández Rojas <noltari@gmail.com>
