@@ -1,12 +1,17 @@
-commit caef0a839a80749b7a125f09cb26814980fb7202 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Álvaro Fernández Rojas <noltari@gmail.com>
-Date:   Thu Dec 18 18:30:56 2025 +0100
+commit 22a69dfa4a9a04833aaac62b9f0a7814571b9e07 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Dominic Germain <dominic@germain.cc>
+Date:   Fri Dec 19 09:46:57 2025 -0500
 
-    odhcpd: update to Git HEAD (2025-12-18)
+    kernel: add option for USB FunctionFS gadget
     
-    3fda5f8b121b dhcpv6-ia: reconfigure message length bug fix
-    6152cf5dab49 all: remove dead code
+    Add menuconfig option 'kmod-usb-gadget-fs' for the USB FunctionFS gadget
+    module
     
-    https://github.com/openwrt/odhcpd/compare/1450e1e2b7ff...3fda5f8b121b
+    OpenWRT is perfect for USB gadgets that are network-enabled, since it
+    provides everything needed to easily manage the device. Having support
+    for the FunctionFS gadget enables the use of any custom USB devices
+    that does not have a specific module, like Media Transfer Protocol.
     
-    Signed-off-by: Álvaro Fernández Rojas <noltari@gmail.com>
+    Signed-off-by: Dominic Germain <dominic@germain.cc>
+    Link: https://github.com/openwrt/openwrt/pull/21207
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
