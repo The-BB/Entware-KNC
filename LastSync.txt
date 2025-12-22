@@ -1,17 +1,12 @@
-commit 22a69dfa4a9a04833aaac62b9f0a7814571b9e07 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Dominic Germain <dominic@germain.cc>
-Date:   Fri Dec 19 09:46:57 2025 -0500
+commit def7548867741206f6788d55e58d7417d859e106 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Shiji Yang <yangshiji66@outlook.com>
+Date:   Thu Dec 18 21:26:36 2025 +0800
 
-    kernel: add option for USB FunctionFS gadget
+    tools/xz: update to 5.8.2
     
-    Add menuconfig option 'kmod-usb-gadget-fs' for the USB FunctionFS gadget
-    module
+    Release Notes:
+    https://github.com/tukaani-project/xz/releases/tag/v5.8.2
     
-    OpenWRT is perfect for USB gadgets that are network-enabled, since it
-    provides everything needed to easily manage the device. Having support
-    for the FunctionFS gadget enables the use of any custom USB devices
-    that does not have a specific module, like Media Transfer Protocol.
-    
-    Signed-off-by: Dominic Germain <dominic@germain.cc>
-    Link: https://github.com/openwrt/openwrt/pull/21207
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
+    Link: https://github.com/openwrt/openwrt/pull/21208
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
