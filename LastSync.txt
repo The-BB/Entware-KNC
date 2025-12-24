@@ -1,14 +1,15 @@
-commit b43f7bc9c21c291426852f3a499b4814f2b686d1 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Jonas Jelonek <jelonek.jonas@gmail.com>
-Date:   Mon Dec 15 19:41:16 2025 +0000
+commit 501e54b6c2a5543b3890984ff128e004e96877ee (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: George Moussalem <george.moussalem@outlook.com>
+Date:   Fri Dec 19 11:18:04 2025 +0400
 
-    realtek: pcs: rtl931x: add helper for SerDes power up/down
+    qualcommax: ipq50xx: fix reo2host-status interrupt vector
     
-    Add a dedicated helper 'rtpcs_931x_sds_power' to power down/up a SerDes.
-    Up to now, plain register writes to the corresponding register were used
-    in several places and with slightly different syntax. Use the helper to
-    replace the existing boilerplate code for powering on/off SerDes.
+    Interrupt vector for reo2host-status is wrongly assigned.
+    Status interrupts weren't received and a workaround was applied to
+    mac80211 to periodically poll the reo status ring. Therefore, the
+    workaround can be removed with the proper hardware interrupt line
+    assigned.
     
-    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/21184
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+    Link: https://github.com/openwrt/openwrt/pull/21271
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
