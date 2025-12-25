@@ -1,15 +1,10 @@
-commit 501e54b6c2a5543b3890984ff128e004e96877ee (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: George Moussalem <george.moussalem@outlook.com>
-Date:   Fri Dec 19 11:18:04 2025 +0400
+commit 3602a98f55b9024ae4aa00a23873b0b2f9fab019 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Robert Marko <robimarko@gmail.com>
+Date:   Thu Dec 25 12:43:16 2025 +0100
 
-    qualcommax: ipq50xx: fix reo2host-status interrupt vector
+    ipq-wifi: update to Git HEAD (2025-12-25)
     
-    Interrupt vector for reo2host-status is wrongly assigned.
-    Status interrupts weren't received and a workaround was applied to
-    mac80211 to periodically poll the reo status ring. Therefore, the
-    workaround can be removed with the proper hardware interrupt line
-    assigned.
+    ed56ad0 qcn6122: Add BDF for Linksys MX6200
+    1f83ec8 ipq5018: Add BDF for Linksys MX6200
     
-    Signed-off-by: George Moussalem <george.moussalem@outlook.com>
-    Link: https://github.com/openwrt/openwrt/pull/21271
     Signed-off-by: Robert Marko <robimarko@gmail.com>
