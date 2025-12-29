@@ -1,10 +1,13 @@
-commit 3602a98f55b9024ae4aa00a23873b0b2f9fab019 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Robert Marko <robimarko@gmail.com>
-Date:   Thu Dec 25 12:43:16 2025 +0100
+commit d9b1c747807973053a2cba599ae247234588e341 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Date:   Sat Dec 27 08:28:09 2025 +0300
 
-    ipq-wifi: update to Git HEAD (2025-12-25)
+    airoha: spi: update airoha-snfi patches and en7523 dts
     
-    ed56ad0 qcn6122: Add BDF for Linksys MX6200
-    1f83ec8 ipq5018: Add BDF for Linksys MX6200
+    Changes:
+    * use upstream patches for airoha-snfi driver
+    * update in kernel en7523 dts to add spinand support
     
+    Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+    Link: https://github.com/openwrt/openwrt/pull/21299
     Signed-off-by: Robert Marko <robimarko@gmail.com>
