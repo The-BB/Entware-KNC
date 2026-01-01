@@ -1,9 +1,18 @@
-commit 8b93c563add283612700a5fac8191e1d79895143 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Álvaro Fernández Rojas <noltari@gmail.com>
-Date:   Tue Dec 30 14:45:15 2025 +0100
+commit 8e6cd2608ab14a017f493dd10bd4a6045a5bac0f (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Markus Stockhausen <markus.stockhausen@gmx.de>
+Date:   Tue Dec 30 14:07:32 2025 +0100
 
-    kernel: r8168: fix CFLAGS with linux 6.15+
+    realtek: setup cpu port in soc_info structure
     
-    Fix r8168 module CFLAGS with kernels >= v6.15.
+    A lot of soc_info usage has been reorganized. Nevertheless there
+    are some consumers left. A very critical one is the dsa/qos coding.
+    It makes use of the cpu_port in this shared structure. This is
+    totally broken as that info is never properly initialized. Fill
+    the cpu_port according to the identified hardware.
     
-    Signed-off-by: Álvaro Fernández Rojas <noltari@gmail.com>
+    Remark: Looking at the prom.c history soc_info.cpu_port was never
+    setup since the beginning of time. So no "fixes" tag here.
+    
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Link: https://github.com/openwrt/openwrt/pull/21327
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
