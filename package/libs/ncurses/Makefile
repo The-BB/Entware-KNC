@@ -35,14 +35,14 @@ define Package/terminfo
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=Terminal Info Database (ncurses)
-  URL:=http://www.gnu.org/software/ncurses/
+  URL:=https://www.gnu.org/software/ncurses/
 endef
 
 define Package/libncursesw
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=Terminal handling library (Unicode)
-  URL:=http://www.gnu.org/software/ncurses/
+  URL:=https://www.gnu.org/software/ncurses/
   DEPENDS:= +terminfo
   ABI_VERSION:=6
 endef
@@ -51,7 +51,7 @@ define Package/libncurses
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=Terminal handling library
-  URL:=http://www.gnu.org/software/ncurses/
+  URL:=https://www.gnu.org/software/ncurses/
   DEPENDS:= +libncursesw
   ABI_VERSION:=6
 endef
@@ -69,7 +69,7 @@ define Package/ncurses-bin
   CATEGORY:=Utilities
   SUBMENU:=Terminal
   TITLE:=Terminal-related programs
-  URL:=http://www.gnu.org/software/ncurses/
+  URL:=https://www.gnu.org/software/ncurses/
   DEPENDS:=+libncursesw
   ALTERNATIVES:= \
 		300:/opt/bin/clear:/opt/bin/clear-ncurses \
