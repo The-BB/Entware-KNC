@@ -1244,8 +1244,10 @@ config KERNEL_MPTCP_IPV6
 	default KERNEL_MPTCP
 endif
 
+# NF_CONNTRACK_TIMEOUT since Linux 3.4
 config KERNEL_NF_CONNTRACK_TIMEOUT
 	bool "Per-connection connection tracking timeout"
+	depends on !LINUX_3_2
 	default y if !SMALL_FLASH
 	help
 	   Select this option to enable support for per-connection conntrack timeouts.
