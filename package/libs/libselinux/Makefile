@@ -67,7 +67,7 @@ $(eval $(foreach a,$(LIBSELINUX_ALTS),ALTS_$(a):=300:/opt/sbin/$(a):/opt/sbin/li
 
 define Package/libselinux/Default
   TITLE:=Runtime SELinux library
-  URL:=http://selinuxproject.org/page/Main_Page
+  URL:=https://github.com/selinuxproject
 endef
 
 define Package/libselinux
