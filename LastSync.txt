@@ -1,18 +1,16 @@
-commit 8e6cd2608ab14a017f493dd10bd4a6045a5bac0f (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Markus Stockhausen <markus.stockhausen@gmx.de>
-Date:   Tue Dec 30 14:07:32 2025 +0100
+commit ded99c2984b245ee3885bdf10bd1797e838abf54 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Eric Fahlgren <ericfahlgren@gmail.com>
+Date:   Sat Jan 3 16:04:51 2026 -0800
 
-    realtek: setup cpu port in soc_info structure
+    treewide: add explicit default variant part 2
     
-    A lot of soc_info usage has been reorganized. Nevertheless there
-    are some consumers left. A very critical one is the dsa/qos coding.
-    It makes use of the cpu_port in this shared structure. This is
-    totally broken as that info is never properly initialized. Fill
-    the cpu_port according to the identified hardware.
+    Add 'DEFAULT_VARIANT' to two packages, 'iw' and 'eapol-test',
+    that were missed in the first pass.  Refactor 'iw' and 'ethtool'
+    package definitions to be consistent with the pattern used in most
+    other packages.
     
-    Remark: Looking at the prom.c history soc_info.cpu_port was never
-    setup since the beginning of time. So no "fixes" tag here.
-    
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-    Link: https://github.com/openwrt/openwrt/pull/21327
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Fixes: https://github.com/openwrt/openwrt/commit/f4fdb996
+    Fixes: https://github.com/openwrt/openwrt/commit/7a78dc4a
+    Signed-off-by: Eric Fahlgren <ericfahlgren@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/21380
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
