@@ -34,7 +34,7 @@ define Package/e2fsprogs
   CATEGORY:=Utilities
   SUBMENU:=Filesystem
   TITLE:=Ext2/3/4 filesystem utilities
-  URL:=http://e2fsprogs.sourceforge.net/
+  URL:=https://e2fsprogs.sourceforge.net/
   DEPENDS:=+libuuid +libext2fs +libe2p
 endef
 
@@ -47,7 +47,7 @@ define Package/libext2fs
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=ext2/3/4 filesystem library
-  URL:=http://e2fsprogs.sourceforge.net/
+  URL:=https://e2fsprogs.sourceforge.net/
   DEPENDS:=+libuuid +libblkid +libss +libcomerr
   ABI_VERSION:=2
 endef
@@ -60,7 +60,7 @@ define Package/libe2p
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=ext2fs userspace programs utility library
-  URL:=http://e2fsprogs.sourceforge.net/
+  URL:=https://e2fsprogs.sourceforge.net/
   DEPENDS:=+libuuid
   ABI_VERSION:=2
 endef
@@ -74,7 +74,7 @@ define Package/libss
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=command-line interface parsing library
-  URL:=http://e2fsprogs.sourceforge.net/
+  URL:=https://e2fsprogs.sourceforge.net/
   DEPENDS:=+libcomerr
   ABI_VERSION:=2
 endef
@@ -88,7 +88,7 @@ define Package/libcomerr
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=common error description library
-  URL:=http://e2fsprogs.sourceforge.net/
+  URL:=https://e2fsprogs.sourceforge.net/
   DEPENDS:=+libuuid
   ABI_VERSION:=0
 endef
