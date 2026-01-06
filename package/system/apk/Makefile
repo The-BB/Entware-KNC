@@ -50,6 +50,7 @@ endef
 
 # Entware specific: link openssl statically
 HOST_LDFLAGS += \
+	-lpthread \
 	-ldl \
 	$(STAGING_DIR_HOST)/lib/libssl.a \
 	$(STAGING_DIR_HOST)/lib/libcrypto.a
