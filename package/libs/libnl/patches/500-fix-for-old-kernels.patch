@@ -1,0 +1,57 @@
+--- a/lib/route/nh_encap_ila.c
++++ b/lib/route/nh_encap_ila.c
+@@ -5,6 +5,10 @@
+ #include <linux/ila.h>
+ #include <linux/lwtunnel.h>
+ 
++#ifndef LINUX_VERSION_CODE
++#include <linux/version.h>
++#endif
++
+ #include <netlink/route/nexthop.h>
+ 
+ #include "nexthop-encap.h"
+@@ -46,11 +50,14 @@ static int ila_encap_build_msg(struct nl
+ 	if (ila_encap->has_csum_mode)
+ 		NLA_PUT_U8(msg, ILA_ATTR_CSUM_MODE, ila_encap->csum_mode);
+ 
++/* ILA_ATTR_IDENT_TYPE/ILA_ATTR_HOOK_TYPE since Linux 4.15 */
++	#if LINUX_VERSION_CODE <= KERNEL_VERSION(4,15,0)
+ 	if (ila_encap->has_ident_type)
+ 		NLA_PUT_U8(msg, ILA_ATTR_IDENT_TYPE, ila_encap->ident_type);
+ 
+ 	if (ila_encap->has_hook_type)
+ 		NLA_PUT_U8(msg, ILA_ATTR_HOOK_TYPE, ila_encap->hook_type);
++	#endif /* ILA_ATTR_IDENT_TYPE/ILA_ATTR_HOOK_TYPE since Linux 4.15 */
+ 
+ 	return 0;
+ 
+@@ -98,8 +105,11 @@ static int ila_encap_compare(void *_a, v
+ static struct nla_policy ila_encap_policy[ILA_ATTR_MAX + 1] = {
+ 	[ILA_ATTR_LOCATOR] = { .type = NLA_U64 },
+ 	[ILA_ATTR_CSUM_MODE] = { .type = NLA_U8 },
++/* ILA_ATTR_IDENT_TYPE/ILA_ATTR_HOOK_TYPE since Linux 4.15 */
++	#if LINUX_VERSION_CODE <= KERNEL_VERSION(4,15,0)
+ 	[ILA_ATTR_IDENT_TYPE] = { .type = NLA_U8 },
+ 	[ILA_ATTR_HOOK_TYPE] = { .type = NLA_U8 },
++	#endif /* ILA_ATTR_IDENT_TYPE/ILA_ATTR_HOOK_TYPE since Linux 4.15 */
+ };
+ 
+ static int ila_encap_parse_msg(struct nlattr *nla,
+@@ -134,6 +144,8 @@ static int ila_encap_parse_msg(struct nl
+ 			return err;
+ 	}
+ 
++/* ILA_ATTR_IDENT_TYPE/ILA_ATTR_HOOK_TYPE since Linux 4.15 */
++	#if LINUX_VERSION_CODE <= KERNEL_VERSION(4,15,0)
+ 	if (tb[ILA_ATTR_IDENT_TYPE]) {
+ 		err = rtnl_nh_set_encap_ila_ident_type(
+ 			nh_encap, nla_get_u8(tb[ILA_ATTR_IDENT_TYPE]));
+@@ -147,6 +159,7 @@ static int ila_encap_parse_msg(struct nl
+ 		if (err < 0)
+ 			return err;
+ 	}
++	#endif /* ILA_ATTR_IDENT_TYPE/ILA_ATTR_HOOK_TYPE since Linux 4.15 */
+ 
+ 	*encap_out = _nl_steal_pointer(&nh_encap);
+ 
