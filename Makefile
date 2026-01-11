@@ -134,6 +134,16 @@ headers: FORCE
 	-C $(STAGING_DIR)/opt/lib/libintl-full/include . \
 	-C $(STAGING_DIR)/opt/lib/glib-2.0/include . 
 
+installer: FORCE
+	@( $(SHELL) $(TOPDIR)/feeds/ncdev/scripts/make-installer.sh \
+		$(call qstrip,$(CONFIG_TARGET_BOARD)) \
+		$(call qstrip,$(CONFIG_GCC_VERSION)) \
+		$(call qstrip,$(CONFIG_LIBC)) \
+		$(call qstrip,$(CONFIG_LIBC_VERSION)) \
+		$(call qstrip,$(CONFIG_LINUX_VERSION)) \
+		$(if $(CONFIG_USE_APK),apk,opkg); \
+	)
+
 prepare: .config $(tools/stamp-compile) $(toolchain/stamp-compile)
 	$(_SINGLE)$(SUBMAKE) -r buildinfo
 
@@ -142,6 +152,7 @@ world: prepare $(target/stamp-compile) $(package/stamp-compile) FORCE
 	$(_SINGLE)$(SUBMAKE) -r json_overview_image_info
 	$(_SINGLE)$(SUBMAKE) -r checksum
 	$(_SINGLE)$(SUBMAKE) -r headers
+	$(_SINGLE)$(SUBMAKE) -r installer
 ifneq ($(CONFIG_CCACHE),)
 	$(STAGING_DIR_HOST)/bin/ccache -s
 endif
