@@ -23,6 +23,9 @@ default_prerm() {
 		if [ -n "$root" ]; then
 			${shell:-/bin/sh} "$i" stop
 		else
+#			if [ "$PKG_UPGRADE" != "1" ]; then
+#				"$i" disable
+#			fi
 			"$i" stop
 		fi
 	done
@@ -229,6 +232,9 @@ default_postinst() {
 		if [ -n "$root" ]; then
 			${shell:-/bin/sh} "$i" start
 		else
+#			if [ "$PKG_UPGRADE" != "1" ]; then
+#				"$i" enable
+#			fi
 			"$i" start
 		fi
 	done
