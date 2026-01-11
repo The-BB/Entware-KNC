@@ -19,7 +19,7 @@ PKG_SOURCE_VERSION:=4fb319056f168bb8379865b91b4fd3e1ada73f1e
 PKG_MIRROR_HASH:=58b415e17bdcac81bb9594a1b2ba65ec90598817850d22e98c1690e8ed0cd3d8
 PKG_MAINTAINER:=Felix Fietkau <nbd@nbd.name>
 PKG_LICENSE:=BSD-4-Clause
-PKG_CPE_ID:=cpe:/a:samba:ppp
+PKG_CPE_ID:=cpe:/a:point-to-point_protocol_project:point-to-point_protocol
 
 PKG_RELEASE_VERSION:=2.4.9
 PKG_VERSION:=$(PKG_RELEASE_VERSION)_git$(subst -,,$(PKG_SOURCE_DATE))
