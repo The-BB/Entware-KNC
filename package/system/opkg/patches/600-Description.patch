@@ -1,0 +1,11 @@
+--- a/libopkg/pkg.c
++++ b/libopkg/pkg.c
+@@ -751,7 +751,7 @@ void pkg_formatted_field(FILE * fp, pkg_
+ 		} else if (strcasecmp(field, "Description") == 0) {
+ 			p = pkg_get_string(pkg, PKG_DESCRIPTION);
+ 			if (p) {
+-				fprintf(fp, "Description: %s\n",
++				fprintf(fp, "Description:\n %s\n",
+ 					p);
+ 			}
+ 		} else {

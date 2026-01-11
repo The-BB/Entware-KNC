@@ -1,5 +1,16 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
+@@ -6,8 +6,8 @@ INCLUDE(TestBigEndian)
+ 
+ SET(HOST_CPU "" CACHE STRING "Override Host CPU")
+ SET(BUILD_CPU "" CACHE STRING "Override Host CPU")
+-SET(LOCK_FILE "/var/lock/opkg.lock" CACHE STRING "Override lock file path")
+-SET(PATH_SPEC "/usr/sbin:/usr/bin:/sbin:/bin" CACHE STRING "Override default PATH value")
++SET(LOCK_FILE "/opt/var/lock/opkg.lock" CACHE STRING "Override lock file path")
++SET(PATH_SPEC "/opt/usr/sbin:/opt/usr/bin:/opt/sbin:/opt/bin:/usr/sbin:/usr/bin:/sbin:/bin" CACHE STRING "Override default PATH value")
+ SET(VERSION "" CACHE STRING "Override version")
+ 
+ OPTION(STATIC_UBOX "Statically link libubox" OFF)
 @@ -36,10 +36,10 @@ ENDIF()
  TEST_BIG_ENDIAN(WORDS_BIGENDIAN)
  

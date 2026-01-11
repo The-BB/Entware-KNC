@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=opkg
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 #PKG_FLAGS:=essential
 
 PKG_SOURCE_PROTO:=git
@@ -71,8 +71,8 @@ CMAKE_OPTIONS += \
 	-DSTATIC_UBOX=ON \
 	-DBUILD_TESTS=OFF \
 	-DHOST_CPU=$(PKGARCH) \
-	-DLOCK_FILE=/opt/tmp/opkg.lock \
-	-DPATH_SPEC="$(TARGET_INIT_PATH)" \
+	-DLOCK_FILE=/opt/var/lock/opkg.lock \
+	-DPATH_SPEC="/opt/usr/sbin:/opt/usr/bin:/opt/sbin:/opt/bin:$(TARGET_INIT_PATH)" \
 	-DVERSION="$(PKG_SOURCE_VERSION) ($(PKG_SOURCE_DATE))"
 
 CMAKE_HOST_OPTIONS += \
