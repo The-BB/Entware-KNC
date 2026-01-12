@@ -1,13 +1,14 @@
-commit f7c5334c4c5e34743140a80b804c61ecb080d806 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Stijn Tintel <stijn@linux-ipv6.be>
-Date:   Thu Jan 8 21:56:02 2026 +0200
+commit 5c5823afdcce797c313d5d105801490289c0b340 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Markus Stockhausen <markus.stockhausen@gmx.de>
+Date:   Fri Jan 9 18:53:04 2026 +0100
 
-    kernel: cleanup CONFIG_SQUASHFS_DECOMP_MULTI_PERCPU
+    realtek: mdio: drop interfaces attribute
     
-    Commit ab805ec316b5 ("generic: add missing squashfs config") enabled
-    CONFIG_SQUASHFS_DECOMP_MULTI_PERCPU in the generic config, so it is no
-    longer needed in the target configs.
+    The interfaces attribute of the mdio bus held the information
+    about the connection mode (qsgmii, sgmii, ...). This was only
+    used during the old RTL930x setup. Drop it because it is not
+    needed any longer.
     
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Link: https://github.com/openwrt/openwrt/pull/21469
     Signed-off-by: Stijn Tintel <stijn@linux-ipv6.be>
-    Link: https://github.com/openwrt/openwrt/pull/21465
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
