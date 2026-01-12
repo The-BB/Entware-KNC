@@ -51,7 +51,6 @@ define Package/libelf
   $(call Package/elfutils/Default)
   DEPENDS:=$(INTL_DEPENDS) +zlib
   TITLE+= (libelf)
-  PROVIDES:=libelf1
 endef
 
 define Package/elfutils
