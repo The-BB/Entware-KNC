@@ -1,14 +1,28 @@
-commit 5c5823afdcce797c313d5d105801490289c0b340 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Markus Stockhausen <markus.stockhausen@gmx.de>
-Date:   Fri Jan 9 18:53:04 2026 +0100
+commit 31cdd13d22dd374d4a8b8d86377627ad01928495 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: George Sapkin <george@sapk.in>
+Date:   Thu Jan 8 05:00:26 2026 +0200
 
-    realtek: mdio: drop interfaces attribute
+    imagebuilder: add ABI suffix to packages when using apk
     
-    The interfaces attribute of the mdio bus held the information
-    about the connection mode (qsgmii, sgmii, ...). This was only
-    used during the old RTL930x setup. Drop it because it is not
-    needed any longer.
+    If an apk package with an ABI version doesn't have priority set, it
+    can't be selected by its base name:
     
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-    Link: https://github.com/openwrt/openwrt/pull/21469
-    Signed-off-by: Stijn Tintel <stijn@linux-ipv6.be>
+    $ make manifest PACKAGES='libustream-openssl libsqlite3'
+    ERROR: unable to select packages:
+      libsqlite3 (virtual):
+        note: please select one of the 'provided by'
+              packages explicitly
+        provided by: libsqlite3-0
+        required by: world[libsqlite3]
+      libustream-openssl (virtual):
+        note: please select one of the 'provided by'
+              packages explicitly
+        provided by: libustream-openssl20201210
+        required by: world[libustream-openssl]
+    
+    Look up the ABI version in apk index and if present, add an ABI suffix
+    to all requested packages.
+    
+    Signed-off-by: George Sapkin <george@sapk.in>
+    Link: https://github.com/openwrt/openwrt/pull/21449
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
