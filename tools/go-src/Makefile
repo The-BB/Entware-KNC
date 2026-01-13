@@ -25,17 +25,29 @@ BOOTSTRAP_VERSION:= \
 
 include $(INCLUDE_DIR)/host-build.mk
 
+GO_BINS:=$(HOST_BUILD_DIR)$(BOOTSTRAP_VERSION)/bin/go
+
+export GOENV=$(STAGING_DIR_HOST)/etc/env
+
 define Host/Configure
+	$(GO_BINS) env -w GOCACHE="$(TMP_DIR)/go-build"
+	$(GO_BINS) env -w GOMODCACHE="$(DL_DIR)/go-mod-cache"
+	$(GO_BINS) env -w GOPATH="$(DL_DIR)/go-mod-cache"
+	$(GO_BINS) env -w GOTMPDIR="$(TMP_DIR)"
 endef
 
 define Host/Compile
-	( cd $(STAGING_DIR_HOST)/go/src; \
-		GOROOT_BOOTSTRAP=$(STAGING_DIR_HOST)/go$(BOOTSTRAP_VERSION) \
+	( cd $(HOST_BUILD_DIR)/src; \
+		GOTELEMETRY=off \
+		CC="$(HOSTCC_NOCACHE)" \
+		CXX="$(HOSTCXX_NOCACHE)" \
+		GOROOT_BOOTSTRAP=$(HOST_BUILD_DIR)$(BOOTSTRAP_VERSION) \
 		./make.bash; \
 	)
 	( cd $(STAGING_DIR_HOST)/bin; \
 		for bins in go gofmt; do ln -nsf ../go/bin/$$$$bins $$$$bins; done \
 	)
+	$(STAGING_DIR_HOST)/bin/go telemetry off
 endef
 
 define Host/Install
@@ -43,7 +55,7 @@ endef
 
 define Host/Clean
 	rm -f $(STAGING_DIR_HOST)/bin/go{,fmt}
-	rm -rf $(STAGING_DIR_HOST)/go
+	rm -rf $(HOST_BUILD_DIR)
 endef
 
 $(eval $(call HostBuild))
