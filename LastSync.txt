@@ -1,28 +1,14 @@
-commit 31cdd13d22dd374d4a8b8d86377627ad01928495 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: George Sapkin <george@sapk.in>
-Date:   Thu Jan 8 05:00:26 2026 +0200
+commit 8cff0d8ca0d42aec4cb47313cd0c3dd99e06bbec (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Paul Spooren <mail@aparcar.org>
+Date:   Thu Jan 15 09:19:16 2026 +0700
 
-    imagebuilder: add ABI suffix to packages when using apk
+    ci: rework and move build-on-comment action
     
-    If an apk package with an ABI version doesn't have priority set, it
-    can't be selected by its base name:
+    Run this only when a PR is created, so either author or anyone who can
+    edit the PR message (all maintainers) can trigger such build.
     
-    $ make manifest PACKAGES='libustream-openssl libsqlite3'
-    ERROR: unable to select packages:
-      libsqlite3 (virtual):
-        note: please select one of the 'provided by'
-              packages explicitly
-        provided by: libsqlite3-0
-        required by: world[libsqlite3]
-      libustream-openssl (virtual):
-        note: please select one of the 'provided by'
-              packages explicitly
-        provided by: libustream-openssl20201210
-        required by: world[libustream-openssl]
+    Instead of maintaining it in the main repository, move it to the
+    external repository to bloat this repository less with further CI
+    commits.
     
-    Look up the ABI version in apk index and if present, add an ABI suffix
-    to all requested packages.
-    
-    Signed-off-by: George Sapkin <george@sapk.in>
-    Link: https://github.com/openwrt/openwrt/pull/21449
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Signed-off-by: Paul Spooren <mail@aparcar.org>
