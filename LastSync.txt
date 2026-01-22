@@ -1,72 +1,11 @@
-commit 1c62e21a8d4a11f169a00a8de0ee8e8d9c73c94c (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Kamil Jońca <kjonca@onet.pl>
-Date:   Tue Jan 6 09:03:33 2026 +0100
+commit 46129bbbf5a423fd44a21b2f80f27a5a579fbb56 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Shiji Yang <yangshiji66@outlook.com>
+Date:   Mon Jan 19 22:26:09 2026 +0800
 
-    ramips: mt76x8: add support for Cudy LT400E v1
+    mediatek: dts: mt7981: fix spi clocks
     
-    This commit adds support for the Cudy LT400E v1,
-    an indoor 4G/LTE WiFi router.
-    It has 4x10/100 Mbps Ethernet ports, a 2.4 GHz radio,
-    and a Quectel 4G/LTE EC200A modem.
+    Fix spi1 sel-clk source and add missing assigned-clocks.
     
-    Hardware:
-    
-    SoC: MediaTek MT7628NN
-    Flash: 8 MiB SPI
-    RAM: 64 MiB
-    Ethernet: 4x10/100 Mbps
-    WiFi: 2.4 GHz (embedded MT7628, 802.11n)
-    WWAN: Quectel EC200A-EL 4G/LTE Cat 4 modem
-    SIM: nano-SIM slot
-    Buttons: 1 Reset button, 1 WPS button
-    LEDs: 10x (blue)
-    Power: 12 V DC barrel jack
-    
-    Installation:
-    The stock firmware is a customized variant of OpenWrt, which implements
-    a signature check that only allows flashing official firmware. Cudy
-    offers, on their website [1][6], intermediate OpenWrt firmware images
-    which do not implement the signature check. After flashing the
-    intermediate image, the upstream (i.e., official) OpenWrt image can be
-    installed.  See the device's entry in OpenWrt's Wiki for more details [2].
-    
-    Cellular network:
-    The Quectel EC200A modem is internally connected to the SoC via USB, and
-    operates in ECM mode, supported by the CDC Ether driver [3]. When
-    inserting a SIM card in the slot, if no PIN is needed, the network
-    interface "usb0" is brought up and the cellular connection works out of
-    the box. To interact with the modem directly (unlock the PIN, change APN
-    and PDP settings, etc.), AT commands can be sent with picocom to serial
-    port /dev/ttyUSB2 [4].
-    
-    Recovery:
-    The stock firmware can be recovered via TFTP, as the bootloader (based
-    on U-Boot) implements a recovery client. Set up a TFTP server on your
-    computer with IP 192.168.88.1/24 serving the stock firmware from Cudy's
-    website renamed to "recovery.bin". Press the Reset button (keep it
-    pressed), power on the device, wait for the TFTP server to send the
-    recovery.bin file, then release the Reset button. The router will take a
-    couple of minutes to reboot and set up the stock firmware. See the
-    device's entry in OpenWrt's Wiki for more details [2].
-    
-    Discussion:
-    Use the dedicated thread in OpenWrt's forum to discuss any aspects [5].
-    
-    Acknowledgments:
-    The code to support this device is largely based on the sources kindly
-    provided by Cudy in compliance with the GPL license. Thanks for
-    supporting the OpenWrt community.
-    
-    Links:
-    [1] https://www.cudy.com/blogs/faq/openwrt-software-download
-    [2] https://openwrt.org/toh/cudy/lt400e_v1
-    [3] https://openwrt.org/docs/guide-user/network/wan/wwan/ethernetoverusb_cdc
-    [4] https://openwrt.org/docs/guide-user/network/wan/wwan/at_commands
-    [5] https://forum.openwrt.org/t/242466
-    [6] https://drive.google.com/drive/folders/1BKVarlwlNxf7uJUtRhuMGUqeCa5KpMnj
-    
-    Co-authored-by: rogerpueyo <roger.pueyo@guifi.net>
-    
-    Signed-off-by: Kamil Jońca <kjonca@onet.pl>
-    Link: https://github.com/openwrt/openwrt/pull/21246
+    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
+    Link: https://github.com/openwrt/openwrt/pull/21108
     Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
