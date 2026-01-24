@@ -1,15 +1,27 @@
-commit 7c2666821708655ec8af3b032b7ff8820e562663 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Roc Lai <laipeng668@qq.com>
-Date:   Fri Jan 23 19:54:41 2026 +0800
+commit 372f2563f602363c0b68d5263039c5649490a175 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Markus Stockhausen <markus.stockhausen@gmx.de>
+Date:   Sun Jan 18 22:09:00 2026 +0100
 
-    kexec-tools: remove upstreamed patch
+    realtek: phy: fix RTL8214FC fibre/copper initialization
     
-    Remove upstreamed patch:
-    - 020-i386-improve-basename-compatibility.patch
+    A phy is configured in two stages
     
-    Link: https://github.com/horms/kexec-tools/commit/4fd0553cdfe397920d418d8b90ac52f8f1303a2d
+    - phy_probe() for setup of structures
+    - config_init() for device setup (after reset)
     
-    Fixes: e75218ef4a27 ("kexec-tools: bump to 2.0.32")
-    Signed-off-by: Roc Lai <laipeng668@qq.com>
-    Link: https://github.com/openwrt/openwrt/pull/21652
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    RTL8214FC is a combo phy and the currently active port can be switched
+    with the SFP helper functions that are triggered during SFP insertion
+    and removal. In case a fibre SFP is inserted while booting the SFP
+    trigger is run between the above mentioned stages. During the final
+    setup in config_init() the phy is reset to the copper port. Thus no
+    link is available on fibre and the SFP must be reinserted for normal
+    operation.
+    
+    For a consistent behaviour the fibre/copper port setup must run before
+    the SFP probing and not afterwards. Move the setup code from config_init()
+    into phy_probe().
+    
+    Fixes: 10ae743 ("realtek: phy: simplify RTL8214FC configuration")
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Link: https://github.com/openwrt/openwrt/pull/21582
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
