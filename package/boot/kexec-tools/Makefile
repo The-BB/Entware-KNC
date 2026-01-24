@@ -48,7 +48,7 @@ define Package/kexec
   TITLE:=Kernel boots kernel
   DEPENDS:=\
 	@(armeb||arm||aarch64||i386||x86_64||powerpc64||mipsel||mips) \
-	+KEXEC_ZLIB:zlib +KEXEC_LZMA:liblzma @KERNEL_KEXEC
+	+KEXEC_ZLIB:zlib +KEXEC_LZMA:liblzma +KEXEC_LZMA:libzstd @KERNEL_KEXEC
 endef
 
 define Package/kexec/description
@@ -86,6 +86,7 @@ CONFIGURE_ARGS = \
 		--sysconfdir=/opt/etc \
 		$(if $(CONFIG_KEXEC_ZLIB),--with,--without)-zlib \
 		$(if $(CONFIG_KEXEC_LZMA),--with,--without)-lzma \
+		$(if $(CONFIG_KEXEC_ZSTD),--with,--without)-zstd \
 		TARGET_LD="$(TARGET_CROSS)ld"
 
 CONFIGURE_VARS += \
