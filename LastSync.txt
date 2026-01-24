@@ -1,17 +1,15 @@
-commit 3af12632efbd658c8609b9fd1ceac6231b4c3877 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: gongzi miao <miaogongzi0227@gmail.com>
-Date:   Mon Jan 19 00:43:55 2026 +0800
+commit 7c2666821708655ec8af3b032b7ff8820e562663 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Roc Lai <laipeng668@qq.com>
+Date:   Fri Jan 23 19:54:41 2026 +0800
 
-    dnsmasq: bump release to 2.92
+    kexec-tools: remove upstreamed patch
     
-    bump dnsmasq to latest 2.92
+    Remove upstreamed patch:
+    - 020-i386-improve-basename-compatibility.patch
     
-    updated 200-ubus_dns.patch
-    no changes to 100-remove-old-runtime-kernel-support.patch
-    all remaining patches not required
+    Link: https://github.com/horms/kexec-tools/commit/4fd0553cdfe397920d418d8b90ac52f8f1303a2d
     
-    Changelog for version 2.92 https://thekelleys.org.uk/dnsmasq/CHANGELOG
-    
-    Signed-off-by: gongzi miao <miaogongzi0227@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/21598
+    Fixes: e75218ef4a27 ("kexec-tools: bump to 2.0.32")
+    Signed-off-by: Roc Lai <laipeng668@qq.com>
+    Link: https://github.com/openwrt/openwrt/pull/21652
     Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
