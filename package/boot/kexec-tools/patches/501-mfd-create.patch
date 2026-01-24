@@ -11,7 +11,7 @@
  #include <sys/reboot.h>
  #include <sys/mman.h>
  #include <unistd.h>
-@@ -644,13 +640,6 @@
+@@ -650,13 +646,6 @@ char *slurp_decompress_file(const char *
  	return kernel_buf;
  }
  

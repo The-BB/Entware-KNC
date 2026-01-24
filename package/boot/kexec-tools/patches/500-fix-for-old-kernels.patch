@@ -1,7 +1,7 @@
 --- a/kexec/arch/i386/x86-linux-setup.c
 +++ b/kexec/arch/i386/x86-linux-setup.c
-@@ -24,7 +24,9 @@
- #include <limits.h>
+@@ -26,7 +26,9 @@
+ #include <inttypes.h>
  #include <sys/types.h>
  #include <sys/stat.h>
 +#if defined(__GLIBC__) && (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 30)
@@ -10,7 +10,7 @@
  #include <fcntl.h>
  #include <sys/ioctl.h>
  #include <linux/fb.h>
-@@ -839,9 +841,11 @@ static void setup_rng_seed(struct kexec_
+@@ -843,9 +845,11 @@ static void setup_rng_seed(struct kexec_
  	sd->header.len = sizeof(sd->rng_seed);
  	sd->header.type = SETUP_RNG_SEED;
  
