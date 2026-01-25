@@ -1,27 +1,25 @@
-commit 372f2563f602363c0b68d5263039c5649490a175 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Markus Stockhausen <markus.stockhausen@gmx.de>
-Date:   Sun Jan 18 22:09:00 2026 +0100
+commit cf84e8ee8668623e267f778a5dd090dfad18de37 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Chukun Pan <amadeus@jmu.edu.cn>
+Date:   Sun Aug 31 22:01:15 2025 +0800
 
-    realtek: phy: fix RTL8214FC fibre/copper initialization
+    rockchip: add HINLINK H66K / H68K support
     
-    A phy is configured in two stages
+    Hardware (common):
+    - RK3568 SoC
+    - 2/4GB LPDDR4
+    - 1x HDMI Type A
+    - 3.5mm jack with mic
+    - 1x PCIE 2.0 WiFi slot
+    - 1x USB 3.0, 2x USB 2.0
+    - 2x 2.5GbE RTL8125B Ethernet
+    - MicroSD card slot / eMMC 32GB
     
-    - phy_probe() for setup of structures
-    - config_init() for device setup (after reset)
+    Additions to HINLINK H68K:
+    - 2x 1GbE RTL8211F/YT8531 Ethernet
     
-    RTL8214FC is a combo phy and the currently active port can be switched
-    with the SFP helper functions that are triggered during SFP insertion
-    and removal. In case a fibre SFP is inserted while booting the SFP
-    trigger is run between the above mentioned stages. During the final
-    setup in config_init() the phy is reset to the copper port. Thus no
-    link is available on fibre and the SFP must be reinserted for normal
-    operation.
+    Installation:
+      Use dd or balenaEtcher to flash the firmware.
     
-    For a consistent behaviour the fibre/copper port setup must run before
-    the SFP probing and not afterwards. Move the setup code from config_init()
-    into phy_probe().
-    
-    Fixes: 10ae743 ("realtek: phy: simplify RTL8214FC configuration")
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-    Link: https://github.com/openwrt/openwrt/pull/21582
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
+    Link: https://github.com/openwrt/openwrt/pull/21270
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
