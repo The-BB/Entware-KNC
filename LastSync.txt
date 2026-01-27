@@ -1,25 +1,18 @@
-commit cf84e8ee8668623e267f778a5dd090dfad18de37 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Chukun Pan <amadeus@jmu.edu.cn>
-Date:   Sun Aug 31 22:01:15 2025 +0800
+commit 180f53d285af11b095513b9d9dfd52f8151d77af (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Jonas Jelonek <jelonek.jonas@gmail.com>
+Date:   Sun Jan 25 19:52:37 2026 +0000
 
-    rockchip: add HINLINK H66K / H68K support
+    realtek: pcs: rtl931x: add sequence for LC PLL
     
-    Hardware (common):
-    - RK3568 SoC
-    - 2/4GB LPDDR4
-    - 1x HDMI Type A
-    - 3.5mm jack with mic
-    - 1x PCIE 2.0 WiFi slot
-    - 1x USB 3.0, 2x USB 2.0
-    - 2x 2.5GbE RTL8125B Ethernet
-    - MicroSD card slot / eMMC 32GB
+    The RTL931X CMU code was only capable of setting up ring PLL. This is
+    fine so far as most modes use this PLL type. Other modes are not handled
+    by the code, neither here nor in the SDK. Though, the SDK has the needed
+    sequence to setup the LC PLL. Using LC PLL seems to be handled somewhere
+    else.
     
-    Additions to HINLINK H68K:
-    - 2x 1GbE RTL8211F/YT8531 Ethernet
+    Include the small sequence from the SDK to have it, though not used yet.
+    This could be helpful for further development which goes beyond the SDK.
     
-    Installation:
-      Use dd or balenaEtcher to flash the firmware.
-    
-    Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
-    Link: https://github.com/openwrt/openwrt/pull/21270
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/21707
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
