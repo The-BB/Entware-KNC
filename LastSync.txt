@@ -1,18 +1,10 @@
-commit 180f53d285af11b095513b9d9dfd52f8151d77af (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Jonas Jelonek <jelonek.jonas@gmail.com>
-Date:   Sun Jan 25 19:52:37 2026 +0000
+commit b7be541dcf3723267a3bcbca767fe965904cda10 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Felix Fietkau <nbd@nbd.name>
+Date:   Wed Jan 28 11:49:17 2026 +0000
 
-    realtek: pcs: rtl931x: add sequence for LC PLL
+    hostapd: fix compile error in basic variant
     
-    The RTL931X CMU code was only capable of setting up ring PLL. This is
-    fine so far as most modes use this PLL type. Other modes are not handled
-    by the code, neither here nor in the SDK. Though, the SDK has the needed
-    sequence to setup the LC PLL. Using LC PLL seems to be handled somewhere
-    else.
+    Adding base64 encoded beacon data needs the base64 functions to be available
     
-    Include the small sequence from the SDK to have it, though not used yet.
-    This could be helpful for further development which goes beyond the SDK.
-    
-    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/21707
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Fixes: b44d4290fe83 ("hostapd: add raw beacon report data to ubus notification")
+    Signed-off-by: Felix Fietkau <nbd@nbd.name>
