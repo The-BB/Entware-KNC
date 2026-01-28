@@ -5,7 +5,7 @@
 # See /LICENSE for more information.
 #
 
-# Entware specifics: rm deps libcrypt-compat
+# Entware specifics: remove deps USE_GLIBC:libcrypt-compat
 
 include $(TOPDIR)/rules.mk
 
@@ -64,7 +64,7 @@ define Package/dropbear
   CATEGORY:=Base system
   TITLE:=Small SSH2 client/server
   MENU:=1
-  DEPENDS:= +DROPBEAR_ZLIB:zlib #+USE_GLIBC:libcrypt-compat
+  DEPENDS:= +DROPBEAR_ZLIB:zlib
   ALTERNATIVES:=100:/opt/bin/ssh-keygen:/opt/sbin/dropbear
   $(if $(CONFIG_DROPBEAR_SCP),ALTERNATIVES+= \
 	  100:/opt/bin/scp:/opt/sbin/dropbear,)
