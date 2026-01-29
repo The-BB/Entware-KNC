@@ -1,10 +1,11 @@
-commit b7be541dcf3723267a3bcbca767fe965904cda10 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Felix Fietkau <nbd@nbd.name>
-Date:   Wed Jan 28 11:49:17 2026 +0000
+commit 42f9b095d68e807100c45edff019eb37dccdd2f0 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Aleksander Jan Bajkowski <olek2@wp.pl>
+Date:   Mon Jan 26 23:25:00 2026 +0100
 
-    hostapd: fix compile error in basic variant
+    iw: replace patch with upstream version
     
-    Adding base64 encoded beacon data needs the base64 functions to be available
+    Replace patch with upstream version.
     
-    Fixes: b44d4290fe83 ("hostapd: add raw beacon report data to ubus notification")
-    Signed-off-by: Felix Fietkau <nbd@nbd.name>
+    Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
+    Link: https://github.com/openwrt/openwrt/pull/21723
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
