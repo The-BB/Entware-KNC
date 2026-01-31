@@ -1,11 +1,14 @@
-commit 42f9b095d68e807100c45edff019eb37dccdd2f0 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Aleksander Jan Bajkowski <olek2@wp.pl>
-Date:   Mon Jan 26 23:25:00 2026 +0100
+commit 9d496dfb984dc645560bb86e5012de29e5efcc6f (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Felix Fietkau <nbd@nbd.name>
+Date:   Sat Jan 31 14:03:05 2026 +0000
 
-    iw: replace patch with upstream version
+    uclient: update to Git HEAD (2026-01-31)
     
-    Replace patch with upstream version.
+    b3ee1209a3d0 uclient-http: reset fd to -1 after close in disconnect
+    9c2ad269c42b uclient-http: fix seq field check to use correct field
+    80c9bd29c233 uclient-http: fix hang on HTTP to HTTPS redirect
+    931bbfeb2c92 ucode: fix memory leak when using ssl context
     
-    Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
-    Link: https://github.com/openwrt/openwrt/pull/21723
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Fixes: https://github.com/openwrt/uclient/issues/11
+    Fixes: https://github.com/openwrt/uclient/issues/13
+    Signed-off-by: Felix Fietkau <nbd@nbd.name>
