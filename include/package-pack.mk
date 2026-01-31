@@ -300,9 +300,7 @@ _endef=endef
 
 ifeq ($(DUMP),)
   define BuildTarget/ipkg
-# ? fix ABI
-#    ABIV_$(1):=$(call FormatABISuffix,$(1),$(ABI_VERSION))
-    ABIV_$(1):=
+    ABIV_$(1):=$(call FormatABISuffix,$(1),$(ABI_VERSION))
     PDIR_$(1):=$(call FeedPackageDir,$(1))
 ifeq ($(CONFIG_USE_APK),)
     PACK_$(1):=$$(PDIR_$(1))/$(1)$$(ABIV_$(1))_$(VERSION)_$(PKGARCH).ipk
