@@ -1,11 +1,11 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2018-2025 Entware
+# Copyright (C) 2018-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=openssl
-PKG_VERSION:=3.5.2
+PKG_VERSION:=3.5.5
 PKG_RELEASE:=1
 
 PKG_BASE:=$(subst $(space),.,$(wordlist 1,2,$(subst .,$(space),$(PKG_VERSION))))
@@ -15,10 +15,10 @@ PKG_SOURCE_URL:= \
 	https://www.openssl.org/source/old/$(PKG_BASE)/ \
 	https://github.com/openssl/openssl/releases/download/$(PKG_NAME)-$(PKG_VERSION)/
 
-PKG_HASH:=c53a47e5e441c930c3928cf7bf6fb00e5d129b630e0aa873b08258656e7345ec
+PKG_HASH:=b28c91532a8b65a1f983b4c28b7488174e4a01008e29ce8e69bd789f28bc2a89
 
 PKG_LICENSE:=Apache-2.0
-PKG_LICENSE_FILES:=LICENSE
+PKG_LICENSE_FILES:=LICENSE.txt
 PKG_CPE_ID:=cpe:/a:openssl:openssl
 
 HOST_BUILD_PARALLEL:=1
@@ -40,6 +40,7 @@ HOSTCXX=$(HOSTCXX_NOCACHE)
 endif
 
 HOST_CFLAGS += $(HOST_FPIC)
+HOST_LDFLAGS += $(HOST_FPIC) -Wl,-rpath,$(STAGING_DIR_HOST)/lib
 
 OPENSSL_OPTIONS:= no-engine shared zlib
 
@@ -61,7 +62,7 @@ endef
 define Host/Compile
 	+$(MAKE) $(PKG_JOBS) -C $(HOST_BUILD_DIR) \
 		CC="$(HOSTCC)" \
-		install_dev
+		install_dev install_programs
 endef
 
 define Host/Install
@@ -69,7 +70,7 @@ define Host/Install
 endef
 
 define Host/Uninstall
-	-$(call Host/Compile/Default,uninstall_dev)
+	-$(call Host/Compile/Default,uninstall_dev uninstall_programs)
 endef
 
 $(eval $(call HostBuild))
