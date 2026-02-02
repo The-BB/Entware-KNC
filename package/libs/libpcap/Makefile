@@ -5,7 +5,7 @@
 # See /LICENSE for more information.
 #
 
-# Entware specific: removr deps USE_GLIBC:libcrypt-compat
+# Entware specific: remove deps USE_GLIBC:libcrypt-compat
 
 include $(TOPDIR)/rules.mk
 
