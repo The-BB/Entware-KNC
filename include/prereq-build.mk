@@ -228,8 +228,8 @@ $(eval $(call SetupHostCommand,which,Please install 'which', \
 	which which))
 
 # Entware specific: we need openssl for generate apk keys
-$(eval $(call SetupHostCommand,openssl,Please install 'openssl', \
-	openssl version 2>&1 | grep OpenSSL))
+#$(eval $(call SetupHostCommand,openssl,Please install 'openssl', \
+#	openssl version 2>&1 | grep OpenSSL))
 
 ifeq ($(HOST_OS),Linux)
   $(eval $(call RequireCHeader,argp.h, \
