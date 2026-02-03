@@ -1,10 +1,18 @@
-commit b7cd16dba3259279643705a6bbed21abe1330586 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Felix Fietkau <nbd@nbd.name>
-Date:   Sun Feb 1 19:17:27 2026 +0000
+commit c579e1d04c35dc767964901b384d7bf42f672668 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Linus Walleij <linusw@kernel.org>
+Date:   Sun Feb 1 10:26:59 2026 +0100
 
-    hostapd: fix dealing with required interface restart in AP+STA mode
+    gemini: sl93512r: override SL93512R partitions for firmware
     
-    Ensure that the BSS start_disabled option is always cleared, so that
-    interfaces come up properly.
+    This is patch is identical in form and purpose as the IB-4220-B
+    patch. We switch over to a single "firmware" partition.
     
-    Signed-off-by: Felix Fietkau <nbd@nbd.name>
+    All reference design-based machines are now converted and we can
+    drop the legacy set-up code.
+    
+    It turns out that the reference design also uses the flash layout
+    with a 3072KB kernel so augment the sysupgrade to do the right
+    thing also here.
+    
+    Link: https://github.com/openwrt/openwrt/pull/21820
+    Signed-off-by: Linus Walleij <linusw@kernel.org>
