@@ -1,18 +1,20 @@
-commit c579e1d04c35dc767964901b384d7bf42f672668 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Linus Walleij <linusw@kernel.org>
-Date:   Sun Feb 1 10:26:59 2026 +0100
+commit e3be4654a1f405985964d8b5e5add3c149f55fba (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Jan Hoffmann <jan@3e8.eu>
+Date:   Wed Feb 4 16:22:06 2026 +0100
 
-    gemini: sl93512r: override SL93512R partitions for firmware
+    realtek: pcs: rtl93xx: configure in-band AN advertisement
     
-    This is patch is identical in form and purpose as the IB-4220-B
-    patch. We switch over to a single "firmware" partition.
+    Enabling and disabling in-band auto-negotation is already supported on
+    RTL93xx. However, so far the advertisement is left unchanged at the
+    default of 0x1a0 (full duplex + pause + asymmetric pause).
     
-    All reference design-based machines are now converted and we can
-    drop the legacy set-up code.
+    Instead, set the advertisement to reflect the current configuration for
+    1000Base-X and 2500Base-X. Nothing needs to be done for SGMII, as the
+    advertisement register is ignored in that case.
     
-    It turns out that the reference design also uses the flash layout
-    with a 3072KB kernel so augment the sysupgrade to do the right
-    thing also here.
+    Testing shows that negotiation of flow control works for 1000Base-X and
+    2500Base-X (tested with RTL930x on both ends of the link).
     
-    Link: https://github.com/openwrt/openwrt/pull/21820
-    Signed-off-by: Linus Walleij <linusw@kernel.org>
+    Signed-off-by: Jan Hoffmann <jan@3e8.eu>
+    Link: https://github.com/openwrt/openwrt/pull/21869
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
