@@ -1,20 +1,19 @@
-commit e3be4654a1f405985964d8b5e5add3c149f55fba (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Jan Hoffmann <jan@3e8.eu>
-Date:   Wed Feb 4 16:22:06 2026 +0100
+commit a7756346c7307ce84082cf0754bf4b6654850cf3 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Felix Fietkau <nbd@nbd.name>
+Date:   Sun Feb 8 11:03:18 2026 +0000
 
-    realtek: pcs: rtl93xx: configure in-band AN advertisement
+    hostapd: extend DPP ucode API with WPS M7/M8 encrypted settings handling
     
-    Enabling and disabling in-band auto-negotation is already supported on
-    RTL93xx. However, so far the advertisement is left unchanged at the
-    default of 0x1a0 (full duplex + pause + asymmetric pause).
+    Add callbacks to intercept WPS M7 reception (registrar side) and M8
+    reception (enrollee side), allowing external code to inject extra
+    encrypted attributes and optionally skip credential building.
     
-    Instead, set the advertisement to reflect the current configuration for
-    1000Base-X and 2500Base-X. Nothing needs to be done for SGMII, as the
-    advertisement register is ignored in that case.
+    On the registrar side, the m7_rx callback receives the decrypted M7
+    content and can return extra data to include in M8's encrypted settings
+    as well as a flag to skip credential generation.
     
-    Testing shows that negotiation of flow control works for 1000Base-X and
-    2500Base-X (tested with RTL930x on both ends of the link).
+    On the enrollee side, add a wps_set_m7 method to set extra encrypted
+    data for M7, and a m8_rx callback to handle the decrypted M8 content
+    externally.
     
-    Signed-off-by: Jan Hoffmann <jan@3e8.eu>
-    Link: https://github.com/openwrt/openwrt/pull/21869
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Signed-off-by: Felix Fietkau <nbd@nbd.name>
