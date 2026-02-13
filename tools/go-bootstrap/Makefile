@@ -1,11 +1,11 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2016-2025 Entware
+# Copyright (C) 2016-2026 Entware
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=go-bootstrap
-PKG_VERSION:=1.22.6
+PKG_VERSION:=1.24.6
 PKG_RELEASE:=1
 
 OS=$(shell uname | tr '[:upper:]' '[:lower:]')
@@ -17,7 +17,7 @@ PKG_SOURCE_URL:=\
 		https://dl.google.com/go/ \
                 https://mirrors.ustc.edu.cn/golang/ \
                 https://mirrors.nju.edu.cn/golang/
-PKG_HASH:=999805bed7d9039ec3da1a53bfbcafc13e367da52aa823cb60b68ba22d44c616
+PKG_HASH:=bbca37cc395c974ffa4893ee35819ad23ebb27426df87af92e93a9ec66ef8712
 
 BOOTSTRAP_VERSION:=$(subst $(space),.,$(wordlist 1,2,$(subst .,$(space),$(PKG_VERSION))))
 
