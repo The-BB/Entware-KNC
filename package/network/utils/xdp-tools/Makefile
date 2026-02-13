@@ -11,7 +11,7 @@ PKG_ABI_VERSION:=$(call abi_version_str,$(PKG_VERSION))
 
 PKG_MAINTAINER:=Daniel Golle <daniel@makrotopia.org>
 
-PKG_BUILD_DEPENDS:=bpf-headers bpftool/host
+#PKG_BUILD_DEPENDS:=bpf-headers bpftool/host
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/bpf.mk
@@ -218,11 +218,11 @@ define Package/libxdp/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/bpf/*.o $(1)/usr/lib/bpf
 endef
 
-$(eval $(call BuildPackage,libxdp))
-$(eval $(call BuildPackage,xdp-bench))
-$(eval $(call BuildPackage,xdp-filter))
-$(eval $(call BuildPackage,xdp-forward))
-$(eval $(call BuildPackage,xdp-loader))
-$(eval $(call BuildPackage,xdp-monitor))
-$(eval $(call BuildPackage,xdp-trafficgen))
-$(eval $(call BuildPackage,xdpdump))
+#$(eval $(call BuildPackage,libxdp))
+#$(eval $(call BuildPackage,xdp-bench))
+#$(eval $(call BuildPackage,xdp-filter))
+#$(eval $(call BuildPackage,xdp-forward))
+#$(eval $(call BuildPackage,xdp-loader))
+#$(eval $(call BuildPackage,xdp-monitor))
+#$(eval $(call BuildPackage,xdp-trafficgen))
+#$(eval $(call BuildPackage,xdpdump))
