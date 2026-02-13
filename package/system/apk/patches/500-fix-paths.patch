@@ -203,7 +203,7 @@
  		return -1;
 --- a/src/io.c
 +++ b/src/io.c
-@@ -1389,7 +1389,7 @@ static void idcache_load_users(int root_
+@@ -1404,7 +1404,7 @@ static void idcache_load_users(int root_
  	if (!idh->empty) return;
  	idh->empty = 0;
  
@@ -212,7 +212,7 @@
  	if (!in) return;
  
  	do {
-@@ -1422,7 +1422,7 @@ static void idcache_load_groups(int root
+@@ -1437,7 +1437,7 @@ static void idcache_load_groups(int root
  	if (!idh->empty) return;
  	idh->empty = 0;
  
