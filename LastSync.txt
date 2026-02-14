@@ -1,24 +1,41 @@
-commit d0c82dbb177b33543de8bf6d537436b889273720 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Raylynn Knight <rayknight@me.com>
-Date:   Sun Feb 8 04:23:08 2026 -0500
+commit 20644af030672d74f978d77142c5267757af2efa (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Maxim Anisimov <maxim.anisimov.ua@gmail.com>
+Date:   Wed Jan 21 18:09:31 2026 +0300
 
-    x86: base-files add support for Sophos 210r3 and 230r2
+    mediatek: add support for Keenetic/Netcraze (K/N)AP-630
     
-    This fixes a previous commit for Sophos XG 210r3 which was missing
-    board_name mapping and adds support for the SG related version and the
-    XG/SG 230r2 which is the same hardware with a faster processor.
+    This commit adds support for Keenetic/Netcraze (K/N)AP-630
     
-    Sophos board_name mapping was modified to support all Sophos
-    SG/XG devices.
+    Specification:
+     - MT7981 CPU using 2.4GHz and 5GHz WiFi (both AX)
+     - 512MB RAM
+     - 128MB SPI NAND
+     - 1 led with two colors (green, orange)
+     - 1 button (reset)
+     - 1 2.5Gbit POE ethernet port based on Airoha EN8811H phy
     
-    Sophos SG/XG 210r3 and SG/XG 230r2 are rackmounted x86 based firewall
-    with 6 RJ-45 gigabit ethernet ports (eth0-5) and 2 SFP gigabit ethernet
-    ports (eth6, eth7) all running Intel NICs supported by igb driver. The 210r3
-    and 230r2 only differ in the processor used.  This board update maps
-    eth1 (marked as WAN) as wan and eth0 and eth2-5 as lan.  Leaving the
-    two SFP ports unmapped.
+    Serial Interface:
+     - 3 Pins GND, RX, TX
+     - Settings: 115200, 8N1
     
-    Fixes: 4880e8e338fc ("x86: add board mapping for Sophos XG 210r3")
-    Signed-off-by: Raylynn Knight <rayknight@me.com>
-    Link: https://github.com/openwrt/openwrt/pull/21959
+    Notes:
+     - The device supports dual boot mode
+    
+    Flash instruction:
+    The only way to flash OpenWrt image is to use tftp recovery mode in U-Boot:
+    
+    1. Configure PC with static IP 192.168.1.2/24 and tftp server.
+    2. Copy image to tftp server.
+     a) Keenetic
+        Rename "openwrt-mediatek-filogic-keenetic_kap-630-squashfs-factory.bin"
+        to "KAP-630_recovery.bin" and place it in tftp server directory.
+     b) Netcraze
+        Rename "openwrt-mediatek-filogic-netcraze_nap-630-squashfs-factory.bin"
+        to "NAP-630_recovery.bin" and place it in tftp server directory.
+    3. Connect PC with ethernet port, press the reset button, power up
+       the device and keep button pressed until status led start blinking.
+    4. Device will download file from server, write it to flash and reboot.
+    
+    Signed-off-by: Maxim Anisimov <maxim.anisimov.ua@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/21634
     Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
