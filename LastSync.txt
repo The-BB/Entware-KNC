@@ -1,41 +1,15 @@
-commit 20644af030672d74f978d77142c5267757af2efa (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Maxim Anisimov <maxim.anisimov.ua@gmail.com>
-Date:   Wed Jan 21 18:09:31 2026 +0300
+commit 55120e363ef1601e322629dbc1359ae24e8b17c3 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Jonas Jelonek <jelonek.jonas@gmail.com>
+Date:   Sun Feb 8 16:17:49 2026 +0000
 
-    mediatek: add support for Keenetic/Netcraze (K/N)AP-630
+    realtek: pcs: rtl930x: drop conditional SerDes setup
     
-    This commit adds support for Keenetic/Netcraze (K/N)AP-630
+    We can now setup most of the modes for RTL930x, recently XSGMII, QSGMII
+    and USXGMII-SX have been added. Thus we don't need a big list of allowed
+    modes anymore in SerDes setup. Drop this without replacement. Other
+    modes are still rejected in other places or will be rejected later with
+    a proper SerDes capability handling.
     
-    Specification:
-     - MT7981 CPU using 2.4GHz and 5GHz WiFi (both AX)
-     - 512MB RAM
-     - 128MB SPI NAND
-     - 1 led with two colors (green, orange)
-     - 1 button (reset)
-     - 1 2.5Gbit POE ethernet port based on Airoha EN8811H phy
-    
-    Serial Interface:
-     - 3 Pins GND, RX, TX
-     - Settings: 115200, 8N1
-    
-    Notes:
-     - The device supports dual boot mode
-    
-    Flash instruction:
-    The only way to flash OpenWrt image is to use tftp recovery mode in U-Boot:
-    
-    1. Configure PC with static IP 192.168.1.2/24 and tftp server.
-    2. Copy image to tftp server.
-     a) Keenetic
-        Rename "openwrt-mediatek-filogic-keenetic_kap-630-squashfs-factory.bin"
-        to "KAP-630_recovery.bin" and place it in tftp server directory.
-     b) Netcraze
-        Rename "openwrt-mediatek-filogic-netcraze_nap-630-squashfs-factory.bin"
-        to "NAP-630_recovery.bin" and place it in tftp server directory.
-    3. Connect PC with ethernet port, press the reset button, power up
-       the device and keep button pressed until status led start blinking.
-    4. Device will download file from server, write it to flash and reboot.
-    
-    Signed-off-by: Maxim Anisimov <maxim.anisimov.ua@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/21634
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/21930
     Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
