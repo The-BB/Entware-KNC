@@ -56,7 +56,7 @@ define Package/wireguard-tools/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/wg $(1)/opt/bin/
 #	$(INSTALL_BIN) ./files/wireguard_watchdog $(1)/usr/bin/
 #	$(INSTALL_DIR) $(1)/lib/netifd/proto/
-#	$(INSTALL_BIN) ./files/wireguard.sh $(1)/lib/netifd/proto/
+#	$(INSTALL_DATA) ./files/wireguard.uc $(1)/lib/netifd/proto/
 	$(INSTALL_DIR) $(1)/opt/etc/wireguard $(1)/opt/var/run/wireguard
 endef
 
