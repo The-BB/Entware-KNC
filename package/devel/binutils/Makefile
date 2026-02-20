@@ -99,6 +99,9 @@ CONFIGURE_ARGS += \
 	--without-msgpack \
 	--disable-gprofng
 
+MAKE_VARS+= \
+	CPPFLAGS="$(TARGET_CPPFLAGS)"
+
 define Build/Prepare
 	$(call Build/Prepare/Default)
 # XXX dynlink
