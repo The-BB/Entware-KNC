@@ -12,11 +12,11 @@ OS=$(shell uname | tr '[:upper:]' '[:lower:]')
 BINTYPE=$(shell uname -m | sed 's/aarch64/arm64/;s/i[3-6]86/386/;s/x86_64/amd64/')
 
 PKG_SOURCE:=go$(PKG_VERSION).$(OS)-$(BINTYPE).tar.gz
-PKG_SOURCE_URL:=\
+PKG_SOURCE_URL:= \
 		https://storage.googleapis.com/golang \
 		https://dl.google.com/go/ \
-                https://mirrors.ustc.edu.cn/golang/ \
-                https://mirrors.nju.edu.cn/golang/
+		https://mirrors.ustc.edu.cn/golang/ \
+		https://mirrors.nju.edu.cn/golang/
 PKG_HASH:=bbca37cc395c974ffa4893ee35819ad23ebb27426df87af92e93a9ec66ef8712
 
 BOOTSTRAP_VERSION:=$(subst $(space),.,$(wordlist 1,2,$(subst .,$(space),$(PKG_VERSION))))
