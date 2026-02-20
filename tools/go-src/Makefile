@@ -9,7 +9,7 @@ PKG_VERSION:=1.26.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=go$(PKG_VERSION).src.tar.gz
-PKG_SOURCE_URL:=\
+PKG_SOURCE_URL:= \
 		https://dl.google.com/go/ \
 		https://mirrors.ustc.edu.cn/golang/ \
 		https://mirrors.nju.edu.cn/golang/
@@ -17,9 +17,6 @@ PKG_HASH:=c9132a8a1f6bd2aa4aad1d74b8231d95274950483a4950657ee6c56e6e817790
 
 HOST_BUILD_DIR:=$(STAGING_DIR_HOST)/go
 
-# broken: make -j$(nproc): `bash: line 1: Entering: command not found`
-#BOOTSTRAP_VERSION:= \
-#	$(shell make --no-print-directory -C ../go-bootstrap/ val.BOOTSTRAP_VERSION V=s)
 BOOTSTRAP_VERSION:= \
 	$(shell grep '^PKG_VERSION' ../go-bootstrap/Makefile | cut -b14-17 )
 
