@@ -11,10 +11,9 @@ PKG_RELEASE:=1
 PKG_BASE:=$(subst $(space),.,$(wordlist 1,2,$(subst .,$(space),$(PKG_VERSION))))
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:= \
-	https://www.openssl.org/source/ \
-	https://www.openssl.org/source/old/$(PKG_BASE)/ \
-	https://github.com/openssl/openssl/releases/download/$(PKG_NAME)-$(PKG_VERSION)/
-
+		https://www.openssl.org/source/ \
+		https://www.openssl.org/source/old/$(PKG_BASE)/ \
+		https://github.com/openssl/openssl/releases/download/$(PKG_NAME)-$(PKG_VERSION)/
 PKG_HASH:=b28c91532a8b65a1f983b4c28b7488174e4a01008e29ce8e69bd789f28bc2a89
 
 PKG_LICENSE:=Apache-2.0
