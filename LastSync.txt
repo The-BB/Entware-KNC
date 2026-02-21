@@ -1,11 +1,22 @@
-commit e95cfd2ad75558be21d01838f816a65c5c016ce5 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Daniel Golle <daniel@makrotopia.org>
-Date:   Tue Feb 17 15:26:18 2026 +0000
+commit 00ceb1ed1763f7479df6edf92ffada948f0e7d45 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Jonas Jelonek <jelonek.jonas@gmail.com>
+Date:   Wed Feb 18 20:18:21 2026 +0000
 
-    procd: update to git HEAD
+    realtek: pcs: rtl931x: configure SerDes-backing MAC groups
     
-     180ffcc instance: use mkdir_p helper
-     9493a3d signal: handle SIGUSR1 as halt
-     4dd22d0 cgroups: fix syntax error
+    RTL931x organizes MACs into 12 groups (one per SerDes) that must be
+    explicitly enabled before link establishment. Without initialization,
+    link may fail or packets may be corrupted, especially in USXGMII/XSGMII
+    modes. This is the case for devices which lack initialization by the
+    bootloader.
     
-    Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+    Simply enable all MACs in all groups by writing 0xffffffff to the
+    registers. Unused MACs and reserved bits are harmless, avoiding complex
+    logic to always set only needed MACs.
+    
+    This is placed in the PCS driver since the MAC groups are assigned per
+    SerDes and the DSA driver lacks SerDes awareness (on purpose)
+    
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/22088
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
