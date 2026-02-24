@@ -1,22 +1,30 @@
-commit 00ceb1ed1763f7479df6edf92ffada948f0e7d45 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Jonas Jelonek <jelonek.jonas@gmail.com>
-Date:   Wed Feb 18 20:18:21 2026 +0000
+commit 22ccb445e611018ede702e6c0798640353632cce (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Date:   Wed Oct 29 00:23:02 2025 +0100
 
-    realtek: pcs: rtl931x: configure SerDes-backing MAC groups
+    mt7620: workaround jal imm26 and redundant PAGE_ALIGN
     
-    RTL931x organizes MACs into 12 groups (one per SerDes) that must be
-    explicitly enabled before link establishment. Without initialization,
-    link may fail or packets may be corrupted, especially in USXGMII/XSGMII
-    modes. This is the case for devices which lack initialization by the
-    bootloader.
+    On MT7620-class platforms (CONFIG_NET_RALINK_MT7620) we observe sporadic
+    wrong-jump-targets, kernel oopses, hanging, corrupted backtraces or even
+    "half-written" instructions when the compiler emits a direct 'jal imm26'
+    call.
+    This is triggered in:
+      - the small random helpers inside get_random_u32_below(), and
+      - the blkcg_maybe_throttle_current() call in resume_user_mode_work().
     
-    Simply enable all MACs in all groups by writing 0xffffffff to the
-    registers. Unused MACs and reserved bits are harmless, avoiding complex
-    logic to always set only needed MACs.
+    This patch forces those two call sites to use an indirect call via
+    a volatile function pointer (load into register + jalr) when building
+    for MT7620, avoiding embedding a 26-bit immediate jump target.
     
-    This is placed in the PCS driver since the MAC groups are assigned per
-    SerDes and the DSA driver lacks SerDes awareness (on purpose)
+    Additionally, on MT7620 builds the exec path in fs/exec.c is modified:
+      - skip arch_align_stack() + PAGE_ALIGN() in setup_arg_pages()
+        because the micro-randomization (< PAGE_SIZE) implemented by many
+        ports (including MT7620) is negated immediately by PAGE_ALIGN().
+        Skipping the redundant PAGE_ALIGN() reduces exposure to the
+        problematic code pattern.
     
-    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/22088
+    These changes are targeted workarounds for MT7620; behavioral logic is unchanged.
+    
+    Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+    Link: https://github.com/openwrt/openwrt/pull/20553
     Signed-off-by: Robert Marko <robimarko@gmail.com>
