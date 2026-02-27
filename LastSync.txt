@@ -1,30 +1,11 @@
-commit 22ccb445e611018ede702e6c0798640353632cce (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Date:   Wed Oct 29 00:23:02 2025 +0100
+commit 6678487f163f8e4677eb3d6da6821232542d52ec (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Thomas Richard <thomas.richard@bootlin.com>
+Date:   Mon Feb 2 14:34:03 2026 +0100
 
-    mt7620: workaround jal imm26 and redundant PAGE_ALIGN
+    arm-trusted-firmware-stm32: bump to v2.14
     
-    On MT7620-class platforms (CONFIG_NET_RALINK_MT7620) we observe sporadic
-    wrong-jump-targets, kernel oopses, hanging, corrupted backtraces or even
-    "half-written" instructions when the compiler emits a direct 'jal imm26'
-    call.
-    This is triggered in:
-      - the small random helpers inside get_random_u32_below(), and
-      - the blkcg_maybe_throttle_current() call in resume_user_mode_work().
+    Bump arm-trusted-firmware-stm32 to upstream release v2.14.
     
-    This patch forces those two call sites to use an indirect call via
-    a volatile function pointer (load into register + jalr) when building
-    for MT7620, avoiding embedding a 26-bit immediate jump target.
-    
-    Additionally, on MT7620 builds the exec path in fs/exec.c is modified:
-      - skip arch_align_stack() + PAGE_ALIGN() in setup_arg_pages()
-        because the micro-randomization (< PAGE_SIZE) implemented by many
-        ports (including MT7620) is negated immediately by PAGE_ALIGN().
-        Skipping the redundant PAGE_ALIGN() reduces exposure to the
-        problematic code pattern.
-    
-    These changes are targeted workarounds for MT7620; behavioral logic is unchanged.
-    
-    Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-    Link: https://github.com/openwrt/openwrt/pull/20553
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Signed-off-by: Thomas Richard <thomas.richard@bootlin.com>
+    Link: https://github.com/openwrt/openwrt/pull/21965
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
