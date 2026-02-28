@@ -1,11 +1,18 @@
-commit 6678487f163f8e4677eb3d6da6821232542d52ec (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Thomas Richard <thomas.richard@bootlin.com>
-Date:   Mon Feb 2 14:34:03 2026 +0100
+commit 296b286a673d2b152f84613d4a1ec4c3cb1b8f4e (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Hauke Mehrtens <hauke@hauke-m.de>
+Date:   Thu Feb 26 20:49:17 2026 +0100
 
-    arm-trusted-firmware-stm32: bump to v2.14
+    lantiq: dm200: Fix loading PHY firmware
     
-    Bump arm-trusted-firmware-stm32 to upstream release v2.14.
+    The device has 1 100MBit/s port. By default the PHY firmware is running
+    in 1GBit/s mode. The driver will try to load the 1GBit/s firmware and
+    fail if it is not there. Set the GPHY0 also to 100MBit/s mode.
     
-    Signed-off-by: Thomas Richard <thomas.richard@bootlin.com>
-    Link: https://github.com/openwrt/openwrt/pull/21965
+    The driver uses all nodes independent of the status attribute.
+    
+    Do the same fix for AVM FRITZ!Box 7412 too.
+    
+    Reported-by: Achelon in OpenWrt forum
+    Fixes: https://github.com/openwrt/openwrt/issues/21836
+    Link: https://github.com/openwrt/openwrt/pull/22188
     Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
