@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-2.0-only
 #
-# Copyright (C) 2016-2024 Entware
+# Copyright (C) 2016-2026 Entware
 
 include $(TOPDIR)/feeds/golang/go_env.mk
 
