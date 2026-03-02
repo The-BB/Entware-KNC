@@ -6,7 +6,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=openssl
 PKG_VERSION:=3.5.5
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_BASE:=$(subst $(space),.,$(wordlist 1,2,$(subst .,$(space),$(PKG_VERSION))))
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
@@ -52,6 +52,7 @@ define Host/Configure
 		./Configure $(OPENSSL_TARGET) \
 		--prefix=$(STAGING_DIR_HOST) \
 		--libdir=lib \
+		--openssldir=$(STAGING_DIR_HOST)/etc/ssl \
 		$(HOST_CPPFLAGS) \
 		$(HOST_LDFLAGS) \
 		$(OPENSSL_OPTIONS); \
@@ -61,7 +62,7 @@ endef
 define Host/Compile
 	+$(MAKE) $(PKG_JOBS) -C $(HOST_BUILD_DIR) \
 		CC="$(HOSTCC)" \
-		install_dev install_programs
+		install_dev install_programs install_ssldirs
 endef
 
 define Host/Install
@@ -69,7 +70,7 @@ define Host/Install
 endef
 
 define Host/Uninstall
-	-$(call Host/Compile/Default,uninstall_dev uninstall_programs)
+	-$(call Host/Compile/Default,uninstall_dev uninstall_programs uninstall_ssldirs)
 endef
 
 $(eval $(call HostBuild))
