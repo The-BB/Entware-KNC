@@ -135,7 +135,7 @@ headers: FORCE
 	-C $(STAGING_DIR)/opt/lib/glib-2.0/include . 
 
 installer: FORCE
-	@( $(SHELL) $(TOPDIR)/feeds/ncdev/scripts/make-installer.sh \
+	@( $(SHELL) $(TOPDIR)/feeds/kncdev/scripts/make-installer.sh \
 		$(call qstrip,$(CONFIG_TARGET_BOARD)) \
 		$(call qstrip,$(CONFIG_GCC_VERSION)) \
 		$(call qstrip,$(CONFIG_LIBC)) \
