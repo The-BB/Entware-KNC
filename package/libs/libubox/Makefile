@@ -20,6 +20,9 @@ PKG_BUILD_DEPENDS:=lua
 HOST_BUILD_DEPENDS:=libjson-c/host
 HOST_BUILD_PREFIX:=$(STAGING_DIR_HOST)
 
+# XXX musl: error: format not a string literal
+PKG_FORTIFY_SOURCE:=0
+
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/cmake.mk
@@ -73,12 +76,12 @@ CMAKE_OPTIONS += \
 
 define Package/libubox/install
 	$(INSTALL_DIR) $(1)/opt/lib/
-	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/lib/libubox.so $(1)/opt/lib/
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/lib/libubox.so* $(1)/opt/lib/
 endef
 
 define Package/libblobmsg-json/install
 	$(INSTALL_DIR) $(1)/opt/lib/
-	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/lib/libblobmsg_json.so $(1)/opt/lib/
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/lib/libblobmsg_json.so* $(1)/opt/lib/
 endef
 
 define Package/jshn/install
@@ -89,7 +92,7 @@ endef
 
 define Package/libjson-script/install
 	$(INSTALL_DIR) $(1)/opt/lib/
-	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/lib/libjson_script.so $(1)/opt/lib/
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/lib/libjson_script.so* $(1)/opt/lib/
 endef
 
 define Package/libubox-lua/install
