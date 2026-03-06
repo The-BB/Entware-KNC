@@ -1,51 +1,12 @@
-commit 89f57d48f945579fd45566240113be04f9431467 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Nick Hainke <vincent@systemli.org>
-Date:   Wed Nov 19 21:49:37 2025 +0100
+commit d09041eb8a8e791c399ce5c3ec0b517b9655ef23 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Kenneth Kasilag <kenneth@kasilag.me>
+Date:   Fri Mar 6 13:31:02 2026 +0000
 
-    hostapd: update to 2026-02-27
+    airoha: an7581: disable NPU offload stats for eagle
     
-    Add patch:
-    - 001-PASN-Fix-the-compilation-errors-without-CONFIG_PASN.patch
+    'CONFIG_NET_AIROHA_FLOW_STATS=y' currently breaks NPU
+    offload for AN7581+MT7996, so disable it for now.
     
-    Manually edit patches:
-    - 110-mbedtls-TLS-crypto-option-initial-port.patch
-    - 190-hostapd-Fix-hostapd-crash-if-setup-a-iface-with-.patch
-    - 191-hostapd-add-support-for-specifying-the-link-id-in-th.patch
-    - 220-indicate-features.patch
-    - 360-acs_retry.patch
-      -> Remove the extra check for -EBUSY (see below) because the code we
-         want to skip is now already guarded by:
-         https://git.w1.fi/cgit/hostap/commit/?id=af6473761f07ae4f13ef228dec618ca62faf6ef4
-          ```
-          + if (ret == -EBUSY)
-          +         goto fail;
-          ```
-    - 341-mesh-ctrl-iface-channel-switch.patch
-    - 600-ubus_support.patch
-    - 601-ucode_support.patch
-      -> The patch had this and similar changes:
-         ```
-          -         if (os_strcmp(drv->first_bss->ifname, ifname) != 0) {
-          +         if (drv->first_bss->ifindex != ifi->ifi_index) {
-         ```
-         Those changes should be unnecessary due to the commit:
-         https://git.w1.fi/cgit/hostap/commit/?id=2bf6d85963b9857b411b57cc7949e30ee2cb1216
-    - 780-Implement-APuP-Access-Point-Micro-Peering.patch
-      -> Needs adjustement because of Enhanced Privacy Protection (EPP):
-         https://git.w1.fi/cgit/hostap/commit/?id=1e13ee9c382a5d88c4bb0ffdfaf434fbb31123f3
-    
-    Remove patch:
-    - 030-Revert-nl80211-Accept-a-global-nl80211-event-to-a-br.patch
-    - 060-nl80211-fix-reporting-spurious-frame-events.patch
-      -> https://git.w1.fi/cgit/hostap/commit/?id=ca266cc24d8705eb1a2a0857ad326e48b1408b20
-    - 190-hostapd-Fix-hostapd-crash-if-setup-a-iface-with-.patch
-      -> https://git.w1.fi/cgit/hostap/commit/?id=e275c3dc70e1c2947e02e43aeee6c4f9975c3dc7
-    - 192-nl80211-cancel-scans-whenever-the-first-bss-is-remov.patch
-      -> https://git.w1.fi/cgit/hostap/commit/?id=5ce1d41803866782bbd96d575f53d43358a20a2e
-    - 350-nl80211_del_beacon_bss.patch
-      -> https://git.w1.fi/cgit/hostap/commit/?id=b777ecb16274235974edb5c1dfcea6abab25f6c4
-    
-    Tested-By: Daniel Pawlik <pawlik.dan@gmail.com>
-    Co-developed-by: Agustin Lorenzo <agustin.lorenzo@thinco.es>
-    Link: https://github.com/openwrt/openwrt/pull/20912
-    Signed-off-by: Nick Hainke <vincent@systemli.org>
+    Signed-off-by: Kenneth Kasilag <kenneth@kasilag.me>
+    Link: https://github.com/openwrt/openwrt/pull/22300
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
