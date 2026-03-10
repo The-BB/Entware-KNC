@@ -1,12 +1,13 @@
-commit d09041eb8a8e791c399ce5c3ec0b517b9655ef23 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Kenneth Kasilag <kenneth@kasilag.me>
-Date:   Fri Mar 6 13:31:02 2026 +0000
+commit a919299993201c034ef505cec0fdc78bb968bf83 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Hauke Mehrtens <hauke@hauke-m.de>
+Date:   Sun Mar 1 19:41:50 2026 +0100
 
-    airoha: an7581: disable NPU offload stats for eagle
+    wifi-scripts: fix handling spaces in wifi client config
     
-    'CONFIG_NET_AIROHA_FLOW_STATS=y' currently breaks NPU
-    offload for AN7581+MT7996, so disable it for now.
+    Escape identity anonymous_identity password ca_cert and ca_cert2 in a wifi
+    client configuration. This fixes the handling of configuration options
+    containing spaces and other strings which need escaping.
     
-    Signed-off-by: Kenneth Kasilag <kenneth@kasilag.me>
-    Link: https://github.com/openwrt/openwrt/pull/22300
-    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+    Fixes: https://github.com/openwrt/openwrt/issues/22212
+    Link: https://github.com/openwrt/openwrt/pull/22237
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
