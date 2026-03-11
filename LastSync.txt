@@ -1,13 +1,13 @@
-commit a919299993201c034ef505cec0fdc78bb968bf83 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Hauke Mehrtens <hauke@hauke-m.de>
-Date:   Sun Mar 1 19:41:50 2026 +0100
+commit 4f107d768aa560b323ac215f974aabd409fb763f (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Rosen Penev <rosenp@gmail.com>
+Date:   Tue Mar 10 17:05:16 2026 -0700
 
-    wifi-scripts: fix handling spaces in wifi client config
+    bcm53xx: mr26: fix nvmem MAC override
     
-    Escape identity anonymous_identity password ca_cert and ca_cert2 in a wifi
-    client configuration. This fixes the handling of configuration options
-    containing spaces and other strings which need escaping.
+    I wrongly added the wifi devices to the pcie nodes and not the bridge
+    nodes as they were not present at the time.
     
-    Fixes: https://github.com/openwrt/openwrt/issues/22212
-    Link: https://github.com/openwrt/openwrt/pull/22237
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Fixes: 58056df ("bcm53xx: backport nvmem mac for meraki mr26")
+    Signed-off-by: Rosen Penev <rosenp@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/22369
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
