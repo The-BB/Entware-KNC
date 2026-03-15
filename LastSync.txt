@@ -1,22 +1,14 @@
-commit 51abd131d1acaaf7f7eb487376309ce52b814f81 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Jakub Vaněk <linuxtardis@gmail.com>
-Date:   Tue Mar 3 22:41:28 2026 +0100
+commit 36a818b41328b107022c7413d1714189b28ca2b1 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Shiji Yang <yangshiji66@outlook.com>
+Date:   Sun Mar 15 21:05:08 2026 +0800
 
-    mediatek: filogic: rename Cudy M3000 v1 to v1/v2
+    qualcommax: move EAP623 Outdoor dts to the correct folder
     
-    The Cudy M3000 v1/v2 seem to have mostly identical hardware.
-    The M3000 v1 OpenWrt images work on the M3000 v2 (excluding
-    the v2 parts with a different PHY). Cudy also distributes one
-    firmware image that supports both routers.
+    The device dts files were moved to the dedicated directory in commit
+    a66e30631c87 ("qualcommax: move Device DTS to dedicated DTS directory"),
+    which resulted in a merge conflict.
     
-    Rename the human-readable device variant to "v1/v2" to match this.
-    Don't change the compatible property as that hooks into the
-    attended sysupgrade process.
-    
-    The recent flash and PHY changes don't seem to be related to the v1/v2
-    split. There exist M3000 v2 with the Realtek PHY, see e.g.
-    https://github.com/openwrt/openwrt/pull/21584#issuecomment-3864992555
-    
-    Signed-off-by: Jakub Vaněk <linuxtardis@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/22259
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Fixes: d755c49f7a8a ("qualcommax: ipq60xx: rename TP-Link EAP623-Outdoor HD v1 compatible")
+    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
+    Link: https://github.com/openwrt/openwrt/pull/22433
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
