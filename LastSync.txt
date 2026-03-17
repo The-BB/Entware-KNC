@@ -1,14 +1,17 @@
-commit 36a818b41328b107022c7413d1714189b28ca2b1 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Shiji Yang <yangshiji66@outlook.com>
-Date:   Sun Mar 15 21:05:08 2026 +0800
+commit df45ed2da0afb3c2c4dce567338eaa3ef099217a (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Álvaro Fernández Rojas <noltari@gmail.com>
+Date:   Mon Mar 16 19:07:36 2026 +0100
 
-    qualcommax: move EAP623 Outdoor dts to the correct folder
+    odhcpd: update to Git HEAD (2026-03-16)
     
-    The device dts files were moved to the dedicated directory in commit
-    a66e30631c87 ("qualcommax: move Device DTS to dedicated DTS directory"),
-    which resulted in a merge conflict.
+    160e5fa3957c odhcpd: ensure zero padding on DNSSL
+    2a316dbfd798 odhcpd: ignore NULL in dhcpv4_free_lease() stub
+    b960d4cbe27b ubus: fix truncated field in DHCPv6 lease query
+    4e26e1361335 dhcpv4: fix avl_delete on leases not in avl tree
+    ea5af5bffa2d dhcpv4: fix segfault when disabling interface
     
-    Fixes: d755c49f7a8a ("qualcommax: ipq60xx: rename TP-Link EAP623-Outdoor HD v1 compatible")
-    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
-    Link: https://github.com/openwrt/openwrt/pull/22433
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    https://github.com/openwrt/odhcpd/compare/13cec018c0d9...160e5fa3957c
+    
+    Signed-off-by: Álvaro Fernández Rojas <noltari@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/22454
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
