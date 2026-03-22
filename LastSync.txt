@@ -1,16 +1,9 @@
-commit de08715d7fb22f4f96b1d3983500f7ee823cabe3 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Rosen Penev <rosenp@gmail.com>
-Date:   Tue Feb 10 16:29:33 2026 -0800
+commit 8bb5d19acdf12b36952c654aaa5795972fc95646 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Zoltan HERPAI <wigyori@uid0.hu>
+Date:   Mon Jun 2 22:06:24 2025 +0000
 
-    ramips: dir-3040-a1: fix MAC address assignment
+    starfive: visionfive2: add CMA entry into board DTS
     
-    The dtsi used handles a bunch of non-DBDC platforms where the
-    assignments are correct. The 3040-a1 is different as there are 3 instead
-    of 2 wifi interfaces and WAN needs to be incremented by 1.
+    This entry is present in the SDK kernel and is poked by the bootloader.
     
-    Remove userspace wifi assignmwent which was needed before per band nvmem
-    was supported.
-    
-    Signed-off-by: Rosen Penev <rosenp@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/21977
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Signed-off-by: Zoltan HERPAI <wigyori@uid0.hu>
