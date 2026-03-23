@@ -1,9 +1,12 @@
-commit 8bb5d19acdf12b36952c654aaa5795972fc95646 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Zoltan HERPAI <wigyori@uid0.hu>
-Date:   Mon Jun 2 22:06:24 2025 +0000
+commit 41d6584d9bd7628fe836ef63904748892d632679 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Andreas Böhler <dev@aboehler.at>
+Date:   Fri Mar 20 21:24:48 2026 +0100
 
-    starfive: visionfive2: add CMA entry into board DTS
+    realtek: fix D-Link fan control script
     
-    This entry is present in the SDK kernel and is poked by the bootloader.
+    When the fan control script was first implemented, a variable was wrongly
+    named. The fan probably never turns on - fix that.
     
-    Signed-off-by: Zoltan HERPAI <wigyori@uid0.hu>
+    Signed-off-by: Andreas Böhler <dev@aboehler.at>
+    Link: https://github.com/openwrt/openwrt/pull/22531
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
