@@ -1,13 +1,11 @@
-commit 20d6296141c33c1f1992493f0530720b1c480623 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Nick Hainke <vincent@systemli.org>
-Date:   Mon Mar 23 18:30:38 2026 +0100
+commit 7fac8929480255497ef6286481ca7e7a854da9ca (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Markus Stockhausen <markus.stockhausen@gmx.de>
+Date:   Wed Mar 25 21:28:33 2026 +0100
 
-    hostapd: update to 2026-03-23
+    realtek: eth: convert probe/remove to new prefix
     
-    Remove upstreamed patch:
-    - 001-RSN-Fix-pmksa_cache_flush-prototype-mismatch-in-non-.patch
-      -> https://git.w1.fi/cgit/hostap/commit/?id=f54565c6293d03bf7da5b7c4af496a62c51f0aaf
+    Use the common driver prefix for these two functions.
     
-    Tested-By: Daniel Pawlik <pawlik.dan@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/22578
-    Signed-off-by: Nick Hainke <vincent@systemli.org>
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Link: https://github.com/openwrt/openwrt/pull/22610
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
