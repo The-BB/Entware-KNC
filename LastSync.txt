@@ -1,33 +1,15 @@
-commit eb6dd61a8d4d8a6ffcb5a64642ee2be46233259d (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Dmitry Mostovoy <stavultras@gmail.com>
-Date:   Mon Feb 9 11:43:41 2026 -0500
+commit 238f9b657bd4bdeb7521de85891af342ee70763d (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: John Audia <therealgraysky@proton.me>
+Date:   Sat Mar 28 07:22:43 2026 -0400
 
-    mediatek: add cudy wr3000h-v1 ubootmod
+    kernel: refresh patches for 6.18.20
     
-    This allows us to use the full size of nand,
-    which extends ubi size from 64Mb to 122.25Mb.
+    Sole patch automatically rebased.
     
-    1. Log in to the device and backup all the partitions,
-    especially unique "Factory" and "bdata" partitions
-    from System -> Backup / Flash Firmware -> Save mtdblock contents.
-    2. Install kmod-mtd-rw to unlock mtd partitions for writing
-      apk update && apk add kmod-mtd-rw && insmod mtd-rw i_want_a_brick=1
+    Build system: x86/64
+    Build-tested: x86/64-glibc
+    Run-tested: x86/64-glibc
     
-    3. Write new OpenWrt (U-Boot Layout) "BL2" and "FIP":
-      mtd -e BL2 write openwrt-mediatek-filogic-cudy_wr3000h-v1-ubootmod-preloader.bin BL2
-      mtd -e FIP write openwrt-mediatek-filogic-cudy_wr3000h-v1-ubootmod-bl31-uboot.fip FIP
-    4. Set static IP on your PC: "192.168.1.254", gateway "192.168.1.1"
-    5. Serve openwrt-mediatek-filogic-cudy_wr3000h-v1-ubootmod-initramfs-recovery.itb
-    using TFTP server.
-    6. Connect Router LAN with PC LAN.
-    7. Cut off the power and re-engage, wait for TFTP recovery to complete.
-    8. After OpenWrt initramfs recovery has booted,
-    clean "/dev/mtd5" ubi partition to utilize maximum of free space:
-      ubidetach -p /dev/mtd5; ubiformat /dev/mtd5 -y; ubiattach -p /dev/mtd5
-      ubimkvol /dev/ubi0 -n 0 -N ubootenv -s 128KiB
-      ubimkvol /dev/ubi0 -n 1 -N ubootenv2 -s 128KiB
-    9. Perform sysupgrade.
-    
-    Signed-off-by: Dmitry Mostovoy <stavultras@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/21943
+    Signed-off-by: John Audia <therealgraysky@proton.me>
+    Link: https://github.com/openwrt/openwrt/pull/22643
     Signed-off-by: Robert Marko <robimarko@gmail.com>
