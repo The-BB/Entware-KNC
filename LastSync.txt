@@ -1,15 +1,12 @@
-commit 238f9b657bd4bdeb7521de85891af342ee70763d (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: John Audia <therealgraysky@proton.me>
-Date:   Sat Mar 28 07:22:43 2026 -0400
+commit b52f608a13c7f68cf663e1ac055476fad8850a9c (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Paweł Owoc <frut3k7@gmail.com>
+Date:   Tue Mar 24 11:10:25 2026 +0100
 
-    kernel: refresh patches for 6.18.20
+    qualcommax: ipq807x: DL-WRX36 use mac from art
     
-    Sole patch automatically rebased.
+    MAC addresses are located at the beginning of the art partition.
+    Some units do not have MAC addresses in the u-boot variables.
     
-    Build system: x86/64
-    Build-tested: x86/64-glibc
-    Run-tested: x86/64-glibc
-    
-    Signed-off-by: John Audia <therealgraysky@proton.me>
-    Link: https://github.com/openwrt/openwrt/pull/22643
+    Signed-off-by: Paweł Owoc <frut3k7@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/22622
     Signed-off-by: Robert Marko <robimarko@gmail.com>
