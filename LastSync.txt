@@ -1,12 +1,14 @@
-commit b52f608a13c7f68cf663e1ac055476fad8850a9c (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Paweł Owoc <frut3k7@gmail.com>
-Date:   Tue Mar 24 11:10:25 2026 +0100
+commit 3f76802660b44026cda809acb266947c4c460289 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Markus Stockhausen <markus.stockhausen@gmx.de>
+Date:   Fri Mar 27 13:31:18 2026 +0100
 
-    qualcommax: ipq807x: DL-WRX36 use mac from art
+    realtek: mdio-serdes: reorganize RTL839x TGRX0/1 pages
     
-    MAC addresses are located at the beginning of the art partition.
-    Some units do not have MAC addresses in the u-boot variables.
+    The four TGRX pages are currently mapped into the page range 4-7 for even
+    10G serdes. This is only partly right. TGRX0/1 better aligns with RTL93xx
+    pages TGX_STD_0/TGX_STD_1. Change the mapping. No code update needed as
+    the pages are not yet used anywhere.
     
-    Signed-off-by: Paweł Owoc <frut3k7@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/22622
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Link: https://github.com/openwrt/openwrt/pull/22633
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
