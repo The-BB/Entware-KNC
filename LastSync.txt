@@ -1,14 +1,63 @@
-commit 3f76802660b44026cda809acb266947c4c460289 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Markus Stockhausen <markus.stockhausen@gmx.de>
-Date:   Fri Mar 27 13:31:18 2026 +0100
+commit 776a926c25d3d5903df9b596df812ebc7d4f6753 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Emre Yavuzalp <emreyavuzalp2@gmail.com>
+Date:   Mon Feb 16 14:48:42 2026 +0300
 
-    realtek: mdio-serdes: reorganize RTL839x TGRX0/1 pages
+    mediatek: filogic: ASUS RT-AX52 PRO support
     
-    The four TGRX pages are currently mapped into the page range 4-7 for even
-    10G serdes. This is only partly right. TGRX0/1 better aligns with RTL93xx
-    pages TGX_STD_0/TGX_STD_1. Change the mapping. No code update needed as
-    the pages are not yet used anywhere.
+    The board is exactly identical to the ASUS RT-AX52, I've literally not changed a single thing.
+    Only AX52 is AX1800, PRO is AX3000.
     
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-    Link: https://github.com/openwrt/openwrt/pull/22633
+    SOC: MediaTek MT7981b
+    RAM: 256MB DDR3
+    FLASH: 128MB SPI-NAND (Winbond W25N01GV)
+    WIFI: Mediatek MT7981b DBDC 802.11ax 2.4/5 GHz
+    ETH: MediaTek MT7531 Switch
+    UART: 3V3 115200 8N1 (Pinout silkscreened / Do not ocnnect VCC)
+    
+    Use the compiled asus_rt-ax52-pro-initramfs.trx file from the this repo.
+    
+    Connect the PC via LAN to one of the yellow router ports and wait until your PC to get a DHCP lease.
+    
+    Browse to http://192.168.50.1 or http://www.asusrouter.com/
+    
+    If your router is brand new, finish the setup process and log into the Web-UI.
+    
+    Navigate to Administration → Firmware Upgrade or use this link http://www.asusrouter.com/Advanced_FirmwareUpgrade_Content.asp.
+    
+    Upload the .trx file to router
+    
+    Wait for it to reboot
+    
+    trx image is initramfs version. You must upgrade to squashfs version.
+    
+    Browse to http://192.168.1.1/cgi-bin/luci/admin/system/flash
+    
+    Upload asus_rt-ax52-pro-squashfs-sysupgrade.bin and use sysupgrade -n
+    
+    Wait for it to reboot
+    
+    SSH to 192.168.1.1 and set a root password, or browse to http://192.168.1.1
+    
+    -------Revert to stock asus firmware ---------:
+    1: Download the rt-ax52 firmware from ASUS official website. Save the firmware to tftp server directory and rename to RT-AX52.trx
+    
+    2: Connect the PC with TFTP server to the RT-AX52. Set a static ip on the ethernet interface of your PC. (ip address: 192.168.1.70, subnet mask:255.255.255.0)
+    
+    3: Conect to the serial console, power on again, interrupt the autoboot process by pressing '4' when prompted. $ ubi remove linux
+    $ ubi remove jffs2
+    $ ubi remove rootfs
+    $ ubi remove rootfs_data
+    $ ubi create linux 0x45fe000
+    $ reset
+    then the dut will reboot,interrupt the autoboot process by pressing '2' when prompted. 2: Load System code then write to Flash via TFTP.
+    Warning!! Erase Linux in Flash then burn new one. Are you sure?(Y/N) $: enter y
+    you will see the follow, type enter directly:
+    Input device IP (192.168.1.1) ==:
+    Input server IP (192.168.1.70) ==:
+    Input Linux Kernel filename (RT-AX52.trx) ==:
+    
+    4: wait for the device run up
+    
+    Signed-off-by: Emre Yavuzalp <emreyavuzalp2@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/21905
     Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
