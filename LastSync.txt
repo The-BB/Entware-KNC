@@ -1,11 +1,29 @@
-commit e1c2f02325af5b55a4044d0f59adf23e6851f07f (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Rosen Penev <rosenp@gmail.com>
-Date:   Wed Apr 1 16:41:03 2026 -0700
+commit d3a905e0cdb9102d62ecfc0608bd61e61e5c1ffb (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Roman Pyatikonov <moyciti.volga.bk.ru92@gmail.com>
+Date:   Mon Mar 30 23:11:59 2026 +0300
 
-    treewide: dts: reg: use new syntax for arrays
+    rockchip: add reset button support for NanoPi R5S LTS
     
-    <>, <> is the preferred way to specify multiple entries.
+    Backport upstream commit 954f07012794 ("arm64: dts: rockchip:
+    Add reset button to NanoPi R5S").
     
-    Signed-off-by: Rosen Penev <rosenp@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/22736
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    The NanoPi R5S LTS variant has a reset button wired to GPIO4_A0,
+    but the current OpenWrt rockchip 6.12 patch set lacks the
+    corresponding gpio-keys definition in rk3568-nanopi-r5s.dts.
+    
+    As a result, pressing the button generates no reset event.
+    rockchip already includes kmod-gpio-button-hotplug by default,
+    so backporting the upstream DTS change restores the expected
+    behavior.
+    
+    Rename the patch to
+    011-v6.17-arm64-dts-rockchip-Add-reset-button-to-NanoPi-R5S.patch
+    to match the upstream source.
+    
+    The non-LTS NanoPi R5S leaves this pin unconnected, matching the
+    upstream rationale for using the shared rk3568-nanopi-r5s.dts.
+    
+    Link: https://lore.kernel.org/r/20250711142138.197445-1-didi.debian@cknow.org
+    Signed-off-by: Roman Pyatikonov <moyciti.volga.bk.ru92@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/22700
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
