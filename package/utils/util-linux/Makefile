@@ -206,14 +206,15 @@ endef
 
 define Package/column
 $(call Package/util-linux/Default)
-  TITLE:=columnate lists
+  TITLE:=column formats input into multiple columns
   DEPENDS:= +libsmartcols
-  LICENSE:=BSD-4-Clause-UC
-  LICENSE_FILES:=Documentation/licenses/COPYING.BSD-4-Clause-UC
+  LICENSE:=LGPL-2.1-or-later
+  LICENSE_FILES:=Documentation/licenses/COPYING.LGPL-2.1-or-later
 endef
 
 define Package/column/description
- The  column  utility  formats  its  input  into  multiple  columns.
+  The column utility formats its input into multiple columns.  Input
+  can be from a file or standard input and empty lines are ignored.
 endef
 
 define Package/dmesg
