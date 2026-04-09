@@ -1,12 +1,11 @@
-commit c99a30668d5f01832fb27fec644975b05ce527d7 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Damien Dejean <dam.dejean@gmail.com>
-Date:   Thu Jul 17 16:52:40 2025 +0200
+commit 6b998c673715236cb95fab0aa617eabd89cb16f8 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Shiji Yang <yangshiji66@outlook.com>
+Date:   Mon Jan 26 23:10:10 2026 +0800
 
-    realtek: add RTL8224 initialization to Realtek driver
+    arm-trusted-firmware-mediatek: update to v2026-01-23
     
-    Adds an initialization sequence for the RTL8224. It relies a lot on magic
-    values, however it explicitely initializes the SerDes part of the chip.
+    The highlight of this version is that the bl2 size will be reduced
+    by 60+ KB. The MT7987 SPI interface selection hack was replaced by
+    upstream implementation with the new symbol SPIM_NAND_PREFER_SPI2.
     
-    Signed-off-by: Damien Dejean <dam.dejean@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/22609
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
