@@ -1,11 +1,12 @@
-commit 56be1d153096ed1170210ec5949ede0813e256c0 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Tan Zien <nabsdh9@gmail.com>
-Date:   Sat Apr 4 05:35:44 2026 +0800
+commit c99a30668d5f01832fb27fec644975b05ce527d7 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Damien Dejean <dam.dejean@gmail.com>
+Date:   Thu Jul 17 16:52:40 2025 +0200
 
-    kernel: modules: add hinic3 support
+    realtek: add RTL8224 initialization to Realtek driver
     
-    Add support for Huawei 3rd gen NIC
+    Adds an initialization sequence for the RTL8224. It relies a lot on magic
+    values, however it explicitely initializes the SerDes part of the chip.
     
-    Signed-off-by: Tan Zien <nabsdh9@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/22768
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Damien Dejean <dam.dejean@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/22609
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
