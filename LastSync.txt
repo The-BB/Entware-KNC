@@ -1,11 +1,12 @@
-commit 6b998c673715236cb95fab0aa617eabd89cb16f8 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Shiji Yang <yangshiji66@outlook.com>
-Date:   Mon Jan 26 23:10:10 2026 +0800
+commit ccfa908ad3f5d723db2e002b7450695f168cdc3a (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Nick Hainke <vincent@systemli.org>
+Date:   Wed Apr 8 09:59:24 2026 +0200
 
-    arm-trusted-firmware-mediatek: update to v2026-01-23
+    ethtool: drop rss-input-xfrm compatibility patch
     
-    The highlight of this version is that the bl2 size will be reduced
-    by 60+ KB. The MT7987 SPI interface selection hack was replaced by
-    upstream implementation with the new symbol SPIM_NAND_PREFER_SPI2.
+    The rss-input-xfrm workaround for Linux 6.6 is no longer needed with
+    current kernel versions. Remove the patch and the associated
+    --enable-rss-input-xfrm configure flag.
     
-    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
+    Link: https://github.com/openwrt/openwrt/pull/22841
+    Signed-off-by: Nick Hainke <vincent@systemli.org>
