@@ -1,11 +1,10 @@
-commit 58ba62578d8a2faf29508d84b7c5b66350e2bd98 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Linus Walleij <linusw@kernel.org>
-Date:   Sat Apr 11 23:01:43 2026 +0200
+commit 70ad03e0ac2d7c6d8597e13d74bbc057bb6fc17c (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Christian Marangi <ansuelsmth@gmail.com>
+Date:   Wed Apr 15 14:46:25 2026 +0200
 
-    ixp4xx: add 6.18 testing kernel
+    airoha: backport optimization in QDMA rx queue descriptor setup
     
-    Allow for selecting v6.18 it as a testing kernel. One single
-    Kconfig option needed adding.
+    Backport patch merged upstream that optimize the QDMA rx queue descriptor
+    setup by configuring the CPU IDX only when needed.
     
-    Link: https://github.com/openwrt/openwrt/pull/22896
-    Signed-off-by: Linus Walleij <linusw@kernel.org>
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
