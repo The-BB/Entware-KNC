@@ -1,9 +1,11 @@
-commit 368f49ff8556cf088a8c45f8e656582987b7daa7 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Paul Spooren <mail@aparcar.org>
-Date:   Mon Apr 13 11:55:32 2026 +0900
+commit 58ba62578d8a2faf29508d84b7c5b66350e2bd98 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Linus Walleij <linusw@kernel.org>
+Date:   Sat Apr 11 23:01:43 2026 +0200
 
-    procd: update to Git HEAD (2026-03-25)
+    ixp4xx: add 6.18 testing kernel
     
-    cd7a4e5f8b jail: mount /lib/config into netifd jail
+    Allow for selecting v6.18 it as a testing kernel. One single
+    Kconfig option needed adding.
     
-    Signed-off-by: Paul Spooren <mail@aparcar.org>
+    Link: https://github.com/openwrt/openwrt/pull/22896
+    Signed-off-by: Linus Walleij <linusw@kernel.org>
