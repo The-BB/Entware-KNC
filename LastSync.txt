@@ -1,10 +1,11 @@
-commit 70ad03e0ac2d7c6d8597e13d74bbc057bb6fc17c (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Christian Marangi <ansuelsmth@gmail.com>
-Date:   Wed Apr 15 14:46:25 2026 +0200
+commit 05b6a93173135ab86f82663523b531577f5e6062 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Hauke Mehrtens <hauke@hauke-m.de>
+Date:   Sun Apr 12 17:34:13 2026 +0200
 
-    airoha: backport optimization in QDMA rx queue descriptor setup
+    github: labeler: Update dependencies
     
-    Backport patch merged upstream that optimize the QDMA rx queue descriptor
-    setup by configuring the CPU IDX only when needed.
+    Update to the most recent version.
+    The biggest change is the switch to Node.js 24.
     
-    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/22903
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
