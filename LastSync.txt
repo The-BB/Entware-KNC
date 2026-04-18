@@ -1,16 +1,41 @@
-commit 59549b8f15f0668a9894c1966bc8f133286e1c4a (HEAD -> master, origin/master, origin/main, origin/HEAD)
+commit b6b09a2ad8387035825033e5ccd61192d8e1c246 (HEAD -> master, origin/master, origin/main, origin/HEAD)
 Author: Nick Hainke <vincent@systemli.org>
-Date:   Fri Feb 6 20:48:36 2026 +0100
+Date:   Fri Apr 17 23:03:40 2026 +0200
 
-    xdp-tools: update to 1.6.3
+    x86: add support for DFI ADN553
     
-    Add patch "0001-params-avoid-linux-if_ether.h-in-header-to-fix-musl-.patch".
+    The DFI ADN553 is a 3.5" SBC based on Intel Atom Alder Lake-N
+    processors with three Intel I226V 2.5GbE ports.
     
-    Release Notes:
-    - https://github.com/xdp-project/xdp-tools/releases/tag/v1.6.0
-    - https://github.com/xdp-project/xdp-tools/releases/tag/v1.6.1
-    - https://github.com/xdp-project/xdp-tools/releases/tag/v1.6.2
-    - https://github.com/xdp-project/xdp-tools/releases/tag/v1.6.3
+    Specs:
+    * CPU: Intel Atom x7425E (4C, 12W) / x7213E (2C, 10W) /
+           x7211E (2C, 6W)
+    * RAM: 1x DDR5 SO-DIMM, up to 16GB
+    * Storage: 1x M.2 M key 2242/2280 (PCIe Gen3 x1/SATA3),
+               1x SATA 3.0
+    * Ethernet: 3x 2.5GbE RJ-45 (Intel I226V)
+    * USB: 4x USB 3.2 (rear), 2x USB 2.0 (internal)
+    * Expansion: 1x M.2 B key 3052 (USB3/USB2, opt. PCIe x1, SIM),
+                 1x M.2 E key 2230 (USB/PCIe x1, CNVi)
+    * Display: 1x HDMI, 1x Type-C DP Alt. Mode, 1x LVDS/eDP
+    * Power: 9-36V DC wide range input
+    * TPM: dTPM 2.0 (NPCT750AADYX)
+    * Form factor: 3.5" SBC (146mm x 102mm)
     
-    Link: https://github.com/openwrt/openwrt/pull/21903
+    Installation:
+    1. Write the combined-efi.img to a USB drive:
+       dd if=combined-efi.img of=/dev/sdX conv=fdatasync
+    2. Boot the ADN553 from the USB drive via the UEFI boot menu.
+    3. For permanent installation, write the image to the M.2 or
+       SATA storage device.
+    
+    The board uses "Default string" as DMI sys_vendor and product_name
+    placeholders, so board detection is fixed by filtering these out and
+    falling through to board_vendor (DFI Inc.) and board_name (ADN553).
+    
+    The three I226V NICs are pinned to their PCIe paths to ensure
+    consistent interface ordering matching the physical left-to-right
+    port layout. eth0 is assigned as WAN and eth1/eth2 as LAN.
+    
+    Link: https://github.com/openwrt/openwrt/pull/22980
     Signed-off-by: Nick Hainke <vincent@systemli.org>
