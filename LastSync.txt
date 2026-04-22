@@ -1,9 +1,15 @@
-commit 6a466d5acd5e260c3d28d024e51c6c65587b8f40 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Zoltan HERPAI <wigyori@uid0.hu>
-Date:   Tue Apr 21 13:26:29 2026 +0000
+commit 6ce041be4bb6fc404e6e815c9bec3e16be848abf (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Markus Stockhausen <markus.stockhausen@gmx.de>
+Date:   Tue Apr 21 19:36:07 2026 +0200
 
-    d1: drop support for 6.12
+    realtek: dsa: drop legacy table commands
     
-    Drop support for 6.12 by removing config and patches.
+    All consumers of legacy table commands have been refactored and
+    use the rtl_table helpers. Drop unused code.
     
-    Signed-off-by: Zoltan HERPAI <wigyori@uid0.hu>
+    rtl839x_exec_tbl2_cmd() cannot be dropped as it is still used
+    in the qos code. Keep it for now.
+    
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Link: https://github.com/openwrt/openwrt/pull/23037
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
