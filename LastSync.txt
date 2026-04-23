@@ -1,23 +1,11 @@
-commit 0d21956ecdade023981d46eb8f059c3e6a3d00be (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Mario Andrés Pérez <mapb_@outlook.com>
-Date:   Sat Apr 18 14:38:57 2026 +0200
+commit 7e67a943deae2f05a128956ad50ca0ab29abbe22 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Date:   Sat Apr 11 22:59:01 2026 +0200
 
-    imx: cortexa9: ventana, fix profiles names in profiles.json
+    x86: drop 6.12 support
     
-    These two image profiles overwrite DEVICE_NAME making the two image
-    profiles appear with the same name "ventana" in the "profiles.json"
-    mixing ramdomly the two profiles.
+    Drop patches and configs for Linux 6.12.
     
-    Use BOARD_NAME instead to keep the two profiles names unique (orginal
-    DEVICE_NAME) hence generating a coherent "profiles.json".
-    
-    Since there are image recipes hardconding DEVICE_NAME, change them to use
-    BOARD_NAME if defined, in order to preserve the previous names used in
-    those recipes.
-    
-    Fixes: cbc8bcfbaa71fe0928bf07d29ec0fe6217fd51ad ("imx6: image: use vendor_model scheme")
-    
-    Reported-by: Eric Fahlgren <ericfahlgren@gmail.com>
-    Signed-off-by: Mario Andrés Pérez <mapb_@outlook.com>
-    Link: https://github.com/openwrt/openwrt/pull/22994
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+    Link: https://github.com/openwrt/openwrt/pull/22893
+    Signed-off-by: Nick Hainke <vincent@systemli.org>
