@@ -1,15 +1,23 @@
-commit 6ce041be4bb6fc404e6e815c9bec3e16be848abf (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Markus Stockhausen <markus.stockhausen@gmx.de>
-Date:   Tue Apr 21 19:36:07 2026 +0200
+commit 0d21956ecdade023981d46eb8f059c3e6a3d00be (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Mario Andrés Pérez <mapb_@outlook.com>
+Date:   Sat Apr 18 14:38:57 2026 +0200
 
-    realtek: dsa: drop legacy table commands
+    imx: cortexa9: ventana, fix profiles names in profiles.json
     
-    All consumers of legacy table commands have been refactored and
-    use the rtl_table helpers. Drop unused code.
+    These two image profiles overwrite DEVICE_NAME making the two image
+    profiles appear with the same name "ventana" in the "profiles.json"
+    mixing ramdomly the two profiles.
     
-    rtl839x_exec_tbl2_cmd() cannot be dropped as it is still used
-    in the qos code. Keep it for now.
+    Use BOARD_NAME instead to keep the two profiles names unique (orginal
+    DEVICE_NAME) hence generating a coherent "profiles.json".
     
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-    Link: https://github.com/openwrt/openwrt/pull/23037
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Since there are image recipes hardconding DEVICE_NAME, change them to use
+    BOARD_NAME if defined, in order to preserve the previous names used in
+    those recipes.
+    
+    Fixes: cbc8bcfbaa71fe0928bf07d29ec0fe6217fd51ad ("imx6: image: use vendor_model scheme")
+    
+    Reported-by: Eric Fahlgren <ericfahlgren@gmail.com>
+    Signed-off-by: Mario Andrés Pérez <mapb_@outlook.com>
+    Link: https://github.com/openwrt/openwrt/pull/22994
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
