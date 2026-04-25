@@ -1,11 +1,15 @@
-commit 7e67a943deae2f05a128956ad50ca0ab29abbe22 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Date:   Sat Apr 11 22:59:01 2026 +0200
+commit 8ef7b4ee4ba77a8d58e734753d1c87b1d4d332d7 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Sander van Deijck <sander@vandeijck.com>
+Date:   Fri Apr 24 02:43:03 2026 +0200
 
-    x86: drop 6.12 support
+    wolfssl: update to 5.9.1
     
-    Drop patches and configs for Linux 6.12.
+    For changes, see:
+    https://github.com/wolfSSL/wolfssl/releases/tag/v5.9.1-stable
     
-    Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-    Link: https://github.com/openwrt/openwrt/pull/22893
+    This includes a fix for a critical (CVSS 9.3) vulnerability:
+    https://github.com/advisories/GHSA-f5h9-5q52-qrx7
+    
+    Signed-off-by: Sander van Deijck <sander@vandeijck.com>
+    Link: https://github.com/openwrt/openwrt/pull/23072
     Signed-off-by: Nick Hainke <vincent@systemli.org>
