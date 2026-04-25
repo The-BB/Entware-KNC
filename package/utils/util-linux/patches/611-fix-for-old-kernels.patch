@@ -96,7 +96,7 @@
  		goto out_nsfd;
 --- a/sys-utils/nsenter.c
 +++ b/sys-utils/nsenter.c
-@@ -436,9 +436,11 @@ static void open_target_sk_netns(int pid
+@@ -439,9 +439,11 @@ static void open_target_sk_netns(int pid
  	if (fstat(sk, &sb) < 0)
  		err(EXIT_FAILURE, _("fstat(%d)"), sk);
  
