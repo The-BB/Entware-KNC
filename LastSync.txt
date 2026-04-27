@@ -1,15 +1,12 @@
-commit 8ef7b4ee4ba77a8d58e734753d1c87b1d4d332d7 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Sander van Deijck <sander@vandeijck.com>
-Date:   Fri Apr 24 02:43:03 2026 +0200
+commit 55cb7a0195af39b0258423a7fc68db27039d3f0e (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Chukun Pan <amadeus@jmu.edu.cn>
+Date:   Sat Jan 31 18:10:15 2026 +0800
 
-    wolfssl: update to 5.9.1
+    rockchip: update irq affinity for RK3528 devices
     
-    For changes, see:
-    https://github.com/wolfSSL/wolfssl/releases/tag/v5.9.1-stable
+    Since DW PCIe can adjust interrupts on SoC that only support
+    MSI, adjust the interrupt of r8169 for the RK3528 devices.
     
-    This includes a fix for a critical (CVSS 9.3) vulnerability:
-    https://github.com/advisories/GHSA-f5h9-5q52-qrx7
-    
-    Signed-off-by: Sander van Deijck <sander@vandeijck.com>
-    Link: https://github.com/openwrt/openwrt/pull/23072
-    Signed-off-by: Nick Hainke <vincent@systemli.org>
+    Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
+    Link: https://github.com/openwrt/openwrt/pull/21770
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
