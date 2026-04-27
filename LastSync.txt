@@ -1,12 +1,13 @@
-commit 55cb7a0195af39b0258423a7fc68db27039d3f0e (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Chukun Pan <amadeus@jmu.edu.cn>
-Date:   Sat Jan 31 18:10:15 2026 +0800
+commit 0509464a934b37608ac6aaea0dbeff48e952105f (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Jonas Jelonek <jelonek.jonas@gmail.com>
+Date:   Mon Apr 27 13:12:59 2026 +0000
 
-    rockchip: update irq affinity for RK3528 devices
+    realtek: refresh 'add-pcs-rtl-otto' patch
     
-    Since DW PCIe can adjust interrupts on SoC that only support
-    MSI, adjust the interrupt of r8169 for the RK3528 devices.
+    Refresh the patch to account for recent changes in the generic kernel
+    patches. Makes the CI kernel patch check happy again.
     
-    Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
-    Link: https://github.com/openwrt/openwrt/pull/21770
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Fixes: c271123724fc ("generic: 6.18: fix MediaTek USXGMII driver")
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/23127
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
