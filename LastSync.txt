@@ -1,13 +1,9 @@
-commit 0509464a934b37608ac6aaea0dbeff48e952105f (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Jonas Jelonek <jelonek.jonas@gmail.com>
-Date:   Mon Apr 27 13:12:59 2026 +0000
+commit 4ca22b16e8dee783c772b734d26c0234e1a1f356 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Zoltan HERPAI <wigyori@uid0.hu>
+Date:   Mon Apr 27 13:02:27 2026 +0000
 
-    realtek: refresh 'add-pcs-rtl-otto' patch
+    sunxi: drop support for 6.12
     
-    Refresh the patch to account for recent changes in the generic kernel
-    patches. Makes the CI kernel patch check happy again.
+    Drop support for 6.12 by removing config and patches.
     
-    Fixes: c271123724fc ("generic: 6.18: fix MediaTek USXGMII driver")
-    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/23127
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Signed-off-by: Zoltan HERPAI <wigyori@uid0.hu>
