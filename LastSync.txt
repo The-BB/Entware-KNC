@@ -1,9 +1,27 @@
-commit 4ca22b16e8dee783c772b734d26c0234e1a1f356 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Zoltan HERPAI <wigyori@uid0.hu>
-Date:   Mon Apr 27 13:02:27 2026 +0000
+commit 9a6c754d7d844953a6216c71ab9af2341191ac3e (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Hannu Nyman <hannu.nyman@iki.fi>
+Date:   Sun Apr 26 21:16:48 2026 +0300
 
-    sunxi: drop support for 6.12
+    sdk: add support to sign each .apk package by sdk
     
-    Drop support for 6.12 by removing config and patches.
+    Add support to signing each package's .apk file into SDK.
+    This adds into SDK the feature added by f20794a to the normal builds.
     
-    Signed-off-by: Zoltan HERPAI <wigyori@uid0.hu>
+    Currently SDK does not sign the compiled packages, causing untrusted
+    package errors at package installation. The reason is the logic of
+    defaulting to 'n' in BUILDBOT and 'y' elsewhere. As downloadable SDKs
+    are compiled by the buildbot, the option gets 'n' set as the default.
+    And the option is not among the few build options exposed in the SDK
+    menuconfig, so the user can't easily change it.
+    
+    Enable the feature by default:
+    
+    * Exclude the SIGN_EACH_PACKAGE option from sdk/convert-config.pl
+    * Default to 'y' and expose the option in the SDK config menu.
+    
+    (Avoiding untrusted errors naturally requires the user to copy the
+    public key into the router, quite similar as with full builds.)
+    
+    Signed-off-by: Hannu Nyman <hannu.nyman@iki.fi>
+    Link: https://github.com/openwrt/openwrt/pull/23104
+    Signed-off-by: Robert Marko <robert.marko@sartura.hr>
