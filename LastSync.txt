@@ -1,13 +1,21 @@
-commit 5a9cfbbc18a4371a9ce31b835c6982e469b90c3a (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Shiji Yang <yangshiji66@outlook.com>
-Date:   Tue Apr 28 21:06:36 2026 +0800
+commit a0c7d5ecff4eb4d8760207d9fd71fbf154469bf5 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Markus Stockhausen <markus.stockhausen@gmx.de>
+Date:   Sat May 2 12:14:31 2026 +0200
 
-    ramips: mt7621: disable CONFIG_PAGE_POOL_STATS
+    realtek: mdio: rename read/write functions
     
-    Commit 15887235c1e3 ("generic: mtk_eth_soc: reduce driver memory usage")
-    allows building mediatek ethernet driver without CONFIG_PAGE_POOL_STATS.
-    This can slightly improve throughput on legacy MIPS based MT7621 SoC.
+    Harmonize the read/write functions for better readability. This
+    aligns with the naming convention of the upstream rtl9300 mdio
+    driver.
     
-    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
-    Link: https://github.com/openwrt/openwrt/pull/23142
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    read_phy        -> read_c22
+    read_phy_mmd    -> read_c45
+    write_phy       -> write_c22
+    write_phy_mmd   -> write_c45
+    
+    Swap order of c22/c45 functions to keep structures sorted
+    alphabetically.
+    
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Link: https://github.com/openwrt/openwrt/pull/23197
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
