@@ -35,14 +35,6 @@ ifeq ($(PKG_VERSION),8.4.0)
   PKG_HASH:=e30a6e52d10e1f27ed55104ad233c30bd1e99cfb5ff98ab022dc941edd1b2dd4
 endif
 
-ifeq ($(PKG_VERSION),11.3.0)
-  PKG_HASH:=b47cf2818691f5b1e21df2bb38c795fac2cfbd640ede2d0a5e1c89e338a3ac39
-endif
-
-ifeq ($(PKG_VERSION),12.3.0)
-  PKG_HASH:=949a5d4f99e786421a93b532b22ffab5578de7321369975b91aec97adfda8c3b
-endif
-
 ifeq ($(PKG_VERSION),13.4.0)
   PKG_HASH:=9c4ce6dbb040568fdc545588ac03c5cbc95a8dbf0c7aa490170843afb59ca8f5
 endif
@@ -207,7 +199,7 @@ define Host/SetToolchainInfo
 endef
 
 # XXX Entware specific: keep GCC-8.x
-ifeq ($(GCC_MAJOR_VERSION),$(filter $(GCC_MAJOR_VERSION),8 11))
+ifeq ($(GCC_MAJOR_VERSION),$(filter $(GCC_MAJOR_VERSION),8))
 	GCC_VERSION_FILE:=gcc/version.c
 else
 	GCC_VERSION_FILE:=gcc/genversion.cc
