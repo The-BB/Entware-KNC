@@ -1,21 +1,13 @@
-commit a0c7d5ecff4eb4d8760207d9fd71fbf154469bf5 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Markus Stockhausen <markus.stockhausen@gmx.de>
-Date:   Sat May 2 12:14:31 2026 +0200
+commit 8de418547f61d48315d115ed035b61464b3f1140 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Jonas Jelonek <jelonek.jonas@gmail.com>
+Date:   Mon May 4 17:36:06 2026 +0000
 
-    realtek: mdio: rename read/write functions
+    firmware-utils: update to Git HEAD (2026-05-04)
     
-    Harmonize the read/write functions for better readability. This
-    aligns with the naming convention of the upstream rtl9300 mdio
-    driver.
+    d21804addba6 add XikeStor SKS7300 image generation utility
+    7806c09361d2 mkzynfw: add board definitions for Zyxel XMG1915 switches
+    1a4153f4c701 mkzynfw: add board definitions for XGS1930 series
     
-    read_phy        -> read_c22
-    read_phy_mmd    -> read_c45
-    write_phy       -> write_c22
-    write_phy_mmd   -> write_c45
-    
-    Swap order of c22/c45 functions to keep structures sorted
-    alphabetically.
-    
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-    Link: https://github.com/openwrt/openwrt/pull/23197
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/23221
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
