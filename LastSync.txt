@@ -1,13 +1,44 @@
-commit 8de418547f61d48315d115ed035b61464b3f1140 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+commit 12120ba3a0b613c1217ac32afe9aa40b63983144 (HEAD -> master, origin/master, origin/main, origin/HEAD)
 Author: Jonas Jelonek <jelonek.jonas@gmail.com>
-Date:   Mon May 4 17:36:06 2026 +0000
+Date:   Mon Apr 27 10:34:27 2026 +0000
 
-    firmware-utils: update to Git HEAD (2026-05-04)
+    realtek: pcs: rtl93xx: share IP mode register write
     
-    d21804addba6 add XikeStor SKS7300 image generation utility
-    7806c09361d2 mkzynfw: add board definitions for Zyxel XMG1915 switches
-    1a4153f4c701 mkzynfw: add board definitions for XGS1930 series
+    RTL930x and RTL931x program the same physical SerDes IP mode field
+    (page 0x1f reg 0x09, bits 11:7 hold the 5-bit mode value, bit 6 is
+    the "force mode" enable), but did so via two unrelated code paths:
+    RTL930x kept the force bit separate from the value in a __set helper,
+    while RTL931x had it baked into each switch-case constant.
+    
+    Add a shared rtpcs_93xx_sds_set_ip_mode() that takes the rtpcs_sds_mode
+    enum, looks up the 5-bit value from the existing sds_hw_mode_vals
+    table, and writes value | force-bit in one place.
+    
+    Convert both variants:
+     - RTL930x: drop __rtpcs_930x_sds_set_ip_mode and the manual table
+       lookup; __rtpcs_930x_sds_get_ip_mode is replaced by the shared
+       rtpcs_93xx_sds_get_ip_mode, which reverse-looks the raw register
+       value up in sds_hw_mode_vals[] and returns the matching enum
+       rtpcs_sds_mode (or -ENOENT for an unmapped raw value). The
+       wrapper that orchestrates power, CMU, state machine and rx-reset
+       around the mode write is renamed to rtpcs_930x_sds_apply_ip_mode
+       for clarity.
+     - RTL931x: drop the per-mode switch and the leftover pr_info debug
+       print; rename the symerr-clear + MAC-OFF + IP-mode-write wrapper
+       to rtpcs_931x_sds_apply_ip_mode.
+    
+    rtpcs_930x_sds_reconfigure_to_pll() now goes through the new shared
+    get/set helpers: it saves the current IP mode as an enum on entry
+    and restores it via the enum-taking setter after the PLL reconfigure.
+    This changes behavior by mapping the raw mode setting through the
+    hardware mode table, effectively blocking unknown modes which might be
+    set by bootloader or somewhere else. This is intended and might uncover
+    unknown behavior instead of hiding it.
+    
+    As a side-effect, QSGMII is now properly set too for RTL931x. Most code
+    paths anyway already had support for this mode, but it was missing from
+    the mode setting.
     
     Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/23221
+    Link: https://github.com/openwrt/openwrt/pull/23213
     Signed-off-by: Robert Marko <robimarko@gmail.com>
