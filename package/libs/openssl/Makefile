@@ -92,7 +92,7 @@ define Package/libopenssl
 $(call Package/openssl/Default)
   SUBMENU:=SSL
   DEPENDS:=+OPENSSL_WITH_COMPRESSION:zlib \
-	   +(arm||armeb||mips||mipsel||powerpc||arc):libatomic
+	   +(arm||armeb||mips||mipsel||powerpc):libatomic
   TITLE+= (libraries)
   ABI_VERSION:=$(firstword $(subst .,$(space),$(PKG_VERSION)))
   MENU:=1
