@@ -14,11 +14,11 @@ PID_FILE="${PIDFILE:-/opt/var/run/$PROCS.pid}"
 SKIP_KILL=1
 SKIP_RELOAD=1
 
-pre_cmd() {
+start_pre() {
   rm -f "PID_FILE"
 }
 
-PRECMD="pre_cmd"
+PRECMD="start_pre"
 ARGS="-p $PORT -P $PID_FILE"
 PREARGS=""
 
