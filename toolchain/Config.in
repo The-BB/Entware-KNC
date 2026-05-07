@@ -222,7 +222,6 @@ menuconfig TOOLCHAINOPTS
 menuconfig EXTRA_TARGET_ARCH
 	bool
 	prompt "Enable an extra toolchain target architecture" if TOOLCHAINOPTS
-	depends on !sparc
 	help
 	  Some builds may require a 'biarch' toolchain. This option
 	  allows you to specify an additional target arch.
