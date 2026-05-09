@@ -1,11 +1,44 @@
-commit dfbacabec62fe9ff368a7a387f9c34617a8f5b28 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Tianling Shen <cnsztl@immortalwrt.org>
-Date:   Tue Apr 28 15:21:39 2026 +0800
+commit b7af9b49f892f30a011f5cd5f7574a2e11fbb63e (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Mikhail Zhilkin <csharper2005@gmail.com>
+Date:   Sun Apr 5 13:47:38 2026 +0300
 
-    rockchip: add kernel 6.18 as testing kernel
+    mediatek: add support for Qihoo 360T7 (UBI layout)
     
-    Add kernel 6.18 as testing kernel.
+    This commit adds support for Qihoo 360T7 (UBI layout).
     
-    Signed-off-by: Tianling Shen <cnsztl@immortalwrt.org>
-    Link: https://github.com/openwrt/openwrt/pull/23139
-    Signed-off-by: Nick Hainke <vincent@systemli.org>
+    Aims
+    ----
+    1. +20 MB additional free space for the packages
+    2. More reliable storage for the factory and fip partitions (in UBI)
+    
+    Install (from non-UBI OpenWrt)
+    ------------------------------
+    1. Navigate http://192.168.1.1/ and download mtd backups
+    2. Upgrade OpenWrt with installer initramfs image (force upgrade, don't
+       keep settings). Wait until OpenWrt reboots and until installer:
+       - Prepare new factory partition
+       - Format new ubi
+       - Make ubi volumes
+       - Write new fip and bl2
+    3. Navigate http://192.168.1.1/ and Upgrade with OpenWrt 'sysupgrade.bin'
+       image (don't keep settings)
+    
+    Installer
+    ---------
+    Based on OpenWrt UBI Installer Image Generator for Linksys E8450 and
+    Belkin RT3200
+    Link: https://github.com/dangowrt/owrt-ubi-installer
+    
+    Ready installer image
+    Link: https://github.com/csharper2005/owrt-ubi-installer/tree/qihoo/bin
+    
+    Installer script
+    Link: https://github.com/csharper2005/owrt-ubi-installer/blob/qihoo/files/
+    installer/install.sh
+    
+    Committing to the parent Daniel's repository is not yet possible because
+    there are no official images and imagebuilder for Qihoo 360T7 (UBI) yet.
+    
+    Signed-off-by: Mikhail Zhilkin <csharper2005@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/22797
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
