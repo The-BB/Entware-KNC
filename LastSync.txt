@@ -1,11 +1,11 @@
-commit 472c325fb83c57981529d5d0bb3228c816045732 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Sander Schutten <schutten@hotmail.com>
-Date:   Wed Jan 15 08:38:17 2025 +0000
+commit dfbacabec62fe9ff368a7a387f9c34617a8f5b28 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Tianling Shen <cnsztl@immortalwrt.org>
+Date:   Tue Apr 28 15:21:39 2026 +0800
 
-    intel-microcode: fix dirty build
+    rockchip: add kernel 6.18 as testing kernel
     
-    rebuilding x86 did fail in an existing build directory
-    mkdir fails if the folder exists already
+    Add kernel 6.18 as testing kernel.
     
-    Signed-off-by: Sander Schutten <schutten@hotmail.com>
-    Signed-off-by: Florian Maurer <fmaurer@disroot.org>
+    Signed-off-by: Tianling Shen <cnsztl@immortalwrt.org>
+    Link: https://github.com/openwrt/openwrt/pull/23139
+    Signed-off-by: Nick Hainke <vincent@systemli.org>
