@@ -1,44 +1,15 @@
-commit b7af9b49f892f30a011f5cd5f7574a2e11fbb63e (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Mikhail Zhilkin <csharper2005@gmail.com>
-Date:   Sun Apr 5 13:47:38 2026 +0300
+commit 4e26edb2e359b9d90f99e003e6f9c43297eab85e (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Date:   Fri May 8 19:31:41 2026 +0200
 
-    mediatek: add support for Qihoo 360T7 (UBI layout)
+    kernel: sound: fix kmod-sound-midi2 packaging
     
-    This commit adds support for Qihoo 360T7 (UBI layout).
+    kmod-sound-midi2 expects sound/core/snd-ump.ko, but
+    CONFIG_SND_UMP=y builds it in-kernel rather than as
+    a module. Replace the forced built-in setting with
+    plain CONFIG_SND_UMP so the module can be packaged
+    correctly.
     
-    Aims
-    ----
-    1. +20 MB additional free space for the packages
-    2. More reliable storage for the factory and fip partitions (in UBI)
-    
-    Install (from non-UBI OpenWrt)
-    ------------------------------
-    1. Navigate http://192.168.1.1/ and download mtd backups
-    2. Upgrade OpenWrt with installer initramfs image (force upgrade, don't
-       keep settings). Wait until OpenWrt reboots and until installer:
-       - Prepare new factory partition
-       - Format new ubi
-       - Make ubi volumes
-       - Write new fip and bl2
-    3. Navigate http://192.168.1.1/ and Upgrade with OpenWrt 'sysupgrade.bin'
-       image (don't keep settings)
-    
-    Installer
-    ---------
-    Based on OpenWrt UBI Installer Image Generator for Linksys E8450 and
-    Belkin RT3200
-    Link: https://github.com/dangowrt/owrt-ubi-installer
-    
-    Ready installer image
-    Link: https://github.com/csharper2005/owrt-ubi-installer/tree/qihoo/bin
-    
-    Installer script
-    Link: https://github.com/csharper2005/owrt-ubi-installer/blob/qihoo/files/
-    installer/install.sh
-    
-    Committing to the parent Daniel's repository is not yet possible because
-    there are no official images and imagebuilder for Qihoo 360T7 (UBI) yet.
-    
-    Signed-off-by: Mikhail Zhilkin <csharper2005@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/22797
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+    Link: https://github.com/openwrt/openwrt/pull/23265
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
