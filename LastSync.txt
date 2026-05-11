@@ -1,15 +1,14 @@
-commit 4e26edb2e359b9d90f99e003e6f9c43297eab85e (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Date:   Fri May 8 19:31:41 2026 +0200
+commit 35747c66e18bc828cf57b20a8affa3c26b621adc (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Chukun Pan <amadeus@jmu.edu.cn>
+Date:   Wed May 6 20:30:16 2026 +0800
 
-    kernel: sound: fix kmod-sound-midi2 packaging
+    mediatek: fix patch to enable an8855 eFuse
     
-    kmod-sound-midi2 expects sound/core/snd-ump.ko, but
-    CONFIG_SND_UMP=y builds it in-kernel rather than as
-    a module. Replace the forced built-in setting with
-    plain CONFIG_SND_UMP so the module can be packaged
-    correctly.
+    Although the AN8855 eFuse driver was merged upstream, other
+    drivers were not. Restore Kconfig dependencies to enable it.
+    Also remove useless change logs from the patch.
     
-    Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-    Link: https://github.com/openwrt/openwrt/pull/23265
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Fixes: 2129465 ("mediatek: fix patches for Linux 6.18")
+    Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
+    Link: https://github.com/openwrt/openwrt/pull/23250
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
