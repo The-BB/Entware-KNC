@@ -1,14 +1,11 @@
-commit 35747c66e18bc828cf57b20a8affa3c26b621adc (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Chukun Pan <amadeus@jmu.edu.cn>
-Date:   Wed May 6 20:30:16 2026 +0800
+commit 348303a9e210a7fc7afdea8f86699b26d598c72b (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Shiji Yang <yangshiji66@outlook.com>
+Date:   Thu Mar 19 18:36:55 2026 +0800
 
-    mediatek: fix patch to enable an8855 eFuse
+    mt76: build mt7622-firmware only for mt7622 sub-target
     
-    Although the AN8855 eFuse driver was merged upstream, other
-    drivers were not. Restore Kconfig dependencies to enable it.
-    Also remove useless change logs from the patch.
+    kmod-mt7622-firmware package is only used by mt7622 SoC builtin WiFi.
     
-    Fixes: 2129465 ("mediatek: fix patches for Linux 6.18")
-    Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
-    Link: https://github.com/openwrt/openwrt/pull/23250
-    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
+    Link: https://github.com/openwrt/openwrt/pull/22495
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
