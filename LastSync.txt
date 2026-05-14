@@ -1,11 +1,12 @@
-commit 348303a9e210a7fc7afdea8f86699b26d598c72b (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Shiji Yang <yangshiji66@outlook.com>
-Date:   Thu Mar 19 18:36:55 2026 +0800
+commit 953f1aaa93f442e03189879f83317b56805a1e3f (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Christian Marangi <ansuelsmth@gmail.com>
+Date:   Wed May 13 13:38:46 2026 +0200
 
-    mt76: build mt7622-firmware only for mt7622 sub-target
+    airoha: update ethernet node for new PCS implementation
     
-    kmod-mt7622-firmware package is only used by mt7622 SoC builtin WiFi.
+    With new PCS implementation, the pcs property needs to be updated to the
+    new name of 'pcs-handle' to correctly work with PCS fwnode
+    consumer/provider.
     
-    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
-    Link: https://github.com/openwrt/openwrt/pull/22495
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Fixes: 4d5f579a8120 ("airoha: update PCS node in DTSI for new PCS implementation")
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
