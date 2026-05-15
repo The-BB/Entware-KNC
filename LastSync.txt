@@ -1,15 +1,19 @@
-commit 3880c7870d85f37a9426fb883741174baa260880 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Date:   Wed May 13 08:45:55 2026 +0200
+commit 8d844758c20c2f3e60d8075dc97121dfc7cc444d (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: David Han <h96643864@gmail.com>
+Date:   Wed Apr 29 02:06:51 2026 +0900
 
-    kernel: modules: netdevices: rtl8365mb: add support for RTL8367SB
+    mediatek: filogic: add support for netis MEX605
     
-    Add chip info entry for the Realtek RTL8367SB switch. This device has
-    chip ID 0x6367 and version 0x0010. It exposes two external interfaces:
-    port 6 supports MII, TMII, RMII, RGMII, SGMII and HSGMII, while port 7
-    supports MII, TMII, RMII and RGMII. Use the existing 8365MB-VC jam table
-    for initialization.
+    This commit adds support for the netis MEX605, which is a variant based on the netis NX30 V2.
+    1. Update brand naming from Netis to netis to follow the official branding.
+    2. Rename NX30V2 to NX30 V2 to correctly reflect it as the second version of the NX30.
+    3. Update variant notation for consistency.
     
-    Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-    Link: https://github.com/openwrt/openwrt/pull/23345
+    cherry picked from commit c982357
+    1. Add 'model' to the DTS for netis NX30 V2 and define WiFi LED.
+    4. Fix typo.
+    
+    Signed-off-by: Zhiwei Cao <bfdeh@126.com>
+    Signed-off-by: David Han <h96643864@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/22726
     Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
