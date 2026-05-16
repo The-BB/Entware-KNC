@@ -1,19 +1,11 @@
-commit 8d844758c20c2f3e60d8075dc97121dfc7cc444d (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: David Han <h96643864@gmail.com>
-Date:   Wed Apr 29 02:06:51 2026 +0900
+commit dda777dd44726ba70c99a780b5cc4c698563bc65 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Christian Marangi <ansuelsmth@gmail.com>
+Date:   Sat May 16 12:10:22 2026 +0200
 
-    mediatek: filogic: add support for netis MEX605
+    airoha: backport upstream fix for Airoha reported bug for ethernet
     
-    This commit adds support for the netis MEX605, which is a variant based on the netis NX30 V2.
-    1. Update brand naming from Netis to netis to follow the official branding.
-    2. Rename NX30V2 to NX30 V2 to correctly reflect it as the second version of the NX30.
-    3. Update variant notation for consistency.
+    Airoha reported some additional bug and fixes were pushed for the ethernet
+    driver. Backport the additional patch merged upstream and refresh all
+    affected patch.
     
-    cherry picked from commit c982357
-    1. Add 'model' to the DTS for netis NX30 V2 and define WiFi LED.
-    4. Fix typo.
-    
-    Signed-off-by: Zhiwei Cao <bfdeh@126.com>
-    Signed-off-by: David Han <h96643864@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/22726
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
