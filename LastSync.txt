@@ -1,11 +1,9 @@
-commit dda777dd44726ba70c99a780b5cc4c698563bc65 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Christian Marangi <ansuelsmth@gmail.com>
-Date:   Sat May 16 12:10:22 2026 +0200
+commit 059f801a2c8a6d6590497871e4b6fb37f4c1273c (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Zoltan HERPAI <wigyori@uid0.hu>
+Date:   Mon May 11 00:39:32 2026 +0200
 
-    airoha: backport upstream fix for Airoha reported bug for ethernet
+    starfive: drop support for 6.12
     
-    Airoha reported some additional bug and fixes were pushed for the ethernet
-    driver. Backport the additional patch merged upstream and refresh all
-    affected patch.
+    Drop support for 6.12 by removing config and patches.
     
-    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+    Signed-off-by: Zoltan HERPAI <wigyori@uid0.hu>
