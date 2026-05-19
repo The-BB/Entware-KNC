@@ -1,13 +1,9 @@
-commit a7b5bb233f3da89909c4b5086e90fc87dbe25609 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+commit 8bd9f4fca14b01aef79dca77c73eb9433008edd7 (HEAD -> master, origin/master, origin/main, origin/HEAD)
 Author: Lorenzo Bianconi <lorenzo@kernel.org>
-Date:   Mon May 18 12:25:41 2026 +0200
+Date:   Mon May 18 16:00:40 2026 +0200
 
-    airoha: Add the capability to offload dscp field via netfilter flowtable
-    
-    Introduce the capability to hw offload via netfilter flowtable APIs the
-    IP TOS info. Implement the sw offloading for DSCP field via the
-    netfilter flowtable APIs.
+    net: airoha: Introduce LRO TCP support for RX queues 19-12
     
     Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
-    Link: https://github.com/openwrt/openwrt/pull/23423
+    Link: https://github.com/openwrt/openwrt/pull/23431
     Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
