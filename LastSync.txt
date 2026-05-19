@@ -1,9 +1,13 @@
-commit 059f801a2c8a6d6590497871e4b6fb37f4c1273c (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Zoltan HERPAI <wigyori@uid0.hu>
-Date:   Mon May 11 00:39:32 2026 +0200
+commit a7b5bb233f3da89909c4b5086e90fc87dbe25609 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Lorenzo Bianconi <lorenzo@kernel.org>
+Date:   Mon May 18 12:25:41 2026 +0200
 
-    starfive: drop support for 6.12
+    airoha: Add the capability to offload dscp field via netfilter flowtable
     
-    Drop support for 6.12 by removing config and patches.
+    Introduce the capability to hw offload via netfilter flowtable APIs the
+    IP TOS info. Implement the sw offloading for DSCP field via the
+    netfilter flowtable APIs.
     
-    Signed-off-by: Zoltan HERPAI <wigyori@uid0.hu>
+    Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
+    Link: https://github.com/openwrt/openwrt/pull/23423
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
