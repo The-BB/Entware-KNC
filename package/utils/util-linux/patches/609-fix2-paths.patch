@@ -20,7 +20,7 @@
  
 --- a/libblkid/src/blkidP.h
 +++ b/libblkid/src/blkidP.h
-@@ -308,15 +308,15 @@ struct blkid_struct_cache
+@@ -309,15 +309,15 @@ struct blkid_struct_cache
  #define BLKID_BIC_FL_CHANGED	0x0004	/* Cache has changed from disk */
  
  /* config file */
@@ -141,7 +141,7 @@
  static uint32_t netlink_groups;
 --- a/sys-utils/eject.c
 +++ b/sys-utils/eject.c
-@@ -660,11 +660,11 @@ static void umount_one(const struct ejec
+@@ -670,11 +670,11 @@ static void umount_one(const struct ejec
  		if (drop_permissions() != 0)
  			err(EXIT_FAILURE, _("drop permissions failed"));
  		if (ctl->p_option)
