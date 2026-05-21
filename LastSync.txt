@@ -1,14 +1,22 @@
-commit 98cadde4774275809527589edac3693cc71ee051 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Jonas Jelonek <jelonek.jonas@gmail.com>
-Date:   Wed May 20 08:16:06 2026 +0000
+commit a7b5926bbae0900c7a10e625fdee29c8f9ecfcae (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Paul Spooren <mail@aparcar.org>
+Date:   Mon May 18 19:55:26 2026 +0200
 
-    generic: backport pse-pd error check fix
+    scripts: add --user-network to qemustart
     
-    Backport a patch fixing the error return check when loading PSE PIs from
-    the DT tree in case the pairset property isn't specified.
+    qemustart is a handy script to quickly test OpenWrt firmware using
+    qemu.  Bringing up networking currently requires a bridge-helper
+    setup with privileged IP and bridge assignment.  To simplify
+    testing scenarios like the package manager, which need both shell
+    access and outbound internet, add a user-mode networking option
+    backed by SLIRP that requires no privileges.
     
-    This patch might be backported upstream in stable.
+    To stay backward compatible, the defaults don't change.  The new
+    flag --user-network attaches two NICs (LAN + WAN) and forwards
+    three host ports to the guest LAN interface (192.168.1.1):
+    2222 -> 22 (ssh), 8080 -> 80 (http) and 8443 -> 443 (https).  The
+    host-side ports can be overridden with --ssh-port, --http-port
+    and --https-port.
     
-    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/23449
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/23424
+    Signed-off-by: Paul Spooren <mail@aparcar.org>
