@@ -1,9 +1,36 @@
-commit 74da669505b0dc3c1c1231e89a52589b71cbb29f (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Felix Fietkau <nbd@nbd.name>
-Date:   Fri May 22 12:55:55 2026 +0000
+commit 15593de3768242d3c459811159e1c9a7339c8ceb (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Jonas Jelonek <jelonek.jonas@gmail.com>
+Date:   Fri May 22 20:14:20 2026 +0000
 
-    umdns: update to Git HEAD (2026-05-22)
+    realtek: pcs: derive SerDes link count from DT at probe time
     
-    bd7599d02157 fix calloc_a size argument type
+    Previously, sds->num_of_links was incremented from rtpcs_create() as
+    each DSA port bound its phylink_pcs. The count therefore relied on a
+    temporal contract (DSA must finish enumerating before pcs_config runs)
+    and on rtpcs_create() being the single chokepoint for all consumers.
     
-    Signed-off-by: Felix Fietkau <nbd@nbd.name>
+    Replace this with a probe-time scan of pcs-handle references in the
+    live OF tree: for every available consumer node carrying a pcs-handle
+    property pointing at one of our SerDes subnodes, bump that SerDes'
+    num_of_links. After the scan, the count is final regardless of when
+    or whether DSA later calls in.
+    
+    To allow of_parse_phandle_with_args() to walk the property correctly,
+    add #pcs-cells = <0> to every serdes@N node in the 838x/839x/930x/931x
+    .dtsi files. A future cell-bearing form remains possible without
+    touching the scan.
+    
+    Over-references (DT pointing more consumers at one SerDes than the
+    hardware can carry) are clamped at RTPCS_MAX_LINKS_PER_SDS and warned
+    about, but do not fail probe — the correctly-wired ports on that
+    SerDes still come up, and only the surplus reference is dropped.
+    
+    The bounds check and the bare ++ in rtpcs_create() become redundant
+    under the scan-driven count and are removed.
+    
+    This decouples num_of_links from DSA call ordering and is a prereq
+    for migrating to fwnode_pcs providers, where rtpcs_create() goes away
+    as the centralised counter.
+    
+    Link: https://github.com/openwrt/openwrt/pull/23484
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
