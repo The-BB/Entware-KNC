@@ -1,36 +1,22 @@
-commit 15593de3768242d3c459811159e1c9a7339c8ceb (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Jonas Jelonek <jelonek.jonas@gmail.com>
-Date:   Fri May 22 20:14:20 2026 +0000
+commit 903310097b458087e7d8095aea5cbcb70159cc7b (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: dastarothx <darkastalier@gmail.com>
+Date:   Sat May 23 12:40:20 2026 -0400
 
-    realtek: pcs: derive SerDes link count from DT at probe time
+    wifi-scripts: ucode: fix null dereference for 6GHz-only radios
     
-    Previously, sds->num_of_links was incremented from rtpcs_create() as
-    each DSA port bound its phylink_pcs. The count therefore relied on a
-    temporal contract (DSA must finish enumerating before pcs_config runs)
-    and on rtpcs_create() being the single chokepoint for all consumers.
+    he_phy_cap and he_mac_cap in phy_capabilities are only populated inside
+    the iftype_data loop. On 6GHz-only radios (e.g. QCN9074/ath11k_pci),
+    when capability bytes are unavailable they remain null, causing null
+    dereferences in device_htmode_append():
     
-    Replace this with a probe-time scan of pcs-handle references in the
-    live OF tree: for every available consumer node carrying a pcs-handle
-    property pointing at one of our SerDes subnodes, bump that SerDes'
-    num_of_links. After the scan, the count is final regardless of when
-    or whether DSA later calls in.
+      Reference error: left-hand side expression is null
+      if (!(he_phy_cap[3] & 0x80))
     
-    To allow of_parse_phandle_with_args() to walk the property correctly,
-    add #pcs-cells = <0> to every serdes@N node in the 838x/839x/930x/931x
-    .dtsi files. A future cell-bearing form remains possible without
-    touching the scan.
+    Initialise both to [] before the loop and guard the consumer side with
+    ?? [] so bitwise checks conservatively disable beamformer/beamformee/twt
+    features rather than crashing.
     
-    Over-references (DT pointing more consumers at one SerDes than the
-    hardware can carry) are clamped at RTPCS_MAX_LINKS_PER_SDS and warned
-    about, but do not fail probe — the correctly-wired ports on that
-    SerDes still come up, and only the surplus reference is dropped.
-    
-    The bounds check and the bare ++ in rtpcs_create() become redundant
-    under the scan-driven count and are removed.
-    
-    This decouples num_of_links from DSA call ordering and is a prereq
-    for migrating to fwnode_pcs providers, where rtpcs_create() goes away
-    as the centralised counter.
-    
-    Link: https://github.com/openwrt/openwrt/pull/23484
-    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+    Link: https://github.com/openwrt/openwrt/issues/23488
+    Signed-off-by: dastarothx <darkastalier@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/23496
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
