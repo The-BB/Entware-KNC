@@ -1,22 +1,58 @@
-commit 903310097b458087e7d8095aea5cbcb70159cc7b (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: dastarothx <darkastalier@gmail.com>
-Date:   Sat May 23 12:40:20 2026 -0400
+commit 2808857215ad88779e47465c8a72808f49adc7e6 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Tuan Phan <pttuan@gmail.com>
+Date:   Wed Apr 22 12:14:22 2026 -0700
 
-    wifi-scripts: ucode: fix null dereference for 6GHz-only radios
+    mediatek: filogic: add support for ZBT-Z8803BE
     
-    he_phy_cap and he_mac_cap in phy_capabilities are only populated inside
-    the iftype_data loop. On 6GHz-only radios (e.g. QCN9074/ath11k_pci),
-    when capability bytes are unavailable they remain null, causing null
-    dereferences in device_htmode_append():
+    Specifications:
     
-      Reference error: left-hand side expression is null
-      if (!(he_phy_cap[3] & 0x80))
+    SoC: MediaTek MT7988A (4 cores)
+    RAM: 1024MiB
+    Flash: Winbond SPI-NAND 128 MiB
+    Network: 1 WAN (2.5G), 3 LAN (1G), 1 SFP+ (10G)
+    2 SIM slots
+    Buttons: Reset, WPS
+    Power: DC 12V 3A (Recommend 19V to avoid voltage drop)
+    WiFi: MT7996 2.4Ghz, 5.8Ghz and 6Ghz (BE19000)
+        - 2.4Ghz and 5.8Ghz share same dual band antenna (4)
+        - 6Ghz uses dedicated 6G antenna (4)
+    Misc: 1 USB2.0 port, UART header
     
-    Initialise both to [] before the loop and guard the consumer side with
-    ?? [] so bitwise checks conservatively disable beamformer/beamformee/twt
-    features rather than crashing.
+    Installation:
     
-    Link: https://github.com/openwrt/openwrt/issues/23488
-    Signed-off-by: dastarothx <darkastalier@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/23496
-    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+    A. Through U-Boot menu:
+    
+      - Prepare your connecting computer to use a static IP in
+        network 192.168.1.0/24
+      - Power down the router and hold in the Reset button.
+      - While holding in the button power up the router again.
+      - Hold the button in for 10 seconds and then release.
+      - Use your browser to go to 192.168.1.1
+      - If you see a GUI allowing for flashing firmware then
+        you got the right model.
+      - Upload the sysupgrade file.
+    
+    Note 1: Recovery GUI can be used to recover from an incorrect
+          firmware flash.
+    Note 2: There is a GPIO watchdog that expires after 2 minutes
+          so flashing sysupgrade via U-boot needs to be done
+          quickly within that timer.
+    
+    B. Through OpenWrt Dashboard:
+      If your router comes with OpenWrt preinstalled
+      (modified by the seller), you can easily upgrade
+      by going to the dashboard (192.168.1.1) and then
+      navigate to System -> Backup/Flash firmware,
+      then flash the firmware
+    
+    MAC Addresses:
+    LAN(printed MAC) : F8:5E:3C:xx:xx:xx (Factory, 0xffff4)
+    WAN              : F8:5E:3C:xx:xx:xx (Factory, 0xffffa)
+    SFP+             : F8:5E:3C:xx:xx:xx (Factory, 0xfffee)
+    2.4GHz           : F8:5E:3C:xx:xx:xx (Factory, 0x4)
+    5GHz             : F8:5E:3C:xx:xx:xx (Factory, 0x4) + 0x10
+    6Ghz             : F8:5E:3C:xx:xx:xx (Factory, 0x4) + 0x20
+    
+    Signed-off-by: Tuan Phan <pttuan@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/23053
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
