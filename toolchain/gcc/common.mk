@@ -109,6 +109,7 @@ GCC_CONFIGURE:= \
 		--disable-libmpx \
 		--disable-nls \
 		--$(if $(CONFIG_GCC_LIBSSP),en,dis)able-libssp \
+		--$(if ($(GCC_MAJOR_VERSION),8),,disable-tm-clone-registry) \
 		$(GRAPHITE_CONFIGURE) \
 		--with-host-libstdcxx=-lstdc++ \
 		$(SOFT_FLOAT_CONFIG_OPTION) \
