@@ -1,12 +1,10 @@
-commit 88300c83f34ae1517e8b6dd248fecd60a6fdc904 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Alessio Ferri <alessio.ferri.3012@gmail.com>
-Date:   Mon May 25 20:50:39 2026 +0200
+commit 79322d44d898e164c3fe066e8443be98df82a046 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Stijn Tintel <stijn@linux-ipv6.be>
+Date:   Wed May 27 14:32:21 2026 +0300
 
-    b43-tools: update the package to version released on 2026-05-22
+    ustp: update to Git HEAD (2026-05-27)
     
-    b43-tools introduced python 2 to python 3 conversion and added
-    support to extract ucode from a new blob
+    f5d17dd60a89 mstp: add default Hello Time constant
+    17c36bebada1 mstp: use default Hello Time in recordTimes
     
-    Signed-off-by: Alessio Ferri <alessio.ferri.3012@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/23535
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Stijn Tintel <stijn@linux-ipv6.be>
