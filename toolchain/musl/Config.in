@@ -5,8 +5,8 @@ choice
 	help
 	  Select the version of musl you wish to use.
 
-	config MUSL_USE_VERSION_1_2_5
-		bool "musl 1.2.5"
+	config MUSL_USE_VERSION_1_2_6
+		bool "musl 1.2.6"
 endchoice
 
 # Password crypt stubbing

@@ -59,7 +59,7 @@
  	char *sp_namp;
 --- a/include/stdio.h
 +++ b/include/stdio.h
-@@ -161,7 +161,7 @@ char *ctermid(char *);
+@@ -168,7 +168,7 @@ int renameat2(int, const char *, int, co
  
  #if defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) \
   || defined(_BSD_SOURCE)
@@ -70,7 +70,7 @@
  
 --- a/ldso/dynlink.c
 +++ b/ldso/dynlink.c
-@@ -1140,7 +1140,7 @@ static struct dso *load_library(const ch
+@@ -1138,7 +1138,7 @@ static struct dso *load_library(const ch
  					prefix_len = 0;
  				}
  				char etc_ldso_path[prefix_len + 1
@@ -79,7 +79,7 @@
  				snprintf(etc_ldso_path, sizeof etc_ldso_path,
  					"%.*s/etc/ld-musl-" LDSO_ARCH ".path",
  					(int)prefix_len, prefix);
-@@ -1159,7 +1159,7 @@ static struct dso *load_library(const ch
+@@ -1157,7 +1157,7 @@ static struct dso *load_library(const ch
  					sys_path = "";
  				}
  			}
@@ -106,7 +106,7 @@
  #include <unistd.h>
  
 -static const char defshells[] = "/bin/sh\n/bin/csh\n";
-+static const char defshells[] = "/opt/bin/sh\n/opt/bin/csh\n";
++static const char defshells[] = "/opt/bin/sh\n/opt/bin/csh\n/bin/sh\n";
  
  static char *line;
  static size_t linesize;
@@ -251,7 +251,7 @@
  				f->pipe_pid = pid;
 --- a/src/time/__tz.c
 +++ b/src/time/__tz.c
-@@ -130,10 +130,10 @@ static void do_tzset()
+@@ -129,10 +129,10 @@ static void do_tzset()
  	const unsigned char *map = 0;
  	size_t i;
  	static const char search[] =
@@ -264,7 +264,7 @@
  	if (!*s) s = __utc;
  
  	if (old_tz && !strcmp(s, old_tz)) return;
-@@ -172,7 +172,7 @@ static void do_tzset()
+@@ -171,7 +171,7 @@ static void do_tzset()
  	if (!posix_form) {
  		if (*s == ':') s++;
  		if (*s == '/' || *s == '.') {

@@ -1,7 +1,7 @@
-config MUSL_VERSION_1_2_5
+config MUSL_VERSION_1_2_6
 	default y if !TOOLCHAINOPTS
 	bool
 
 config MUSL_VERSION
 	string
-	default "1.2.5" 	if MUSL_USE_VERSION_1_2_5
+	default "1.2.6" 	if MUSL_USE_VERSION_1_2_6
