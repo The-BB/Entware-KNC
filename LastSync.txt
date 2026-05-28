@@ -1,10 +1,12 @@
-commit 79322d44d898e164c3fe066e8443be98df82a046 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Stijn Tintel <stijn@linux-ipv6.be>
-Date:   Wed May 27 14:32:21 2026 +0300
+commit 30394cc5b94458ef4d9ec3148474333ecb7a40ab (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Konstantin Demin <rockdrilla@gmail.com>
+Date:   Tue May 19 16:38:13 2026 +0300
 
-    ustp: update to Git HEAD (2026-05-27)
+    dropbear: rework failsafe script
     
-    f5d17dd60a89 mstp: add default Hello Time constant
-    17c36bebada1 mstp: use default Hello Time in recordTimes
+    - generate or use RSA only if none of the modern algorithms (Ed25519, ECDSA) are supported;
+    - remove size constraints for key size.
     
-    Signed-off-by: Stijn Tintel <stijn@linux-ipv6.be>
+    Signed-off-by: Konstantin Demin <rockdrilla@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/23217
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
