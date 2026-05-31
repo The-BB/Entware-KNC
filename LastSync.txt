@@ -1,12 +1,19 @@
-commit 0324d9e4e04c4b30d58af1b2ee76bb56c2c82f96 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Lorenzo Bianconi <lorenzo@kernel.org>
-Date:   Wed May 27 11:01:05 2026 +0200
+commit aa96b3ad55f93e71db5f48ec227e455fc5723318 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Shiji Yang <yangshiji66@outlook.com>
+Date:   Fri May 29 07:26:25 2026 +0800
 
-    airoha: apply minor fix for MTU and LRO for ethernet driver
+    tools/fakeroot: update to 1.38.1
     
-    Apply minor fixup for PPE_MTU configuration and LRO queue configuration.
+    Changelog:
+    https://salsa.debian.org/clint/fakeroot/-/blob/debian/1.38.1-1/debian/changelog?ref_type=tags
     
-    Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
-    [ improve commit title/description ]
-    Link: https://github.com/openwrt/openwrt/pull/23566
-    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+    Remove upstreamed patches:
+    - 400-alpine-libc.musl-fix.patch[1]
+    - 600-macOS.patch[2][3]
+    
+    [1] https://salsa.debian.org/clint/fakeroot/-/commit/0b79007b7dc7ac32bca81ec37f4f36fc47a48e16
+    [2] https://salsa.debian.org/clint/fakeroot/-/commit/6fc4f9d8b198df565712e3ea7af9660a8eeaa69a
+    [3] https://salsa.debian.org/clint/fakeroot/-/commit/6bce2e78372e513f2795808e4fb8c712605a562f
+    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
+    Link: https://github.com/openwrt/openwrt/pull/23577
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
