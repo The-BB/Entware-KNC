@@ -1,19 +1,11 @@
-commit aa96b3ad55f93e71db5f48ec227e455fc5723318 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Shiji Yang <yangshiji66@outlook.com>
-Date:   Fri May 29 07:26:25 2026 +0800
+commit ed2a36afae03b62de7b9a09b2e3eb62c5eae31bb (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Jonas Jelonek <jelonek.jonas@gmail.com>
+Date:   Sun May 31 12:47:45 2026 +0000
 
-    tools/fakeroot: update to 1.38.1
+    realtek: fix macro usage in F1100W-4SX-4XGT DTSI
     
-    Changelog:
-    https://salsa.debian.org/clint/fakeroot/-/blob/debian/1.38.1-1/debian/changelog?ref_type=tags
+    A recent target-wide change missed the DTSI for a few devices causing a
+    build issue for RTL930x. Fix that.
     
-    Remove upstreamed patches:
-    - 400-alpine-libc.musl-fix.patch[1]
-    - 600-macOS.patch[2][3]
-    
-    [1] https://salsa.debian.org/clint/fakeroot/-/commit/0b79007b7dc7ac32bca81ec37f4f36fc47a48e16
-    [2] https://salsa.debian.org/clint/fakeroot/-/commit/6fc4f9d8b198df565712e3ea7af9660a8eeaa69a
-    [3] https://salsa.debian.org/clint/fakeroot/-/commit/6bce2e78372e513f2795808e4fb8c712605a562f
-    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
-    Link: https://github.com/openwrt/openwrt/pull/23577
+    Fixes: 43562f97e756 ("realtek: dts: add link index cell to pcs-handle phandles")
     Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
