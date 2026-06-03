@@ -1,11 +1,11 @@
-commit ed2a36afae03b62de7b9a09b2e3eb62c5eae31bb (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Jonas Jelonek <jelonek.jonas@gmail.com>
-Date:   Sun May 31 12:47:45 2026 +0000
+commit 84f4f779204a3de631670fee69141188b56e4976 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Pavlo Samko <bulldozerbsg@gmail.com>
+Date:   Sun Feb 8 16:46:23 2026 +0200
 
-    realtek: fix macro usage in F1100W-4SX-4XGT DTSI
+    nilfs-utils: update to 2.3.0
     
-    A recent target-wide change missed the DTSI for a few devices causing a
-    build issue for RTL930x. Fix that.
+    Changelog: https://nilfs.sourceforge.io/download/ChangeLog-utils-v2
     
-    Fixes: 43562f97e756 ("realtek: dts: add link index cell to pcs-handle phandles")
+    Signed-off-by: Pavlo Samko <bulldozerbsg@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/21932
     Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
