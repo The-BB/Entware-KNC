@@ -1,17 +1,30 @@
-commit c82f2724f5ce4afe40ee5d1ecfd488d8adcff2bd (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Shiji Yang <yangshiji66@outlook.com>
-Date:   Wed Jun 3 08:40:58 2026 +0800
+commit e288f421f846ff2c8bb7fd16f678447aacd0ec57 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Seo Suchan <tjtncks@gmail.com>
+Date:   Wed Jun 3 22:37:18 2026 +0900
 
-    uboot-imx: do not build efimkcapsule tool
+    libmd: update to 1.2.0
     
-    This tool requires gnutls. In fact, we do not have to build it.
-    Fix build error:
+    this brings sha3 and black support into it.
     
-    tools/mkeficapsule.c:20:10: fatal error: gnutls/gnutls.h: No such file or directory
-       20 | #include <gnutls/gnutls.h>
-          |          ^~~~~~~~~~~~~~~~~
+    90c4f43 Release libmd 1.2.0
+    fc4f75a build: Set TAR_OPTIONS to avoid leaking maintainer information on dist
+    36d829e build: Request tar-ustar format for distribution
+    c1b3bff Remove spurious blank lines at the beginning of functions
+    0ae00e2 Fix and hook SHA3 and SHAKE support
+    2c0d2f0 Add internal endian conversion functions support
+    3bb8921 Add internal explicit_bzero() support
+    4442c4b Add SHA3 and SHAKE support
+    7b740a6 doc: Move derived code attribution to a Comment field
+    bb5a08e doc: Remove redundant «Copyright ©» prefix from Copyright field in COPYING
+    9b03479 build: Add Maintainer and License fields to the .pc file
+    8fffa5f doc: Remove «All rights reserved» from COPYING
+    d5b8e85 build: Rename LIBMD_ABI to SOVERSION
+    ea62163 build: Add a coverage regex to the CI job
+    7e32142 man: Sync SHA2 changes from OpenBSD
+    488d585 build: Add a new vpath-tests CI test
+    b49ee25 build: Refactor autogen call into before_script
+    137dd4e build: Fix out-of-tree build
     
-    Fixes: 158651a6d742 ("uboot-imx: bump to 2026.04 release")
-    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
-    Link: https://github.com/openwrt/openwrt/pull/23635
+    Signed-off-by: Seo Suchan <tjtncks@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/23643
     Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
