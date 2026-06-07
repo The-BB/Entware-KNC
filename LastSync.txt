@@ -1,19 +1,28 @@
-commit b115da38b3dd9711f4b71391472acb972b949d77 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Jonas Jelonek <jelonek.jonas@gmail.com>
-Date:   Thu Jun 4 17:59:04 2026 +0000
+commit a317079b571459d675828766bf6d3148855b3fcd (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Markus Stockhausen <markus.stockhausen@gmx.de>
+Date:   Sat May 30 17:23:34 2026 +0200
 
-    generic: mips: add pending patch to fix reboot
+    realtek: eth: rename ring steering bits
     
-    Add a pending hotfix to fix reboot functionality on MIPS platforms, at
-    least the Realtek target being affected.
+    A network interface card (NIC) hardware ring of the Realtek Otto switch
+    SoCs is nothing more than a list of pointers to the ring headers. I.E.
     
-    The kernel bump from 6.18.33 to 6.18.34 introduced a backported commit
-    intending to fix a use-after-free issue [1]. As a side effect, it also
-    causes RCU to wait for CPUs which are already dead but RCU doesn't know
-    of.
+    address | content   | comment
+    --------+-----------+------------------------
+    x + 0   | pointer 0 | points to ring header 0
+    x + 4   | pointer 1 | points to ring header 1
+    ...
+    x + 4*n | pointer n | points to ring header n
     
-    [1] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=linux-6.18.y&id=18c0456ea2615b1a743a6db739c74411c3b42bc6
+    Headers must be 4 byte aligend. So the lower two bits of the pointers
+    are unused. Hardware designers desided to give them special meanings.
     
-    Fixes: 94f3f9a845e8 ("kernel: bump 6.18 to 6.18.34")
-    Link: https://github.com/openwrt/openwrt/pull/23656
-    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+    - Bit 0: Owner of this ring entry, 1 = hardware, 0 = software
+    - Bit 1: Wrap, 1 = last ring pointer, 0 = normal ring pointer
+    
+    The driver uses constant defines with slightly confusing naming. Replace
+    OWN_CPU with OWN_HW to make clear what it is about. Align prefix and
+    make the defines bitmasks for better readability.
+    
+    Link: https://github.com/openwrt/openwrt/pull/23676
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
