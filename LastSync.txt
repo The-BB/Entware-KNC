@@ -1,28 +1,9 @@
-commit a317079b571459d675828766bf6d3148855b3fcd (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Markus Stockhausen <markus.stockhausen@gmx.de>
-Date:   Sat May 30 17:23:34 2026 +0200
+commit e2358514955051d26224205c5f7221fa749b783a (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Robert Marko <robimarko@gmail.com>
+Date:   Sun Jun 7 23:01:50 2026 +0200
 
-    realtek: eth: rename ring steering bits
+    qualcommax: update qca8k fixed link patch to v2
     
-    A network interface card (NIC) hardware ring of the Realtek Otto switch
-    SoCs is nothing more than a list of pointers to the ring headers. I.E.
+    Update the qca8k fixed link patch to v2 that is pending upstream.
     
-    address | content   | comment
-    --------+-----------+------------------------
-    x + 0   | pointer 0 | points to ring header 0
-    x + 4   | pointer 1 | points to ring header 1
-    ...
-    x + 4*n | pointer n | points to ring header n
-    
-    Headers must be 4 byte aligend. So the lower two bits of the pointers
-    are unused. Hardware designers desided to give them special meanings.
-    
-    - Bit 0: Owner of this ring entry, 1 = hardware, 0 = software
-    - Bit 1: Wrap, 1 = last ring pointer, 0 = normal ring pointer
-    
-    The driver uses constant defines with slightly confusing naming. Replace
-    OWN_CPU with OWN_HW to make clear what it is about. Align prefix and
-    make the defines bitmasks for better readability.
-    
-    Link: https://github.com/openwrt/openwrt/pull/23676
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
