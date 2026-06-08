@@ -1,9 +1,20 @@
-commit e2358514955051d26224205c5f7221fa749b783a (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Robert Marko <robimarko@gmail.com>
-Date:   Sun Jun 7 23:01:50 2026 +0200
+commit a5107ad58c6162a70a56ada1822c3c3e6ba09a12 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Anna Kiri <bredcorn@gmail.com>
+Date:   Mon Jun 8 11:07:05 2026 +0200
 
-    qualcommax: update qca8k fixed link patch to v2
+    mtd: fix buffer leak and fd leak in mtd_dump()
     
-    Update the qca8k fixed link patch to v2 that is pending upstream.
+    Two leaks in mtd_dump():
     
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    - The buffer allocated with malloc(erasesize) is never freed before
+      returning, leaking erasesize bytes on every call.
+    - The pre-existing malloc-NULL early return path also leaked the just-
+      opened fd by returning directly instead of going through cleanup.
+    
+    Initialize buf to NULL, route the malloc-NULL case through the
+    existing 'out:' label, and add free(buf) on the cleanup path so both
+    fd and buf are released consistently on every exit.
+    
+    Signed-off-by: Anna Kiri <bredcorn@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/23706
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
