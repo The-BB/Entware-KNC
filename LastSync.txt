@@ -1,20 +1,45 @@
-commit a5107ad58c6162a70a56ada1822c3c3e6ba09a12 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Anna Kiri <bredcorn@gmail.com>
-Date:   Mon Jun 8 11:07:05 2026 +0200
+commit ab253fb4bbd96521ef7081f0e7eec5b1b57b69da (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Hauke Mehrtens <hauke@hauke-m.de>
+Date:   Sun Jun 7 13:31:36 2026 +0200
 
-    mtd: fix buffer leak and fd leak in mtd_dump()
+    uclient: update to Git HEAD (2026-06-07)
     
-    Two leaks in mtd_dump():
+    f227ab4f1285 uclient: fix memory leak of url when backend alloc fails
+    645236607a3d uclient: free proxy_url in uclient_free
+    53d2d11fb00d uclient-http: fix NULL deref when digest WWW-Authenticate lacks params
+    0ba1b8718be5 ucode: check calloc return in uc_uclient_new
+    5cb19466d076 uclient-fetch: reset redirect counter per request
+    568c447950c1 uclient-fetch: retry short writes and surface errors
+    4c4a61a69ac3 uclient-fetch: use strtoull to parse Content-Length
+    440ca260622d uclient-http: validate Content-Length and chunk sizes from the server
+    8658324bd234 uclient: cast to unsigned char before ctype classifications
+    bf403fa0f8e5 uclient-fetch: reject CR in --header values
+    ec47f4176b1e uclient-fetch: always allocate auth_str and free it on exit
+    391dacd10d31 uclient-http: fail digest auth when the cnonce cannot be randomized
+    ba1f4311b099 ucode: clamp read length to the size of the static buffer
+    0ba47f319b09 uclient-fetch: advance to the next URL between requests
+    9dd0055d527d uclient: initialize *port for unknown address families
+    f816506651d5 uclient-http: start digest nonce count at 1
+    9b9b2da40835 uclient-http: fix 2-byte buffer undercount in digest add_field
+    80fb1e5ee68b ucode: avoid double-free of SSL context on ssl_init error
+    d44fb561bbcf ucode: don't clear an unrelated registry slot on free
+    02562403d2a3 uclient-fetch: close the output file before fetching the next URL
+    4a63561d0012 uclient-http: initialize fd to -1 so a failed connect can't close stdin
+    428ae8342118 uclient: cancel pending timers in uclient_free()
+    ffd8db308289 uclient-fetch: guard SSL debug setup against a missing SSL context
+    9f4db039a263 ucode: release callback argument references
+    d2af92b0aad9 uclient-http: resolve redirects against the proxy target URL
+    5dddda023267 uclient-utils: avoid out-of-bounds pointer in get_url_filename
+    8507588e7ce7 uclient-http: use the proxy target URL for HTTP authentication
+    322c89c6ca0a uclient-http: retry 401 auth for all body-less request methods
+    db3bb00ddda7 uclient-http: accept unquoted digest auth parameter values
+    5ce9983b2a11 uclient-http: follow 303 and 308 redirects
+    070c868486dc uclient-fetch: finalize request on invalid 206 Content-Range
+    83659a5a9bc1 uclient-fetch: concatenate multiple URLs into a single -O file
+    43bed2753998 ucode: don't leak string references in status()/get_headers()
+    03b17e4fc793 uclient-fetch: attach credentials to the proxy target, not the proxy
+    74c07b12f7ab uclient-fetch: don't run the progress meter in spider mode
+    daad21fa2c17 uclient-fetch: handle init_request failure on the 204 resume retry
     
-    - The buffer allocated with malloc(erasesize) is never freed before
-      returning, leaking erasesize bytes on every call.
-    - The pre-existing malloc-NULL early return path also leaked the just-
-      opened fd by returning directly instead of going through cleanup.
-    
-    Initialize buf to NULL, route the malloc-NULL case through the
-    existing 'out:' label, and add free(buf) on the cleanup path so both
-    fd and buf are released consistently on every exit.
-    
-    Signed-off-by: Anna Kiri <bredcorn@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/23706
-    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/23693
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
