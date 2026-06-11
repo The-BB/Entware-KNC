@@ -1,12 +1,23 @@
-commit 631d74d1b7e5c1757960c85d0a813e2bf5daa61d (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Rosen Penev <rosenp@gmail.com>
-Date:   Mon Jun 8 19:25:58 2026 -0700
+commit 0bba5f31fcf3613ea97d40e54a3b7c8c13f1336f (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Date:   Sat May 16 18:32:04 2026 +0200
 
-    prereq-build: increase GCC requirement to 10
+    kernel: backport rtl8365mb DSA driver improvements
     
-    With ccache 4.13, it mandates a minimum of 10.
+    Backport several fixes and enhancements for the rtl8365mb DSA driver
+    from upstream.
     
-    Fixes: 84cb042e3a8e ("tools/ccache: update to 4.13.3")
-    Signed-off-by: Rosen Penev <rosenp@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/23718
+    The backport includes the following changes:
+    - Fix for rtl8_4 tag (from v7.1)
+    - VLAN and Forwarding offload (from v7.2)
+    
+    Before this backport, all bridge forwarding was handled by the CPU,
+    causing a significant performance drop between LAN ports, similar
+    to standard WAN/LAN routing. Enabling hardware forwarding offload
+    alleviates CPU overhead and restores line-rate switching performance.
+    
+    Link: https://patch.msgid.link/20260408-realtek_fixes-v1-0-915ff1404d56@gmail.com
+    Link: https://patch.msgid.link/20260606-realtek_forward-v13-0-b9e409687cbe@gmail.com
+    Signed-off-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/23738
     Signed-off-by: Robert Marko <robimarko@gmail.com>
