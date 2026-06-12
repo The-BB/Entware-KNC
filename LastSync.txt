@@ -1,23 +1,21 @@
-commit 0bba5f31fcf3613ea97d40e54a3b7c8c13f1336f (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Date:   Sat May 16 18:32:04 2026 +0200
+commit 8f23d9765035b51a71eb9616b8b99bf1441f4ec4 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Jonas Jelonek <jelonek.jonas@gmail.com>
+Date:   Sat Jun 6 21:03:07 2026 +0000
 
-    kernel: backport rtl8365mb DSA driver improvements
+    realtek: pcs: rtl838x: merge and simplify patching
     
-    Backport several fixes and enhancements for the rtl8365mb DSA driver
-    from upstream.
+    Reduce the per-SerDes patching to a per-mode patching since they share a
+    lot of similarities, especially for QSGMII.
     
-    The backport includes the following changes:
-    - Fix for rtl8_4 tag (from v7.1)
-    - VLAN and Forwarding offload (from v7.2)
+    For fiber patching, the differences are bigger. This takes an approach
+    to merge the sequences completely despite applying some settings which
+    weren't applied before on one of the SerDes. Testing and SerDes dumps
+    showed no or minimal differences, and no practical effect on
+    functionality. A look at the SerDes register documentation we have shows
+    reordering the writes isn't problematic because most of the bits aren't
+    any trigger bits.
     
-    Before this backport, all bridge forwarding was handled by the CPU,
-    causing a significant performance drop between LAN ports, similar
-    to standard WAN/LAN routing. Enabling hardware forwarding offload
-    alleviates CPU overhead and restores line-rate switching performance.
+    With all its users gone, we can now drop also the workaround SDS macro.
     
-    Link: https://patch.msgid.link/20260408-realtek_fixes-v1-0-915ff1404d56@gmail.com
-    Link: https://patch.msgid.link/20260606-realtek_forward-v13-0-b9e409687cbe@gmail.com
-    Signed-off-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/23738
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/23741
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
