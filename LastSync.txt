@@ -1,21 +1,25 @@
-commit 8f23d9765035b51a71eb9616b8b99bf1441f4ec4 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Jonas Jelonek <jelonek.jonas@gmail.com>
-Date:   Sat Jun 6 21:03:07 2026 +0000
+commit b25d90b7e4ab4bb1ea136a0e8b996ab941730822 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Qingfang Deng <dqfext@gmail.com>
+Date:   Tue May 26 17:17:21 2026 +0800
 
-    realtek: pcs: rtl838x: merge and simplify patching
+    ppp: update to 2.5.3
     
-    Reduce the per-SerDes patching to a per-mode patching since they share a
-    lot of similarities, especially for QSGMII.
+    Update to 2.5.3 and use the official tarball.
     
-    For fiber patching, the differences are bigger. This takes an approach
-    to merge the sequences completely despite applying some settings which
-    weren't applied before on one of the SerDes. Testing and SerDes dumps
-    showed no or minimal differences, and no practical effect on
-    functionality. A look at the SerDes register documentation we have shows
-    reordering the writes isn't problematic because most of the bits aren't
-    any trigger bits.
+    Changelog: https://github.com/ppp-project/ppp/releases/tag/v2.5.3
     
-    With all its users gone, we can now drop also the workaround SDS macro.
+    Removed upstreamed:
+    - 000-pppd-session-fixed-building-with-gcc-15.patch
+    - 001-pppdump-fixed-building-with-gcc-15.patch
+    - 501-fix-memcpy-fortify.patch
+    - 502-remove_mru.patch
     
-    Link: https://github.com/openwrt/openwrt/pull/23741
+    Manually rebased:
+    - 500-add-pptp-plugin.patch
+    
+    Add a pending patch to relax the check to avoid breaking existing
+    configurations.
+    
+    Signed-off-by: Qingfang Deng <dqfext@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/23540
     Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
