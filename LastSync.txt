@@ -1,10 +1,10 @@
-commit aa510aa47d022a57bcbd505e829ba7010a735c13 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Markus Stockhausen <markus.stockhausen@gmx.de>
-Date:   Mon Jun 8 18:25:50 2026 +0200
+commit 5b2c8f4ff94ef7c339586c8a59a684009f1b7194 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Hauke Mehrtens <hauke@hauke-m.de>
+Date:   Tue Jun 16 02:19:46 2026 +0200
 
-    realtek: dts: add phy-package to LGS352C
+    umdns: update to Git HEAD (2026-06-16)
     
-    Describe the RTL8218D packages in the device tree.
+    1b5e7bf1cec7 cache: bound cache size and clamp hostile TTLs
     
-    Link: https://github.com/openwrt/openwrt/pull/23711
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Link: https://github.com/openwrt/mdnsd/security/advisories/GHSA-jg8f-fhfw-jg46
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
