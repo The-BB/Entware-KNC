@@ -16,4 +16,4 @@ config BINUTILS_VERSION
 	default "2.34"			if BINUTILS_VERSION_2_34
 	default "2.44"			if BINUTILS_VERSION_2_44
 	default "2.45.1"		if BINUTILS_VERSION_2_45
-	default "2.46.0"		if BINUTILS_VERSION_2_46
+	default "2.46.1"		if BINUTILS_VERSION_2_46
