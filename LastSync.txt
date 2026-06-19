@@ -1,11 +1,19 @@
-commit 317317d960e3edb5891ee4d25c3d654074cb568d (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Peter Collingbourne <peter@pcc.me.uk>
-Date:   Sat May 2 21:51:12 2026 -0700
+commit 4ec2d6dd974751fede83ad69c6b4a4a29d973c77 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Jonas Jelonek <jelonek.jonas@gmail.com>
+Date:   Thu Jun 18 07:46:12 2026 +0000
 
-    kernel/mediatek: fix null dereference in dynamic calibration patch
+    realtek: pcs: drop setup_serdes
     
-    KASAN reported a null dereference in this patch. Fix it.
+    Introducing the setup_serdes hook in the PCS driver was always intended
+    to be only a temporary solution. It was needed to be able to collect all
+    scattered code in the PCS driver first. Later, refactoring can be done
+    to bring everything into a proper shape.
     
-    Signed-off-by: Peter Collingbourne <peter@pcc.me.uk>
-    Link: https://github.com/openwrt/openwrt/pull/23237
+    Now we've reached the point where the setup of all variants has been
+    refactored in such a way that all share the same high-level sequence.
+    This is fully orchestrated in pcs_config now. Thus, the setup_serdes hook
+    is no longer needed. Move the last piece out of it into another SerDes
+    op hook, then drop setup_serdes.
+    
+    Link: https://github.com/openwrt/openwrt/pull/23861
     Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
