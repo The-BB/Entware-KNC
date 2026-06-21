@@ -1,12 +1,13 @@
-commit e2d12cfae6bec4f65f2b5bec6eecb7ca1c6455da (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Rosen Penev <rosenp@gmail.com>
-Date:   Thu Jun 18 12:54:37 2026 -0700
+commit a9b59370155fdc03341ef784d9948c27fcb8f810 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Shine <4c.fce2@proton.me>
+Date:   Mon Feb 2 23:06:44 2026 +0100
 
-    bcm53xx: backport meraki mx6x warning fix
+    tools: bc: fix build on musl host
     
-    The kernel ended up fixing this dts problem at runtime, but fix it
-    directly instead. Upstream backport.
+    Fix declaration of getenv() in getopt.c
     
-    Signed-off-by: Rosen Penev <rosenp@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/23870
+    Backport from bc 1.08.2.
+    
+    Signed-off-by: Shine <4c.fce2@proton.me>
+    Link: https://github.com/openwrt/openwrt/pull/21957
     Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
