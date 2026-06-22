@@ -1,13 +1,20 @@
-commit a9b59370155fdc03341ef784d9948c27fcb8f810 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Shine <4c.fce2@proton.me>
-Date:   Mon Feb 2 23:06:44 2026 +0100
+commit 8ebf189e60fe9e703d8a687ea1da25f0fe25862a (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Jonas Jelonek <jelonek.jonas@gmail.com>
+Date:   Sun Jun 21 14:07:39 2026 +0000
 
-    tools: bc: fix build on musl host
+    realtek: pcs: drop unused cmu_band code
     
-    Fix declaration of getenv() in getopt.c
+    For RTL930x and RTL931x, there were some functions to get and set the
+    CMU band. However, they were used nearly nowhere and even the SDK
+    doesn't use them for active SerDes configuration. Drop them to reduce
+    dead code.
     
-    Backport from bc 1.08.2.
+    Dropping the cmu_band_set call from RTL931x configuration has no
+    negative effect. We do not know where this call originally came from.
+    It was introduced 51c8f76612 ("realtek: improve MAC config handling for
+    all SoCs") but without any explanation why and where it came from. The
+    SDK doesn't have it and it may be overwritten again in the later CMU
+    setup when parts of the SerDes are reset.
     
-    Signed-off-by: Shine <4c.fce2@proton.me>
-    Link: https://github.com/openwrt/openwrt/pull/21957
+    Link: https://github.com/openwrt/openwrt/pull/23904
     Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
