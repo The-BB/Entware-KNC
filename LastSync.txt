@@ -1,20 +1,12 @@
-commit 8ebf189e60fe9e703d8a687ea1da25f0fe25862a (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Jonas Jelonek <jelonek.jonas@gmail.com>
-Date:   Sun Jun 21 14:07:39 2026 +0000
+commit 11865bffc8cc680e3729b7bf5280ce90a695acdd (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Thomas Weißschuh <thomas@t-8ch.de>
+Date:   Wed Jun 17 10:42:27 2026 +0200
 
-    realtek: pcs: drop unused cmu_band code
+    util-linux: update to 2.42.2
     
-    For RTL930x and RTL931x, there were some functions to get and set the
-    CMU band. However, they were used nearly nowhere and even the SDK
-    doesn't use them for active SerDes configuration. Drop them to reduce
-    dead code.
+    Release notes:
+    https://www.kernel.org/pub/linux/utils/util-linux/v2.42/v2.42.2-ReleaseNotes
     
-    Dropping the cmu_band_set call from RTL931x configuration has no
-    negative effect. We do not know where this call originally came from.
-    It was introduced 51c8f76612 ("realtek: improve MAC config handling for
-    all SoCs") but without any explanation why and where it came from. The
-    SDK doesn't have it and it may be overwritten again in the later CMU
-    setup when parts of the SerDes are reset.
-    
-    Link: https://github.com/openwrt/openwrt/pull/23904
-    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+    Signed-off-by: Thomas Weißschuh <thomas@t-8ch.de>
+    Link: https://github.com/openwrt/openwrt/pull/23844
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
