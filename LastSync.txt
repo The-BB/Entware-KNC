@@ -1,12 +1,10 @@
-commit 11865bffc8cc680e3729b7bf5280ce90a695acdd (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Thomas Weißschuh <thomas@t-8ch.de>
-Date:   Wed Jun 17 10:42:27 2026 +0200
+commit a1ab701efa9c3fabfd6dda233bc71a99c3fad371 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Felix Fietkau <nbd@nbd.name>
+Date:   Wed Jun 24 15:51:36 2026 +0200
 
-    util-linux: update to 2.42.2
+    mediatek: openwrt-one: make the front button usable as WPS button
     
-    Release notes:
-    https://www.kernel.org/pub/linux/utils/util-linux/v2.42/v2.42.2-ReleaseNotes
+    It's the most common use for such a button, and the behavior can
+    be changed in user space if needed
     
-    Signed-off-by: Thomas Weißschuh <thomas@t-8ch.de>
-    Link: https://github.com/openwrt/openwrt/pull/23844
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Felix Fietkau <nbd@nbd.name>
