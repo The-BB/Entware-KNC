@@ -1,10 +1,10 @@
-commit a1ab701efa9c3fabfd6dda233bc71a99c3fad371 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Felix Fietkau <nbd@nbd.name>
-Date:   Wed Jun 24 15:51:36 2026 +0200
+commit f6a6f764dfabc98ad094cb7d45dca0d767c1f6b8 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Shiji Yang <yangshiji66@outlook.com>
+Date:   Sat Jun 27 00:56:02 2026 +0800
 
-    mediatek: openwrt-one: make the front button usable as WPS button
+    toolchain: binutils: fix default version selection
     
-    It's the most common use for such a button, and the behavior can
-    be changed in user space if needed
-    
-    Signed-off-by: Felix Fietkau <nbd@nbd.name>
+    Fixes: 82f26df15c56 ("toolchain: binutils: change default to 2.46")
+    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
+    Link: https://github.com/openwrt/openwrt/pull/23952
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
