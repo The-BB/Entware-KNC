@@ -1,10 +1,9 @@
-commit f6a6f764dfabc98ad094cb7d45dca0d767c1f6b8 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Shiji Yang <yangshiji66@outlook.com>
-Date:   Sat Jun 27 00:56:02 2026 +0800
+commit 313ad4789bc9b22e2739686b451131a30e67d3f2 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Hauke Mehrtens <hauke@hauke-m.de>
+Date:   Sun Jun 28 00:46:48 2026 +0200
 
-    toolchain: binutils: fix default version selection
+    odhcpd: update to Git HEAD (2026-06-28)
     
-    Fixes: 82f26df15c56 ("toolchain: binutils: change default to 2.46")
-    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
-    Link: https://github.com/openwrt/openwrt/pull/23952
-    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+    68f382690bfa statefiles: escape client hostnames in the lease state file
+    
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
