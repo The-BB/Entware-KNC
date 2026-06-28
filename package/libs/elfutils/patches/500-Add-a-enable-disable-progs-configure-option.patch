@@ -29,7 +29,7 @@ Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
 
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -26,8 +26,12 @@ AM_MAKEFLAGS = --no-print-directory
+@@ -28,8 +28,12 @@ AM_MAKEFLAGS = --no-print-directory
  
  pkginclude_HEADERS = version.h
  
@@ -37,15 +37,15 @@ Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
 +PROGS_SUBDIR = src
 +endif
 +
- SUBDIRS = config lib libelf libcpu backends libebl libdwelf libdwfl libdw \
--	  libasm
-+	  libasm $(PROGS_SUBDIR)
+ SUBDIRS = config lib libelf libcpu backends libebl libdwelf libdwfl \
+-	  libdwfl_stacktrace libdw libasm
++	  libdwfl_stacktrace libdw libasm $(PROGS_SUBDIR)
  
  EXTRA_DIST = elfutils.spec GPG-KEY NOTES CONTRIBUTING SECURITY \
  	     COPYING COPYING-GPLV2 COPYING-LGPLV3 CONDUCT
 --- a/configure.ac
 +++ b/configure.ac
-@@ -426,6 +426,12 @@ AS_HELP_STRING([--enable-tests-rpath],[b
+@@ -453,6 +453,12 @@ AS_HELP_STRING([--enable-tests-rpath],[b
  	       [tests_use_rpath=$enableval], [tests_use_rpath=no])
  AM_CONDITIONAL(TESTS_RPATH, test "$tests_use_rpath" = yes)
  

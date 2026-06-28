@@ -1,31 +1,76 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -845,13 +845,13 @@ AC_ARG_ENABLE([debuginfod-ima-verificati
+@@ -913,47 +913,47 @@ AC_ARG_ENABLE([debuginfod-ima-verificati
  #
  # Look for various packages, minimum versions as per rhel7.
  PKG_PROG_PKG_CONFIG
 -PKG_CHECK_MODULES([libcurl],[libcurl >= 7.29.0],[have_libcurl=yes],[have_libcurl=no])
-+#PKG_CHECK_MODULES([libcurl],[libcurl >= 7.29.0],[have_libcurl=yes],[have_libcurl=no])
- AC_CHECK_LIB(pthread, pthread_setname_np, [AC_DEFINE([HAVE_PTHREAD_SETNAME_NP],[1],[Enable pthread_setname_np])])
 -PKG_CHECK_MODULES([jsonc],[json-c >= 0.11],[have_jsonc=yes],[have_jsonc=no])
++#PKG_CHECK_MODULES([libcurl],[libcurl >= 7.29.0],[have_libcurl=yes],[have_libcurl=no])
++#PKG_CHECK_MODULES([jsonc],[json-c >= 0.11],[have_jsonc=yes],[have_jsonc=no])
+ #
+ # pronounce judgement on ability to build client, overridden by =yes/=no
+ if test "x$enable_libdebuginfod" = "xno"; then
+    true
+ elif test "x$enable_libdebuginfod" = "xdummy"; then
+    true
+-elif test "x$have_jsonc$have_libcurl" = "xyesyes"; then
+-   enable_libdebuginfod=yes
+-elif test "x$enable_libdebuginfod" = "xyes"; then
+-   AC_MSG_ERROR([unable to build libdebuginfod, missing libjson-c or libcurl])
++#elif test "x$have_jsonc$have_libcurl" = "xyesyes"; then
++#   enable_libdebuginfod=yes
++#elif test "x$enable_libdebuginfod" = "xyes"; then
++#   AC_MSG_ERROR([unable to build libdebuginfod, missing libjson-c or libcurl])
+ else
+    enable_libdebuginfod=no
+ fi
 -PKG_CHECK_MODULES([libmicrohttpd],[libmicrohttpd >= 0.9.33],[],[enable_debuginfod=no])
 -PKG_CHECK_MODULES([oldlibmicrohttpd],[libmicrohttpd < 0.9.51],[old_libmicrohttpd=yes],[old_libmicrohttpd=no])
 -PKG_CHECK_MODULES([sqlite3],[sqlite3 >= 3.7.17],[have_sqlite3=yes],[have_sqlite3=no])
--PKG_CHECK_MODULES([libarchive],[libarchive >= 3.1.2],[have_libarchive=yes],[have_libarchive=no])
-+#PKG_CHECK_MODULES([jsonc],[json-c >= 0.11],[have_jsonc=yes],[have_jsonc=no])
 +#PKG_CHECK_MODULES([libmicrohttpd],[libmicrohttpd >= 0.9.33],[],[enable_debuginfod=no])
 +#PKG_CHECK_MODULES([oldlibmicrohttpd],[libmicrohttpd < 0.9.51],[old_libmicrohttpd=yes],[old_libmicrohttpd=no])
 +#PKG_CHECK_MODULES([sqlite3],[sqlite3 >= 3.7.17],[have_sqlite3=yes],[have_sqlite3=no])
-+#PKG_CHECK_MODULES([libarchive],[libarchive >= 3.1.2],[have_libarchive=yes],[have_libarchive=no])
- AC_CHECK_LIB(rpm, headerGet, [AC_CHECK_DECL(RPMSIGTAG_FILESIGNATURES,
-                                             [AC_SUBST(rpm_LIBS, '-lrpm -lrpmio')],[], [#include <rpm/rpmlib.h>])])
- AC_CHECK_LIB(crypto, EVP_MD_CTX_new, [AC_SUBST(crypto_LIBS, '-lcrypto')])
-@@ -900,7 +900,7 @@ AM_CONDITIONAL([DUMMY_LIBDEBUGINFOD],[te
- AS_IF([test "x$enable_debuginfod" != "xno"],AC_DEFINE([ENABLE_DEBUGINFOD],[1],[Build debuginfod]))
- AM_CONDITIONAL([DEBUGINFOD],[test "x$enable_debuginfod" = "xyes"])
- AS_IF([test "x$enable_debuginfod_ima_verification" = "xyes"],AC_DEFINE([ENABLE_IMA_VERIFICATION],[1],[Build IMA verification]))
--AS_IF([test "x$have_libarchive" = "xyes"],AC_DEFINE([HAVE_LIBARCHIVE],[1],[Define to 1 if libarchive is available]))
-+#AS_IF([test "x$have_libarchive" = "xyes"],AC_DEFINE([HAVE_LIBARCHIVE],[1],[Define to 1 if libarchive is available]))
- AM_CONDITIONAL([ENABLE_IMA_VERIFICATION],[test "x$enable_debuginfod_ima_verification" = "xyes"])
- AM_CONDITIONAL([OLD_LIBMICROHTTPD],[test "x$old_libmicrohttpd" = "xyes"])
- 
+ #
+ # Check for libarchive unless its usage is disabled.
+-AC_ARG_WITH([libarchive],
+-  [AS_HELP_STRING([--with-libarchive],
+-                  [use libarchive])],
+-  [], [with_libarchive=auto])
+-have_libarchive=no
+-AS_IF([test "x$with_libarchive" != "xno"], [
+-  PKG_CHECK_MODULES([libarchive], [libarchive >= 3.1.2],
+-    [have_libarchive=yes],
+-    [have_libarchive=no])
+-])
+-AS_IF([test "x$with_libarchive" = "xyes" -a "x$have_libarchive" != "xyes"], [
+-  AC_MSG_ERROR([--with-libarchive was given, but libarchive >= 3.1.2 not found])
+-])
++#AC_ARG_WITH([libarchive],
++#  [AS_HELP_STRING([--with-libarchive],
++#                  [use libarchive])],
++#  [], [with_libarchive=auto])
++#have_libarchive=no
++#AS_IF([test "x$with_libarchive" != "xno"], [
++#  PKG_CHECK_MODULES([libarchive], [libarchive >= 3.1.2],
++#    [have_libarchive=yes],
++#    [have_libarchive=no])
++#])
++#AS_IF([test "x$with_libarchive" = "xyes" -a "x$have_libarchive" != "xyes"], [
++#  AC_MSG_ERROR([--with-libarchive was given, but libarchive >= 3.1.2 not found])
++#])
+ #
+ # pronounce judgement on ability to build server, overridden by =yes/=no
+ if test "x$enable_debuginfod" = "xno"; then
+    true
+-elif test "x$have_jsonc$HAVE_CXX11$have_libarchive$have_sqlite3" = "xyesyesyesyes"; then
+-   enable_debuginfod=yes
+-elif test "x$enable_debuginfod" = "xyes"; then
+-   AC_MSG_ERROR([unable to build debuginfod, missing libmicrohttpd, sqlite3 or libarchive])
++#elif test "x$have_jsonc$HAVE_CXX11$have_libarchive$have_sqlite3" = "xyesyesyesyes"; then
++#   enable_debuginfod=yes
++#elif test "x$enable_debuginfod" = "xyes"; then
++#   AC_MSG_ERROR([unable to build debuginfod, missing libmicrohttpd, sqlite3 or libarchive])
+ else
+    enable_debuginfod=no
+ fi
