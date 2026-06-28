@@ -1,9 +1,10 @@
-commit 313ad4789bc9b22e2739686b451131a30e67d3f2 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+commit 3c26b9fd64b53e57294fd29adc0dfe8f211bfa2b (HEAD -> master, origin/master, origin/main, origin/HEAD)
 Author: Hauke Mehrtens <hauke@hauke-m.de>
-Date:   Sun Jun 28 00:46:48 2026 +0200
+Date:   Sun Jun 28 16:48:13 2026 +0200
 
-    odhcpd: update to Git HEAD (2026-06-28)
+    ubus: update to Git HEAD (2026-06-28)
     
-    68f382690bfa statefiles: escape client hostnames in the lease state file
+    24864e7840b3 ubusd_id: use GRND_INSECURE to avoid blocking boot on getrandom()
     
+    Fixes: https://github.com/openwrt/ubus/issues/21
     Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
