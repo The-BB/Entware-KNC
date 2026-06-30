@@ -1,10 +1,17 @@
-commit 3c26b9fd64b53e57294fd29adc0dfe8f211bfa2b (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Hauke Mehrtens <hauke@hauke-m.de>
-Date:   Sun Jun 28 16:48:13 2026 +0200
+commit cc697093b8104029f559fc3258f46556a8066c13 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Markus Stockhausen <markus.stockhausen@gmx.de>
+Date:   Sun Jun 28 19:25:43 2026 +0200
 
-    ubus: update to Git HEAD (2026-06-28)
+    realtek: l3: reorganize lock access
     
-    24864e7840b3 ubusd_id: use GRND_INSECURE to avoid blocking boot on getrandom()
+    The layer 3 code shares the register access lock with the DSA driver.
+    It is currently unclear to which extent this is really needed. To
+    avoid permanent access to the DSA private structure reorganize the
+    locking as follows:
     
-    Fixes: https://github.com/openwrt/ubus/issues/21
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    - create a lock pointer in the layer 3 control structure
+    - link it to the DSA lock during probing
+    - use the ctrl->lock pointer whenever needed.
+    
+    Link: https://github.com/openwrt/openwrt/pull/23979
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
