@@ -1,17 +1,10 @@
-commit cc697093b8104029f559fc3258f46556a8066c13 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Markus Stockhausen <markus.stockhausen@gmx.de>
-Date:   Sun Jun 28 19:25:43 2026 +0200
+commit 92143f94b6b35e5b3602c1f9d2cfb6e2f9a63085 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Felix Fietkau <nbd@nbd.name>
+Date:   Wed Jun 24 12:57:55 2026 +0200
 
-    realtek: l3: reorganize lock access
+    mac80211: notify driver on airtime weight changes
     
-    The layer 3 code shares the register access lock with the DSA driver.
-    It is currently unclear to which extent this is really needed. To
-    avoid permanent access to the DSA private structure reorganize the
-    locking as follows:
+    Add a new sta_set_airtime_weight driver op so drivers can program the
+    airtime fairness weight into hardware.
     
-    - create a lock pointer in the layer 3 control structure
-    - link it to the DSA lock during probing
-    - use the ctrl->lock pointer whenever needed.
-    
-    Link: https://github.com/openwrt/openwrt/pull/23979
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Signed-off-by: Felix Fietkau <nbd@nbd.name>
