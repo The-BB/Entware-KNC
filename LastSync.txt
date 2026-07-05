@@ -1,10 +1,13 @@
-commit 92143f94b6b35e5b3602c1f9d2cfb6e2f9a63085 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Felix Fietkau <nbd@nbd.name>
-Date:   Wed Jun 24 12:57:55 2026 +0200
+commit 9716066e80c9c8ebfb0db480a17c59895f1e6f1e (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Rosen Penev <rosenp@gmail.com>
+Date:   Tue Jun 30 19:44:12 2026 -0700
 
-    mac80211: notify driver on airtime weight changes
+    kernel: add qualcommax patches to generic
     
-    Add a new sta_set_airtime_weight driver op so drivers can program the
-    airtime fairness weight into hardware.
+    Move upstreamed patches to backports.
     
-    Signed-off-by: Felix Fietkau <nbd@nbd.name>
+    Move the others to pending.
+    
+    Signed-off-by: Rosen Penev <rosenp@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/24013
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
