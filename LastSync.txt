@@ -1,13 +1,11 @@
-commit 9716066e80c9c8ebfb0db480a17c59895f1e6f1e (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Rosen Penev <rosenp@gmail.com>
-Date:   Tue Jun 30 19:44:12 2026 -0700
+commit a4e5c3b8f61be4ad80e8787fb4d9ed84fdfa132d (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Pavlo Samko <bulldozerbsg@gmail.com>
+Date:   Mon Jun 29 20:45:02 2026 +0300
 
-    kernel: add qualcommax patches to generic
+    nilfs-utils: update to 2.3.1
     
-    Move upstreamed patches to backports.
+    Changelog: https://nilfs.sourceforge.io/download/ChangeLog-utils-v2
     
-    Move the others to pending.
-    
-    Signed-off-by: Rosen Penev <rosenp@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/24013
+    Signed-off-by: Pavlo Samko <bulldozerbsg@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/23995
     Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
