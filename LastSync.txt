@@ -1,22 +1,19 @@
-commit 5b6bc962bd1a7cf61176400b82304e0fcfe71f61 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: John Audia <therealgraysky@proton.me>
-Date:   Sun Jul 5 16:17:55 2026 -0400
+commit 273b186ac34b0f46cb77a78916c8789ceda35187 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Robert Marko <robert.marko@sartura.hr>
+Date:   Mon Jul 6 15:19:44 2026 +0200
 
-    kernel: bump 6.18 to 6.18.38
+    mac80211: ath12k: fix regulatory range for wideband radios
     
-    Changelog: https://cdn.kernel.org/pub/linux/kernel/v6.x/ChangeLog-6.18.38
+    Currently, trying to start a 5GHz radio on 8devices Kiwi will fail as
+    despite the phy listing the 5GHz channels in iw phy dump, no radio actually
+    claims the 5GHz range.
     
-    Removed upstreamed:
-      linux/generic/backport-6.18/300-v7.2-MIPS-smp-report-dying-CPU-to-RCU-in-stop_this_cpu.patch[1]
+    This is because driver assumes that if radio supports 6GHz then it cannot
+    be used for 5Ghz, this is however not correct for wideband radios.
     
-    All other patches automatically rebased via update_kernel.sh
+    So, similar to the 103-wifi-ath12k-fix-5GHz-operation-on-wideband-QCN.patch
+    patch ath12k_regd_update() so that 5Ghz range is listed as well.
     
-    1. https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=v6.18.38&id=f9b57a0015c241274651f4b36627f56b1b5a8651
-    
-    Build system: x86/64
-    Build-tested: x86/64-glibc
-    Run-tested: x86/64-glibc
-    
-    Signed-off-by: John Audia <therealgraysky@proton.me>
-    Link: https://github.com/openwrt/openwrt/pull/24083
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+    Link: https://github.com/openwrt/openwrt/pull/24106
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
