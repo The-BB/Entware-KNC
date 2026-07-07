@@ -1,11 +1,12 @@
-commit a4e5c3b8f61be4ad80e8787fb4d9ed84fdfa132d (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Pavlo Samko <bulldozerbsg@gmail.com>
-Date:   Mon Jun 29 20:45:02 2026 +0300
+commit 1d206717c57f0b3af9e0f9ef7888422836164830 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Anari Jalakas <anari.jalakas@gmail.com>
+Date:   Fri Jul 3 12:10:02 2026 +0300
 
-    nilfs-utils: update to 2.3.1
+    elfutils: add $(FPIC) to LDFLAGS
     
-    Changelog: https://nilfs.sourceforge.io/download/ChangeLog-utils-v2
+    Ensure -fPIC is passed during the linking stage to fix LTO build
+    failures (relocation errors) on MIPS and other architectures.
     
-    Signed-off-by: Pavlo Samko <bulldozerbsg@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/23995
+    Signed-off-by: Anari Jalakas <anari.jalakas@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/24051
     Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
