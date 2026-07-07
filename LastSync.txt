@@ -1,12 +1,22 @@
-commit 1d206717c57f0b3af9e0f9ef7888422836164830 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Anari Jalakas <anari.jalakas@gmail.com>
-Date:   Fri Jul 3 12:10:02 2026 +0300
+commit 5b6bc962bd1a7cf61176400b82304e0fcfe71f61 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: John Audia <therealgraysky@proton.me>
+Date:   Sun Jul 5 16:17:55 2026 -0400
 
-    elfutils: add $(FPIC) to LDFLAGS
+    kernel: bump 6.18 to 6.18.38
     
-    Ensure -fPIC is passed during the linking stage to fix LTO build
-    failures (relocation errors) on MIPS and other architectures.
+    Changelog: https://cdn.kernel.org/pub/linux/kernel/v6.x/ChangeLog-6.18.38
     
-    Signed-off-by: Anari Jalakas <anari.jalakas@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/24051
-    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+    Removed upstreamed:
+      linux/generic/backport-6.18/300-v7.2-MIPS-smp-report-dying-CPU-to-RCU-in-stop_this_cpu.patch[1]
+    
+    All other patches automatically rebased via update_kernel.sh
+    
+    1. https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?h=v6.18.38&id=f9b57a0015c241274651f4b36627f56b1b5a8651
+    
+    Build system: x86/64
+    Build-tested: x86/64-glibc
+    Run-tested: x86/64-glibc
+    
+    Signed-off-by: John Audia <therealgraysky@proton.me>
+    Link: https://github.com/openwrt/openwrt/pull/24083
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
