@@ -1,19 +1,11 @@
-commit 273b186ac34b0f46cb77a78916c8789ceda35187 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Robert Marko <robert.marko@sartura.hr>
-Date:   Mon Jul 6 15:19:44 2026 +0200
+commit c2a758b16a0de4640e57b95273594c7a84a25bbf (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Rosen Penev <rosenp@gmail.com>
+Date:   Wed Jun 17 20:34:40 2026 -0700
 
-    mac80211: ath12k: fix regulatory range for wideband radios
+    apm821xx: enable PM
     
-    Currently, trying to start a 5GHz radio on 8devices Kiwi will fail as
-    despite the phy listing the 5GHz channels in iw phy dump, no radio actually
-    claims the 5GHz range.
+    There's support for sleep in several drivers.
     
-    This is because driver assumes that if radio supports 6GHz then it cannot
-    be used for 5Ghz, this is however not correct for wideband radios.
-    
-    So, similar to the 103-wifi-ath12k-fix-5GHz-operation-on-wideband-QCN.patch
-    patch ath12k_regd_update() so that 5Ghz range is listed as well.
-    
-    Signed-off-by: Robert Marko <robert.marko@sartura.hr>
-    Link: https://github.com/openwrt/openwrt/pull/24106
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Signed-off-by: Rosen Penev <rosenp@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/24075
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
