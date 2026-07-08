@@ -1,11 +1,14 @@
-commit c2a758b16a0de4640e57b95273594c7a84a25bbf (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Rosen Penev <rosenp@gmail.com>
-Date:   Wed Jun 17 20:34:40 2026 -0700
+commit 79d2cf882017f118c5b0fbabd38dae9a15968e92 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Felix Fietkau <nbd@nbd.name>
+Date:   Wed Jul 8 16:10:54 2026 +0200
 
-    apm821xx: enable PM
+    udebug: update to Git HEAD (2026-07-08)
     
-    There's support for sleep in several drivers.
+    91591e698dac lib-ucode: fix heap buffer overflow in trace ring allocation
+    7530cc1d2bb2 lib-ucode: open kernel trace_pipe non-blocking
+    2fcb035141da lib-ucode: grow trace fetch buffer to fit oversized lines
+    c670cc4f9acc lib-ucode: close trace_pipe fd on trace ring error path
+    7690e66e6e08 udebug-cli: handle kernel trace buffer open failure
+    75843a1bfcc9 lib-ucode: avoid infinite loop on oversized trace lines
     
-    Signed-off-by: Rosen Penev <rosenp@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/24075
-    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+    Signed-off-by: Felix Fietkau <nbd@nbd.name>
