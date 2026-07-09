@@ -1,14 +1,166 @@
-commit 79d2cf882017f118c5b0fbabd38dae9a15968e92 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Felix Fietkau <nbd@nbd.name>
-Date:   Wed Jul 8 16:10:54 2026 +0200
+commit b519bc3b76517ce5b54db78b02536d139b620dcf (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Jonas Jelonek <jelonek.jonas@gmail.com>
+Date:   Mon Jul 6 15:15:59 2026 +0000
 
-    udebug: update to Git HEAD (2026-07-08)
+    realtek: add support for Ubiquiti UniFi USW Pro Max 24 PoE
     
-    91591e698dac lib-ucode: fix heap buffer overflow in trace ring allocation
-    7530cc1d2bb2 lib-ucode: open kernel trace_pipe non-blocking
-    2fcb035141da lib-ucode: grow trace fetch buffer to fit oversized lines
-    c670cc4f9acc lib-ucode: close trace_pipe fd on trace ring error path
-    7690e66e6e08 udebug-cli: handle kernel trace buffer open failure
-    75843a1bfcc9 lib-ucode: avoid infinite loop on oversized trace lines
+    Add support for RTL9302B-based Ubiquiti UniFi USW Pro Max 24 PoE switch
+    with 16x GbE and 8x 2.5G RJ45 ports, 2x SFP+, and a front display.
     
-    Signed-off-by: Felix Fietkau <nbd@nbd.name>
+    Hardware
+    ========
+    
+      - RTL9302B switch SoC
+      - 512 MiB RAM
+      - 32 MiB SPI-NOR flash
+      - 16x 100M/1G RJ45 ports via 2x RTL8218E
+      - 8x 100M/1G/2.5G RJ45 ports via 2x RTL8224
+      - PoE:
+          - 400W total budget
+          - 8x 802.3at, 32W per port (ports 1-8)
+          - 16x 802.3bt, 60W per port (ports 9-24)
+      - 2x SFP+ ports
+      - Buttons: 1x Reset
+      - LEDs: RGBW LED per port (Etherlighting)
+      - Front touch display via USB ACM (see below)
+      - Console: TTL 3.3V, 115200 8N1 (internal pin header close to SoC;
+        layout front to back: VCC RX TX GND)
+      - Etherlighting feature (lighting patterns and color control)
+      - Vendor firmware: U-Boot + LEDE-based Ubiquiti OS
+    
+    MAC address
+    ===========
+    
+    Single MAC address in EEPROM partition, applied to all ports.
+    
+    Front touch display
+    ===================
+    
+    The unit has a touch-capable front display, driven by a dedicated
+    STM32-based MCU. Unlike other Ubiquiti switches where the MCU is
+    connected to the SoC via UART directly, here it is exposed as a USB
+    CDC-ACM serial device through an on-board Genesys Logic GL850G USB hub.
+    The MCU runs Ubiquiti's LCM firmware and exposes a high-level JSON
+    protocol (page selection, button-press events, etc.); arbitrary
+    pixel-level control is not possible without replacing the MCU firmware.
+    Display support therefore depends on both USB host support and a driver
+    for the LCM protocol, neither of which is currently available.
+    
+    Known issues
+    ============
+    
+      - PoE not available, depends on WIP Realtek PSE MCU driver
+      - Etherlighting not controllable, driver WIP. Port LEDs for link work
+        though. By default, the controller keeps the LEDs in a breathing
+        state, gated by the link state delivered by the Realtek SoC.
+    
+    Disclaimer
+    ==========
+    
+    Stock firmware uses a dual-bank layout (kernel0/kernel1, ~15 MiB each).
+    OpenWrt replaces both banks with a single contiguous firmware partition.
+    Flashing OpenWrt overwrites both stock kernel slots; U-Boot remains
+    intact and can be used for recovery.
+    
+    Installation
+    ============
+    
+    1. Enable SSH on the stock UniFi OS and log in with user account.
+    
+    2. Copy the OpenWrt sysupgrade image to /tmp on the switch (e.g. via
+       scp).
+    
+    3. Adjust IMG below to point at the copied file, then run the block as a
+       whole. It writes kernel0, splits into kernel1 if the image is larger
+       than that slot (otherwise invalidates kernel1 so U-Boot cannot pick
+       a stale bank), and reboots:
+    
+       IMG=/tmp/openwrt-realtek-rtl930x-ubnt_usw-pro-max-24-poe-squashfs-sysupgrade.bin
+       K0_BLOCKS=$((0xec0000 / 0x10000))
+    
+       dd if="$IMG" of=/dev/mtdblock2 bs=64k count=$K0_BLOCKS conv=fsync
+       if [ "$(wc -c < "$IMG")" -gt $((0xec0000)) ]; then
+           dd if="$IMG" of=/dev/mtdblock3 bs=64k skip=$K0_BLOCKS conv=fsync
+       else
+           dd if=/dev/zero of=/dev/mtdblock3 bs=64k count=1 conv=fsync
+       fi
+       sync
+       reboot
+    
+       The switch comes up in OpenWrt after reboot.
+    
+    4. It is recommended to modify the bootcmd to speed up the boot and
+       prevent any issues due to the dual-boot selection. Since U-Boot by
+       default uses bootubnt which does a lot of (unneeded) RTK
+       initialization, quite some time passes until Linux is started.
+       Additionally, the U-Boot logic fiddles with some bits on flash which
+       causes JFFS2 errors in OpenWrt. While this doesn't seem to cause
+       issues yet, be defensive and set the bootcmd to:
+    
+         bootm 0xb4150000
+    
+       This directly boots the uImage from flash, without doing all the
+       initialization. OpenWrt is able to bootstrap the networking
+       completely on its own.
+    
+    It does not matter which bank stock booted from when the dd block
+    runs: both banks are touched in the same pass (kernel0 written, kernel1
+    either written or invalidated). With kernel1 invalidated, U-Boot's
+    internal fallback kicks in and permanently switches to kernel0 on the
+    next boot, so the device stays on OpenWrt as long as kernel0 is
+    bootable.
+    
+    Recovery
+    ========
+    
+    Since the installation procedure invalidates or partially overwrites
+    the second bank, recovery requires serial console access (see Hardware
+    above for pinout).
+    
+    1. Interrupt U-Boot autoboot by spamming a key during early boot to
+       drop into the U-Boot prompt.
+    
+    2. Bring up networking:
+    
+       rtk network on
+    
+    3. Transfer an OpenWrt initramfs image via TFTP and boot it:
+    
+       tftpboot 0x82000000 <server>:<initramfs.bin>
+       bootm 0x82000000
+    
+    4. From the running initramfs OpenWrt, do a sysupgrade to reflash
+       OpenWrt or whatever you want to recover. There is no need for the
+       complicated procedure from installation since OpenWrt sees the
+       firmware partition already as a whole.
+    
+    Return to stock firmware
+    ========================
+    
+    There is no fully-supported revert path. The stock firmware blob is a
+    Ubiquiti UBNT archive (header + parts, see firmware-utils' fw.h) that
+    embeds a u-boot and a kernel0 uImage payload; only the latter is
+    relevant when writing back to the kernel partitions.
+    
+    The snippet below extracts the kernel0 uImage from such a blob by
+    locating the uImage magic and using the size carried in the uImage
+    header itself, without parsing any UBNT framing. It is provided as a
+    best-effort starting point; verify the result before flashing,
+    otherwise you're on your own:
+    
+       BLOB=<firmware.bin>
+       OFF=$(grep -aboF $'\x27\x05\x19\x56' "$BLOB" | head -1 | cut -d: -f1)
+       SIZE=$(( $(dd if="$BLOB" bs=1 skip=$((OFF + 12)) count=4 2>/dev/null \
+                   | hexdump -e '1/4 "%u"') + 64 ))
+       dd if="$BLOB" of=kernel0.uImage bs=1 skip="$OFF" count="$SIZE"
+    
+    Once you have a clean uImage, write it to the kernel partition from
+    within OpenWrt. If you adjusted the bootcmd during installation, make
+    sure to restore it to the default "bootcmd=bootubnt". After a reboot,
+    Ubiquiti's firmware should boot.
+    
+    Or, if you made backups of the flash before installation, just write
+    the backup back to flash.
+    
+    Link: https://github.com/openwrt/openwrt/pull/24110
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
