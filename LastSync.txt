@@ -1,20 +1,11 @@
-commit 305c7599e5fa400cf6221fd0a596dbd014529235 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Robert Marko <robimarko@gmail.com>
-Date:   Mon Jul 13 11:07:26 2026 +0200
+commit 4fa33a07247e519b258d45bae80e5d05f7999f3b (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Christian Marangi <ansuelsmth@gmail.com>
+Date:   Tue Jul 14 14:44:13 2026 +0200
 
-    qualcommax: pin EDMA processing to dedicated CPUs
+    airoha: configure PCIe 2-lanes mode for eMMC EAGLE RFB board
     
-    IPQ60xx and IPQ807x use threaded NAPI for EDMA. The NAPI threads
-    inherit CPU0 affinity, and running both there can eventually starve the
-    RX fill ring under sustained traffic.
+    The EAGLE PCIe WiFi card require PCIe0 to be in 2-lanes mode to correctly
+    work. Add the missing property to enable this mode and restore correctly
+    functionality of the WiFi card.
     
-    Add an IPQ60xx smp_affinity service and extend the existing IPQ807x
-    service to discover the EDMA IRQs and NAPI IDs at runtime. Place RX on
-    CPU1 and TX on CPU2. Retry EDMA setup asynchronously because its NAPI
-    threads may appear after the init service runs.
-    
-    Provide the same UCI enable and logging controls on both subtargets.
-    IPQ50xx uses a different Ethernet driver and is left unchanged.
-    
-    Link: https://github.com/openwrt/openwrt/pull/24203
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
