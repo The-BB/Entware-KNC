@@ -1,14 +1,11 @@
-commit e9aa5bea9f249eadfc5368874efee996643c0efc (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Jonas Jelonek <jelonek.jonas@gmail.com>
-Date:   Mon May 18 21:30:31 2026 +0000
+commit ad1de384bf93d44503a13cb3983f35001dd511ef (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: George Moussalem <george.moussalem@outlook.com>
+Date:   Wed Jul 15 13:09:55 2026 +0400
 
-    realtek: add PoE support for XS1930-12HP
+    qualcommax: ipq50xx: backport upstreamed patches for IPQ5018 PHY clocks
     
-    Add support for PoE functionality using the realtek-pse-mcu driver
-    (kmod-pse-realtek-mcu-i2c) interfacing the on-board PoE MCU and RTL8239
-    PSE chips.
+    Backport upstreamed patches for IPQ5018 PHY RX and TX clocks support.
     
-    This doesn't include any support for PoE-related LEDs.
-    
-    Link: https://github.com/openwrt/openwrt/pull/23222
-    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+    Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+    Link: https://github.com/openwrt/openwrt/pull/24238
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
