@@ -56,7 +56,7 @@
  
  /* Whether to log commands executed by a client. This only logs the
   * (single) command sent to the server, not what a user did in a
-@@ -400,7 +400,7 @@ runtime with -M. 0 disables this feature
+@@ -400,8 +400,8 @@ runtime with -M. 0 disables this feature
  #define DEFAULT_MAX_DURATION 0
  
  /* The default path. This will often get replaced by the shell */
@@ -65,7 +65,8 @@
 +#define DEFAULT_PATH "/opt/usr/bin:/opt/bin:/usr/bin:/bin"
 +#define DEFAULT_ROOT_PATH "/opt/usr/sbin:/opt/usr/bin:/opt/sbin:/opt/bin:/usr/sbin:/usr/bin:/sbin:/bin"
  
- #endif /* DROPBEAR_DEFAULT_OPTIONS_H_ */
+ /* Features pending deletion. These will be removed in a future release
+    since they don't seem to be used much. Open a github issue if you
 --- a/src/sysoptions.h
 +++ b/src/sysoptions.h
 @@ -102,7 +102,7 @@
