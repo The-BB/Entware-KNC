@@ -1,11 +1,14 @@
-commit 4fa33a07247e519b258d45bae80e5d05f7999f3b (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Christian Marangi <ansuelsmth@gmail.com>
-Date:   Tue Jul 14 14:44:13 2026 +0200
+commit e9aa5bea9f249eadfc5368874efee996643c0efc (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Jonas Jelonek <jelonek.jonas@gmail.com>
+Date:   Mon May 18 21:30:31 2026 +0000
 
-    airoha: configure PCIe 2-lanes mode for eMMC EAGLE RFB board
+    realtek: add PoE support for XS1930-12HP
     
-    The EAGLE PCIe WiFi card require PCIe0 to be in 2-lanes mode to correctly
-    work. Add the missing property to enable this mode and restore correctly
-    functionality of the WiFi card.
+    Add support for PoE functionality using the realtek-pse-mcu driver
+    (kmod-pse-realtek-mcu-i2c) interfacing the on-board PoE MCU and RTL8239
+    PSE chips.
     
-    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+    This doesn't include any support for PoE-related LEDs.
+    
+    Link: https://github.com/openwrt/openwrt/pull/23222
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
