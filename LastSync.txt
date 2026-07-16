@@ -1,11 +1,16 @@
-commit ad1de384bf93d44503a13cb3983f35001dd511ef (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: George Moussalem <george.moussalem@outlook.com>
-Date:   Wed Jul 15 13:09:55 2026 +0400
+commit 4be1036213238ecaca758bf43a57f7dc5255f6f5 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Robert Marko <robert.marko@sartura.hr>
+Date:   Thu Jul 16 14:27:41 2026 +0200
 
-    qualcommax: ipq50xx: backport upstreamed patches for IPQ5018 PHY clocks
+    airoha: an7583: fix AN7583 PCS port count
     
-    Backport upstreamed patches for IPQ5018 PHY RX and TX clocks support.
+    The AN7583 PCS match data does not initialize num_port. This leaves it at
+    zero, so probe allocates a zero-sized ports array and a later PCS lookup
+    returns a pointer derived from NULL.
     
-    Signed-off-by: George Moussalem <george.moussalem@outlook.com>
-    Link: https://github.com/openwrt/openwrt/pull/24238
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Set the number of ports for each AN7583 PCS instance. Also reject
+    out-of-range PCS indices defensively.
+    
+    Fixes kernel crashing on boot once ethernet starts probing on AN7583.
+    
+    Signed-off-by: Robert Marko <robert.marko@sartura.hr>
