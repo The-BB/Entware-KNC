@@ -1,16 +1,9 @@
-commit 4be1036213238ecaca758bf43a57f7dc5255f6f5 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+commit 696b38be9ca0fd3583d33bfb3b6446ecfb70a3ad (HEAD -> master, origin/master, origin/main, origin/HEAD)
 Author: Robert Marko <robert.marko@sartura.hr>
-Date:   Thu Jul 16 14:27:41 2026 +0200
+Date:   Fri Jul 17 12:06:45 2026 +0200
 
-    airoha: an7583: fix AN7583 PCS port count
+    uboot-airoha: fix AN7583 pinctrl compatible
     
-    The AN7583 PCS match data does not initialize num_port. This leaves it at
-    zero, so probe allocates a zero-sized ports array and a later PCS lookup
-    returns a pointer derived from NULL.
-    
-    Set the number of ports for each AN7583 PCS instance. Also reject
-    out-of-range PCS indices defensively.
-    
-    Fixes kernel crashing on boot once ethernet starts probing on AN7583.
+    Use the compatible expected by the AN7583 pinctrl driver so the pinctrl and integrated GPIO driver can bind.
     
     Signed-off-by: Robert Marko <robert.marko@sartura.hr>
