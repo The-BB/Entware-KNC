@@ -1,24 +1,13 @@
-commit 06c826e3354e2553c2360e144c8a671aaee51ad8 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Paul Spooren <mail@aparcar.org>
-Date:   Fri Jul 17 21:19:46 2026 +0200
+commit 4f2dc5cc6497a6cef0a43bdefde522e734c1f40d (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Josef Schlehofer <pepe.schlehofer@gmail.com>
+Date:   Thu Jul 16 23:52:35 2026 +0200
 
-    kernel: use iremap for assembly
+    CI: remove labeler workflow and enable webhook-based labeling
     
-    Currently assembly code of the Kernel may contain the build path, resulting in
-    unreproducible firmware images (and Kernels). Fix this by adding a iremap
-    KAFLAG.
+    Remove the .github/workflows/labeler.yml workflow and enable the "enable_labeler_yml" option in .github/formalities.json to let the webhook bot handle pull request labeling. This avoids running on GitHub Actions, so it is faster and uses fewer resources.
     
-    Before:
+    It uses the existing .github/labeler.yml for labels.
     
-        strings "/path/to/vmlinux" | grep linux-6.18.38
-        /path/to/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.18.38
-        /path/to/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.18.38
-    
-    After
-    
-        strings "/path/to/vmlinux" | grep linux-6.18.38
-        target-x86_64_musl/linux-x86_64/linux-6.18.38
-        target-x86_64_musl/linux-x86_64/linux-6.18.38
-    
-    Link: https://github.com/openwrt/openwrt/pull/24271
-    Signed-off-by: Paul Spooren <mail@aparcar.org>
+    Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/24256
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
