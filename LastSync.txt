@@ -1,9 +1,24 @@
-commit 696b38be9ca0fd3583d33bfb3b6446ecfb70a3ad (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Robert Marko <robert.marko@sartura.hr>
-Date:   Fri Jul 17 12:06:45 2026 +0200
+commit 06c826e3354e2553c2360e144c8a671aaee51ad8 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Paul Spooren <mail@aparcar.org>
+Date:   Fri Jul 17 21:19:46 2026 +0200
 
-    uboot-airoha: fix AN7583 pinctrl compatible
+    kernel: use iremap for assembly
     
-    Use the compatible expected by the AN7583 pinctrl driver so the pinctrl and integrated GPIO driver can bind.
+    Currently assembly code of the Kernel may contain the build path, resulting in
+    unreproducible firmware images (and Kernels). Fix this by adding a iremap
+    KAFLAG.
     
-    Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+    Before:
+    
+        strings "/path/to/vmlinux" | grep linux-6.18.38
+        /path/to/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.18.38
+        /path/to/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.18.38
+    
+    After
+    
+        strings "/path/to/vmlinux" | grep linux-6.18.38
+        target-x86_64_musl/linux-x86_64/linux-6.18.38
+        target-x86_64_musl/linux-x86_64/linux-6.18.38
+    
+    Link: https://github.com/openwrt/openwrt/pull/24271
+    Signed-off-by: Paul Spooren <mail@aparcar.org>
