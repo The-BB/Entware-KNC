@@ -1,57 +1,16 @@
-commit bacda03b76aa831b035a08571559e3590112196d (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Vincenzo Suraci <vincenzo.suraci@gmail.com>
-Date:   Mon Jul 6 11:43:05 2026 +0200
+commit 3ec398f0c3eeebbfb6aba452e48f3efd5b0f52a8 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Jonas Jelonek <jelonek.jonas@gmail.com>
+Date:   Sat Jun 27 11:13:32 2026 +0000
 
-    ramips: add support for Comfast CF-EW84
+    tools: firmware-utils: update to Git HEAD (2026-07-19)
     
-    Add support for the Comfast CF-EW84 based on the MediaTek MT7621
-    SoC.
+    1ab209233682 mkzynfw: rename macros from RTL93XX to RTL_OTTO
+    606f25ef3ca2 mkzynfw: add board definitions for Zyxel GS1920 v2 series
+    162fa533b309 mkzynfw: add board definitions for GS2210 series
+    b2d46a825a53 mkzynfw: add board definitions for Zyxel GS1920 v1 series
+    5c5df244b8a1 Revert "mkzynfw: add board definitions for Zyxel GS1920 v1 series"
+    7f28bfbc4b5a Revert "mkzynfw: add board definitions for GS2210 series"
+    5e1b83d1fc2b mkzynfw: add board definitions for GS2210 series
+    3e6b426938e8 mkzynfw: add board definitions for Zyxel GS1920 v1 series
     
-    Hardware:
-      CPU/SoC:      MediaTek MT7621DA
-      RAM:          128 MB DDR3
-      Flash:        Macronix MX25L12805D 16 MB
-      Switch:       MediaTek MT7530
-      WiFi 2.4 GHz: MediaTek MT7603E
-      WiFi 5 GHz:   MediaTek MT7613B
-      Ports:        1x WAN, 2x LAN (10/100/1000 Mbps)
-      LEDs:         Power, WAN, LAN1, LAN2, WLAN
-      Buttons:      Reset
-      UART:         through-hole on PCB
-                    pinout: RX, TX, GND, 3.3V
-                    settings: 115200n8
-    
-    Flash instructions:
-    1. Connect the bundled PoE injector to power.
-    2. Connect the PC to the LAN1 or LAN2 port of the device.
-    3. Configure a static IP on the computer's Ethernet adapter:
-         IP:      192.168.1.x (x = 2 to 254)
-         Mask:    255.255.255.0
-         Gateway: empty
-         DNS:     empty
-    4. Connect a second Ethernet cable to the PoE port of the
-       bundled injector.
-    5. Press and hold the reset button on the device.
-    6. While holding the reset button, plug the other end of the
-       second Ethernet cable into the WAN port.
-    7. Wait at least 3 seconds, then release the reset button.
-    8. Browse to http://192.168.1.1: the MediaTek U-Boot System
-       Recovery page should appear.
-    9. Click Upload and select the *-sysupgrade.bin firmware file.
-    10. After flashing completes, browse to http://192.168.1.1
-        again: the LuCI login page should appear.
-    
-    Factory data:
-      2.4 GHz EEPROM:        factory offset 0x0000
-      5 GHz EEPROM:          factory offset 0x8000
-      LAN MAC address:       factory offset 0xe000
-      WAN MAC address:       factory offset 0xe000 (+1)
-    
-    LED layout:
-    The Comfast CF-EW84 has five physical LEDs, but only the WLAN
-    LED is software-controllable through the Linux GPIO-LEDs
-    subsystem.
-    
-    Signed-off-by: Vincenzo Suraci <vincenzo.suraci@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/24112
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
