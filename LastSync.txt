@@ -1,16 +1,24 @@
-commit 3ec398f0c3eeebbfb6aba452e48f3efd5b0f52a8 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Jonas Jelonek <jelonek.jonas@gmail.com>
-Date:   Sat Jun 27 11:13:32 2026 +0000
+commit f31b65a870f7b8b133bccf879cb3c5fc909d5d86 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Date:   Wed Jul 15 18:58:21 2026 +0200
 
-    tools: firmware-utils: update to Git HEAD (2026-07-19)
+    ledtrig-network: default missing family to WLAN on non-DT LEDs
     
-    1ab209233682 mkzynfw: rename macros from RTL93XX to RTL_OTTO
-    606f25ef3ca2 mkzynfw: add board definitions for Zyxel GS1920 v2 series
-    162fa533b309 mkzynfw: add board definitions for GS2210 series
-    b2d46a825a53 mkzynfw: add board definitions for Zyxel GS1920 v1 series
-    5c5df244b8a1 Revert "mkzynfw: add board definitions for Zyxel GS1920 v1 series"
-    7f28bfbc4b5a Revert "mkzynfw: add board definitions for GS2210 series"
-    5e1b83d1fc2b mkzynfw: add board definitions for GS2210 series
-    3e6b426938e8 mkzynfw: add board definitions for Zyxel GS1920 v1 series
+    For LEDs that have no network trigger configuration in Device Tree
+    (no mode or family properties), net_activate() infers the family
+    from the LED name or function string. If that inference fails,
+    the trigger previously returned -EINVAL and refused to activate.
     
+    This is too strict for manual activation via sysfs (e.g.
+    echo "network" > /sys/class/leds/<led>/trigger) on LEDs that
+    were not declared for the network trigger in DT. In that case
+    the user expects the trigger to load with sensible defaults.
+    
+    Change the non-DT activation path to fall back to NET_TRIG_WLAN
+    instead of failing, while keeping the condition visible via pr_warn().
+    Device Tree paths with dt_mode or dt_family are left unchanged
+    and continue to fail on invalid parameters
+    
+    Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+    Link: https://github.com/openwrt/openwrt/pull/24235
     Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
