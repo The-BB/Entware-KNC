@@ -1,24 +1,26 @@
-commit f31b65a870f7b8b133bccf879cb3c5fc909d5d86 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Date:   Wed Jul 15 18:58:21 2026 +0200
+commit 0f256a0a7adf5741e4a061f59a08cd01c14dc526 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Daniel Golle <daniel@makrotopia.org>
+Date:   Mon Jul 20 00:16:52 2026 +0100
 
-    ledtrig-network: default missing family to WLAN on non-DT LEDs
+    kernel: modules: package OP-TEE and fTPM modules
     
-    For LEDs that have no network trigger configuration in Device Tree
-    (no mode or family properties), net_activate() infers the family
-    from the LED name or function string. If that inference fails,
-    the trigger previously returned -EINVAL and refused to activate.
+    Add kmod packages to support accessing the fTPM (in-firmware TPM) which
+    can be implemented in the boot firmware of most modern platforms.
     
-    This is too strict for manual activation via sysfs (e.g.
-    echo "network" > /sys/class/leds/<led>/trigger) on LEDs that
-    were not declared for the network trigger in DT. In that case
-    the user expects the trigger to load with sensible defaults.
+     - kmod-optee: Open Portable Trusted Execution Environment
+     - kmod-optee-rng: OP-TEE random number generator client
+     - kmod-rtc-optee: OP-TEE real-time clock client
+     - kmod-scmi-transport-optee: SCMI OP-TEE transport
+     - kmod-tee: Generic Trusted Execution Environment
+     - kmod-tee-stmm-efi: EFI variable service Trusted Application
+     - kmod-tpm-ftpm-tee: Microsoft fTPM Trusted Application
     
-    Change the non-DT activation path to fall back to NET_TRIG_WLAN
-    instead of failing, while keeping the condition visible via pr_warn().
-    Device Tree paths with dt_mode or dt_family are left unchanged
-    and continue to fail on invalid parameters
+    Using the TPM 2.0 can be useful for various security applications,
+    such as encrypting on-disk credentials. OP-TEE itself alone is also
+    useful as it can provide a PKCS#11 token for authentication (eg. to
+    connect to a VPN) and significantly lower the risk of leaking secrets
+    used for authentication. Also, on some platforms RNG and RTC can only be
+    accessed via OP-TEE, and some ARM SystemReady platforms require EFI
+    variables to be access via a TA.
     
-    Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-    Link: https://github.com/openwrt/openwrt/pull/24235
-    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+    Signed-off-by: Daniel Golle <daniel@makrotopia.org>
