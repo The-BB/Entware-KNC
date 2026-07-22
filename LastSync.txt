@@ -1,26 +1,10 @@
-commit 0f256a0a7adf5741e4a061f59a08cd01c14dc526 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Daniel Golle <daniel@makrotopia.org>
-Date:   Mon Jul 20 00:16:52 2026 +0100
+commit b5191da03cf4864416afee8ef5542e1ffe596d41 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Hauke Mehrtens <hauke@hauke-m.de>
+Date:   Tue Jul 21 03:28:58 2026 +0200
 
-    kernel: modules: package OP-TEE and fTPM modules
+    rpcd: update to Git HEAD (2026-07-19)
     
-    Add kmod packages to support accessing the fTPM (in-firmware TPM) which
-    can be implemented in the boot firmware of most modern platforms.
+    e37ed9d81469 file: re-authorize ACL against resolved path to close symlink bypass
     
-     - kmod-optee: Open Portable Trusted Execution Environment
-     - kmod-optee-rng: OP-TEE random number generator client
-     - kmod-rtc-optee: OP-TEE real-time clock client
-     - kmod-scmi-transport-optee: SCMI OP-TEE transport
-     - kmod-tee: Generic Trusted Execution Environment
-     - kmod-tee-stmm-efi: EFI variable service Trusted Application
-     - kmod-tpm-ftpm-tee: Microsoft fTPM Trusted Application
-    
-    Using the TPM 2.0 can be useful for various security applications,
-    such as encrypting on-disk credentials. OP-TEE itself alone is also
-    useful as it can provide a PKCS#11 token for authentication (eg. to
-    connect to a VPN) and significantly lower the risk of leaking secrets
-    used for authentication. Also, on some platforms RNG and RTC can only be
-    accessed via OP-TEE, and some ARM SystemReady platforms require EFI
-    variables to be access via a TA.
-    
-    Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+    Link: https://github.com/openwrt/openwrt/pull/24329
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
