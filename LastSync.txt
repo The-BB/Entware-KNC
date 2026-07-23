@@ -1,10 +1,10 @@
-commit b5191da03cf4864416afee8ef5542e1ffe596d41 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Hauke Mehrtens <hauke@hauke-m.de>
-Date:   Tue Jul 21 03:28:58 2026 +0200
+commit f937146fa1d2eca392f9a6ddf81c49711d261fed (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: David Bauer <mail@david-bauer.net>
+Date:   Thu Jul 23 01:03:07 2026 +0200
 
-    rpcd: update to Git HEAD (2026-07-19)
+    mtd mtdsplit-fit: fix potential out of bounds read
     
-    e37ed9d81469 file: re-authorize ACL against resolved path to close symlink bypass
+    Account the offset_start in the bounds check of the for loop. This was
+    previously missing, differing in check and actual read.
     
-    Link: https://github.com/openwrt/openwrt/pull/24329
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: David Bauer <mail@david-bauer.net>
