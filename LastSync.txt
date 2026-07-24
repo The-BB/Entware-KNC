@@ -1,10 +1,11 @@
-commit f937146fa1d2eca392f9a6ddf81c49711d261fed (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: David Bauer <mail@david-bauer.net>
-Date:   Thu Jul 23 01:03:07 2026 +0200
+commit 60cf4aa958db901f662915751e191de6fa56dfb7 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Paul Spooren <mail@aparcar.org>
+Date:   Thu Jul 23 14:39:19 2026 +0200
 
-    mtd mtdsplit-fit: fix potential out of bounds read
+    build: make GL.iNet metadata reproducible
     
-    Account the offset_start in the bounds check of the for loop. This was
-    previously missing, differing in check and actual read.
+    The GL.iNet specific metadata contains a `date`-field which takes the current
+    timestamp instead of using SOURCE_DATE_EPOCH. This commits make use of the
+    variable, if available.
     
-    Signed-off-by: David Bauer <mail@david-bauer.net>
+    Signed-off-by: Paul Spooren <mail@aparcar.org>
