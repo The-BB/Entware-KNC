@@ -1,11 +1,36 @@
-commit 60cf4aa958db901f662915751e191de6fa56dfb7 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Paul Spooren <mail@aparcar.org>
-Date:   Thu Jul 23 14:39:19 2026 +0200
+commit 3b2bc55dcb1bacc5f69fefac583e181c7ce73ce6 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Gennaro Cimmino <gcimmino@rayonra.net>
+Date:   Fri Jul 24 17:21:46 2026 +0200
 
-    build: make GL.iNet metadata reproducible
+    realtek: eth: reclaim completed TX buffers on RX poll
     
-    The GL.iNet specific metadata contains a `date`-field which takes the current
-    timestamp instead of using SOURCE_DATE_EPOCH. This commits make use of the
-    variable, if available.
+    The transmit path frees a TX skb only when its descriptor slot is
+    reused, RTETH_TX_RING_SIZE transmissions later. Until then the skb
+    stays charged to the sending socket's send buffer. With standard
+    frames the pinned amount is negligible, but with jumbo frames a
+    handful of completed transmissions is enough to exhaust the sender's
+    budget: eight ~9k echo replies exceed the kernel ICMP socket limit of
+    2 * SKB_TRUESIZE(64 * 1024), after which the stack drops every further
+    reply of any size (Icmp OutErrors) until unrelated transmissions
+    happen to recycle the slots. Observed on the Hasivo S1100W-8XGT-SE
+    (RTL9303) as a total ICMP blackout setting in after exactly eight
+    jumbo echo replies, healed by any sixteen device-originated frames.
     
-    Signed-off-by: Paul Spooren <mail@aparcar.org>
+    Track monotonic send/clean counters in the driver-private ring info
+    (their difference is the number of unreleased skbs, their low bits the
+    ring slots), and release the contiguous completed run at the start of
+    the RX poll, before the received packets are processed, so replies
+    generated while handling the poll always find their send budget
+    released. The walk runs under the TX queue lock the
+    transmit path already holds, stops at the first descriptor the
+    hardware still owns, and is skipped entirely - no lock taken, no
+    access to the uncached descriptor memory - while nothing is pending.
+    The transmit path reuses the same walk for the ring-wrap case instead
+    of its old per-slot cleanup, and stopped or watchdog-frozen queues
+    are left to the rteth_tx_timeout() recovery, which keeps releasing
+    every buffer itself.
+    
+    Assisted-by: Claude:claude-fable-5
+    Signed-off-by: Gennaro Cimmino <gcimmino@rayonra.net>
+    Link: https://github.com/openwrt/openwrt/pull/24406
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
