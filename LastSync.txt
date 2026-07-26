@@ -1,21 +1,13 @@
-commit 69668f8f828b94a7d9fd908bf82d24e5a2a13d48 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Josef Schlehofer <pepe.schlehofer@gmail.com>
-Date:   Thu Jul 23 11:27:39 2026 +0200
+commit 03e0a608e0fca370f1c5ab20cd39779b24b7a63e (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Florian Maurer <f.maurer@outlook.de>
+Date:   Mon Dec 29 01:30:27 2025 +0100
 
-    github: switch issue-labeller to bot webhook and add configuration
+    package: utils: umbim: add dns servers independent of peerdns
     
-    Remove the standalone GitHub Actions issue-labeller.yml workflow in favor
-    of the webhook-based openwrt-bot worker.
+    This is required to add available dns servers in ifstatus output,
+    required by downstream tools to receive information of the configured
+    DNS server on the wwan interface.
+    This has no effect on the dns server selection, as peerdns has the
+    desired effect within netifd.
     
-    Enable issue labeller in formalities.json and add a declarative
-    .github/issue-labeller.yml configuration file for automated validation
-    and labelling of bug reports (release, target, image kind, device).
-    
-    The release rule lists two alternative conditions under a single label
-    key: concrete releases (x.y.z, x.y.z-rcN) are validated against their
-    Git tag via exists check, while stable-branch snapshots (x.y-SNAPSHOT)
-    are format-validated only — OpenWrt does not tag snapshot builds.
-    
-    Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/24382
-    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+    Signed-off-by: Florian Maurer <f.maurer@outlook.de>
