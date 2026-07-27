@@ -1,13 +1,11 @@
-commit 03e0a608e0fca370f1c5ab20cd39779b24b7a63e (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Florian Maurer <f.maurer@outlook.de>
-Date:   Mon Dec 29 01:30:27 2025 +0100
+commit 5d63c8dcb3c72637560f657f29be5dcc3464c085 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Thomas Richard <thomas.richard@bootlin.com>
+Date:   Mon Jul 13 14:14:21 2026 +0200
 
-    package: utils: umbim: add dns servers independent of peerdns
+    stm32: drop kernel 6.12 support
     
-    This is required to add available dns servers in ifstatus output,
-    required by downstream tools to receive information of the configured
-    DNS server on the wwan interface.
-    This has no effect on the dns server selection, as peerdns has the
-    desired effect within netifd.
+    Drop config and patches for Linux 6.12.
     
-    Signed-off-by: Florian Maurer <f.maurer@outlook.de>
+    Signed-off-by: Thomas Richard <thomas.richard@bootlin.com>
+    Link: https://github.com/openwrt/openwrt/pull/24404
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
