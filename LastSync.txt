@@ -1,11 +1,59 @@
-commit 5d63c8dcb3c72637560f657f29be5dcc3464c085 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Thomas Richard <thomas.richard@bootlin.com>
-Date:   Mon Jul 13 14:14:21 2026 +0200
+commit 0e178e15429c0ca4574b32ccc1f029d69a6ca185 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Peter Putzer <openwrt@mundschenk.at>
+Date:   Sat Jul 25 10:28:06 2026 +0000
 
-    stm32: drop kernel 6.12 support
+    realtek: add support for ZyXEL GS1900-8HP B2
     
-    Drop config and patches for Linux 6.12.
+    The ZyXEL GS1900-8HP B2 is an 8-port gigabit switch with PoE+ support. It's a new
+    hardware revision that uses the `realtek,pse-mcu-gen2` PSE dialect with 115200 baud
+    like the GS1900-10HP B1. Other hardware changes are unknown, but the switch works
+    fine using the pre-PSE `zyxel,gs1900-8hp-b1` image with the `realtek-poe` user-space
+    PoE implementation.
     
-    Signed-off-by: Thomas Richard <thomas.richard@bootlin.com>
-    Link: https://github.com/openwrt/openwrt/pull/24404
+    The installation instructions from the initial support for the A1 and B1 revisions
+    still apply (https://github.com/openwrt/openwrt/commit/c4bfe68c83910e613f07350587a8709a16bd1ffa):
+    
+    * Configure your client with a static 192.168.1.x IP (e.g. 192.168.1.2).
+    * Set up a TFTP server on your client and make it serve the initramfs
+      image.
+    * Connect serial, power up the switch, interrupt U-boot by hitting the
+      space bar, and enable the network:
+      > rtk network on
+    * Since the GS1900-10HP is a dual-partition device, you want to keep the
+      OEM firmware on the backup partition for the time being. OpenWrt can
+      only boot off the first partition anyway (hardcoded in the DTS). To
+      make sure we are manipulating the first partition, issue the following
+      commands:
+      > setsys bootpartition 0
+      > savesys
+    * Download the image onto the device and boot from it:
+      > tftpboot 0x84f00000 192.168.1.2:openwrt-realtek-generic-zyxel_gs1900-8hp-b2-initramfs-kernel.bin
+      > bootm
+    * Once OpenWrt has booted, scp the sysupgrade image to /tmp and flash it:
+      > sysupgrade /tmp//tmp/openwrt-realtek-generic-zyxel_gs1900-8hp-b2-squashfs-sysupgrade.bin
+    
+    Alternatively, after factory-resetting the switch, you can:
+    
+    * Log in to OEM management web interface. It should be at http://192.168.1.1
+    * Navigate to `Maintenance > Firmware > Management`
+    * If "Active Image" has the first option selected, OpenWrt will need to be
+      flashed to the "Active" partition. If the second option is selected, OpenWrt
+      will need to be flashed to the "Backup" partition.
+    * Navigate to `Maintenance > Firmware > Upload`
+    * Upload the initramfs-kernel.bin file by your preferred method to the previously
+      determined partition. When prompted, select to boot from the newly flashed image,
+      and reboot the switch.
+    * Once OpenWrt has booted, scp the sysupgrade.bin image to /tmp and flash it thought SSH.
+      - OpenWrt does not include openssh-sftp-server by default. If your SCP client fails due
+        to lacking an SFTP server on the device, consider using the legacy SCP protocol
+        instead. With OpenSSH's scp this can be done by adding the -O option on the command
+        line.
+      - `sysupgrade -n /tmp/<sysupgrade file name>`
+    * It may be necessary to restart the network (/etc/init.d/network restart) on the running
+      initramfs image.
+    
+    See the GS199-8HP A1 wiki page for more information (https://openwrt.org/toh/zyxel/gs1900-8hp_v1).
+    
+    Signed-off-by: Peter Putzer <openwrt@mundschenk.at>
+    Link: https://github.com/openwrt/openwrt/pull/24418
     Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
