@@ -1,59 +1,73 @@
-commit 0e178e15429c0ca4574b32ccc1f029d69a6ca185 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Peter Putzer <openwrt@mundschenk.at>
-Date:   Sat Jul 25 10:28:06 2026 +0000
+commit c22686329b63652fe7924efcf94855fdb234125e (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Gennaro Cimmino <gcimmino@rayonra.net>
+Date:   Sun Jul 26 18:52:35 2026 +0200
 
-    realtek: add support for ZyXEL GS1900-8HP B2
+    realtek: eth: support changing the MTU
     
-    The ZyXEL GS1900-8HP B2 is an 8-port gigabit switch with PoE+ support. It's a new
-    hardware revision that uses the `realtek,pse-mcu-gen2` PSE dialect with 115200 baud
-    like the GS1900-10HP B1. Other hardware changes are unknown, but the switch works
-    fine using the pre-PSE `zyxel,gs1900-8hp-b1` image with the `realtek-poe` user-space
-    PoE implementation.
+    Add a change_mtu operation, so the length the switch may deliver to the
+    CPU follows the conduit MTU instead of keeping the value programmed when
+    the interface came up.
     
-    The installation instructions from the initial support for the A1 and B1 revisions
-    still apply (https://github.com/openwrt/openwrt/commit/c4bfe68c83910e613f07350587a8709a16bd1ffa):
+    To avoid trouble with the receive buffer, adapt the head of line budget
+    along with it. Those registers limit how many packets the hardware may
+    append to a receive ring, and deriving that limit from a frame of
+    maximum length makes the smallest MTU pay the price of the largest. With
+    400 byte fragments a 1626 byte frame occupies five of them, which leaves
+    128 / 5 = 25 packets per ring, while the 1530 byte frame of a tagged
+    conduit at its idle MTU needs four and fits 32.
     
-    * Configure your client with a static 192.168.1.x IP (e.g. 192.168.1.2).
-    * Set up a TFTP server on your client and make it serve the initramfs
-      image.
-    * Connect serial, power up the switch, interrupt U-boot by hitting the
-      space bar, and enable the network:
-      > rtk network on
-    * Since the GS1900-10HP is a dual-partition device, you want to keep the
-      OEM firmware on the backup partition for the time being. OpenWrt can
-      only boot off the first partition anyway (hardcoded in the DTS). To
-      make sure we are manipulating the first partition, issue the following
-      commands:
-      > setsys bootpartition 0
-      > savesys
-    * Download the image onto the device and boot from it:
-      > tftpboot 0x84f00000 192.168.1.2:openwrt-realtek-generic-zyxel_gs1900-8hp-b2-initramfs-kernel.bin
-      > bootm
-    * Once OpenWrt has booted, scp the sysupgrade image to /tmp and flash it:
-      > sysupgrade /tmp//tmp/openwrt-realtek-generic-zyxel_gs1900-8hp-b2-squashfs-sysupgrade.bin
+    The two limits move in opposite directions, so the order matters: on the
+    way up the budget shrinks before the switch is allowed to hand over
+    larger frames, which keeps the ring from ever running a budget meant for
+    smaller ones. On the way down it grows only after the switch has stopped
+    handing over the larger frames, which narrows that window rather than
+    closing it, as the ring may still hold frames of the previous size. The
+    pair runs under the lock the rest of the driver programs those registers
+    with, as the transmit watchdog is not serialised against an MTU change.
+    The budget comes from the config, one function per family, and opening
+    the interface calls it too: RTL83xx has none to resize, as its rings are
+    free floating, so it writes the ring size of zero that its reset paths
+    used to write themselves.
     
-    Alternatively, after factory-resetting the switch, you can:
+    Nothing else has to follow, as the receive buffers are of a fixed size.
+    The largest MTU comes from the config too, one value per family: 10000
+    bytes on RTL838x and 12288 on the others, less the frame overhead. Those
+    are the limits the DSA driver already declares in its rmon ranges. A
+    frame must also fit into a single skb, whose linear part and fragments
+    hold 400 bytes each, so the operation refuses above an MTU of 7174 on
+    every family, well below what the switches would take. The fragment
+    size carries a TODO of its own, and raising it lifts that bound towards
+    the hardware one.
     
-    * Log in to OEM management web interface. It should be at http://192.168.1.1
-    * Navigate to `Maintenance > Firmware > Management`
-    * If "Active Image" has the first option selected, OpenWrt will need to be
-      flashed to the "Active" partition. If the second option is selected, OpenWrt
-      will need to be flashed to the "Backup" partition.
-    * Navigate to `Maintenance > Firmware > Upload`
-    * Upload the initramfs-kernel.bin file by your preferred method to the previously
-      determined partition. When prompted, select to boot from the newly flashed image,
-      and reboot the switch.
-    * Once OpenWrt has booted, scp the sysupgrade.bin image to /tmp and flash it thought SSH.
-      - OpenWrt does not include openssh-sftp-server by default. If your SCP client fails due
-        to lacking an SFTP server on the device, consider using the legacy SCP protocol
-        instead. With OpenSSH's scp this can be done by adding the -O option on the command
-        line.
-      - `sysupgrade -n /tmp/<sysupgrade file name>`
-    * It may be necessary to restart the network (/etc/init.d/network restart) on the running
-      initramfs image.
+    That remaining window is why every accepted change carries a warning. A
+    closed interface has neither a ring to protect nor registers worth
+    touching, as opening it derives both limits from the MTU anyway, so
+    leave the hardware alone while it is down. That also keeps the warning
+    out of the boot log, where dsa_conduit_setup() sets the tagging overhead
+    on a conduit that carries no traffic yet.
     
-    See the GS199-8HP A1 wiki page for more information (https://openwrt.org/toh/zyxel/gs1900-8hp_v1).
+    Tested on an RTL9303 (Hasivo S1100W-8XGT-SE, RTL8264B PHY, USXGMII).
+    Both limits follow every MTU as computed, read back from the switch:
     
-    Signed-off-by: Peter Putzer <openwrt@mundschenk.at>
-    Link: https://github.com/openwrt/openwrt/pull/24418
-    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+      conduit MTU   1504   1000   7174
+      packet length 1530   1026   7200
+      packets/ring    32     42      7
+    
+    where the previous static sizing programmed 25 packets per ring at every
+    MTU. An MTU of 7175 is refused, and one of 9000, which the family
+    ceiling would allow, reaches the operation and is refused there: no
+    warning is logged for it, where an accepted change logs one, and the
+    boot log carries none at all. Raising the MTU to 1600 while the
+    interface is down leaves the registers at 1530 and the budget at 32
+    packets and logs nothing, while bringing it up afterwards programs 1626
+    and 25, so the change is deferred rather than lost. Traffic keeps
+    flowing across the changes: a 102 byte frame is answered five times out
+    of five at each step, while a 1046 byte one passes at MTU 1504, stops at
+    MTU 1000, whose limit of 1026 it exceeds, and passes again once the MTU
+    is back. Sixty alternating changes between two MTUs complete with
+    nothing logged, on a build with spinlock debugging enabled.
+    
+    Assisted-by: Claude:claude-opus-5
+    Signed-off-by: Gennaro Cimmino <gcimmino@rayonra.net>
+    Link: https://github.com/openwrt/openwrt/pull/24421
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
