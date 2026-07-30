@@ -1,32 +1,17 @@
-commit d0110a25edf1854813fcb8f03f38d65679bd6378 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Daniel Schwierzeck <daniel.schwierzeck@gmail.com>
-Date:   Tue Jun 2 13:59:56 2026 +0200
+commit 3189ea8fe48a37d097bb1a8ac80852e3edbcdc5a (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: David Bauer <mail@david-bauer.net>
+Date:   Thu Jul 30 11:05:02 2026 +0200
 
-    airoha: add pinctrl fixes for AN7581 and AN7583
+    wifi-scripts: fix rate settings
     
-    Fix and improve support for AN7583. Muxing of SPI, MDIO and I2C is
-    now fully supported and working.
+    hostapd changed the configuration of basic and supported rates to a
+    per-bss setting. This left the current phy global settings unapplied.
     
-    Fix I2C1 in master mode on AN7581. (this allows to replace the i2c-gpio
-    driver on Nokia Valyrian with the proper i2c-mt7621 driver).
+    Apply the rate settings in uci on each VAP of a PHY.
     
-    Fix non-working switching of GPIO direction if GPIO control register were
-    already modified by bootloader and pinctrl would create a reserved
-    state. All GPIO control registers have two bits per GPIO but the driver
-    only set one which is now fixed.
+    In the future, this setting can theoretically also be set per-bss
+    in uci. However it is not part of this patch.
     
-    Fix problem were a pinmux config or GPIO mode cannot be applied if pin
-    control register were already modified by bootloader. The driver expects
-    all pin control registers to have their reset default value. Now the
-    driver forces that reset default value during probe.
+    Link: https://git.w1.fi/cgit/hostap/commit/?id=f7be1b53852a069f0d15eb471a6f9158467ab117
     
-    Worth to mention that on AN7583 the GPIO mode and alternate pin modes
-    are reversed in the reset default value. To achieve same behaviour as on
-    AN7581 (GPIO mode by default, board DTS applies pinmux), the default
-    value enforced during probe enables all GPIO mode bits. As consequence
-    all AN7583 board DTS need to explicitely activate mdio0 or spi pin
-    groups.
-    
-    Signed-off-by: Daniel Schwierzeck <daniel.schwierzeck@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/24267
-    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+    Signed-off-by: David Bauer <mail@david-bauer.net>
