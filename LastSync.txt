@@ -1,13 +1,52 @@
-commit ce16dd8ff0be3f297786aeab66067d015e22490b (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Shiji Yang <yangshiji66@outlook.com>
-Date:   Thu Jul 30 01:59:06 2026 +0800
+commit c0e9507c32f5f3729b324fe27308a9a63007f6c0 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Ahmed Naseef <naseefkm@gmail.com>
+Date:   Sun Jul 12 18:50:05 2026 +0400
 
-    kernel: bump 6.12 to 6.12.100
+    econet: en7528: manage the on-die MT7530 switch with DSA
     
-    Changelog:
-    - https://cdn.kernel.org/pub/linux/kernel/v6.x/ChangeLog-6.12.99
-    - https://cdn.kernel.org/pub/linux/kernel/v6.x/ChangeLog-6.12.100
+    The EN7528 integrates an MT7530 Gigabit switch, memory-mapped in the SoC
+    register space like the built-in switches of the MediaTek MT7988 and
+    Airoha EN7581/AN7583 SoCs. Its chip revision register reads 0x7530, so
+    unlike those three it is a genuine MT7530 core rather than an MT7531
+    derivative.
     
-    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
-    Link: https://github.com/openwrt/openwrt/pull/24476
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Until now the out-of-tree econet-eth driver programmed it as a flat
+    "dumb switch" that simply bridged the four LAN ports together and
+    exposed them as a single eth0. Hand it to the upstream mt7530 DSA
+    driver instead, so the ports come up as managed user ports lan1-lan4.
+    
+     - Add an ID_EN7528 variant to the mt7530 driver, bound through the MMIO
+       glue with the "econet,en7528-switch" compatible. It reuses
+       mt7988_setup() and the indirect PHY accessors, but selects the CPU
+       port through the MT7530-style MFC register rather than the MT7531 CFC
+       one, and describes the CPU port as a fixed 1000FDX link to the SoC
+       MAC. The LAN GPHYs advertise EEE, but negotiating it drops frames
+       with some link partners, so the LPI capabilities are left empty and
+       phylink keeps EEE off.
+    
+     - The frame engine and the switch are adjacent but separate blocks. The
+       ethernet node used to describe a single 64K window covering both,
+       which overlaps the switch node and makes the two drivers fight over
+       the region. Size it to the frame engine alone (0x8000) and give the
+       switch its own node, so both keep an exclusive claim:
+    
+         1fb50000-1fb57fff : 1fb50000.ethernet
+         1fb58000-1fb5ffff : 1fb58000.switch
+    
+       The GSW reset moves to the switch node with it.
+    
+     - econet-eth acts as the DSA conduit. It derives from the size of its
+       own register resource whether the window still covers the switch, and
+       when it does not, skips the dumb-switch setup and the switch
+       source-MAC write. The econet-eth driver now carries this support, so
+       bump PKG_SOURCE_VERSION to pull it in. EN751221 and EN751627 keep
+       the full window and are unaffected.
+    
+     - Enable the switch on the DASAN H660GM-A. The two variants share a
+       board, but their sockets are not numbered the same way: LAN1 is
+       switch port 1 on the Airtel unit and port 4 on the generic one, so
+       the port labels are assigned per board .dts.
+    
+    Signed-off-by: Ahmed Naseef <naseefkm@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/24199
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
