@@ -1,17 +1,13 @@
-commit 3189ea8fe48a37d097bb1a8ac80852e3edbcdc5a (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: David Bauer <mail@david-bauer.net>
-Date:   Thu Jul 30 11:05:02 2026 +0200
+commit ce16dd8ff0be3f297786aeab66067d015e22490b (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Shiji Yang <yangshiji66@outlook.com>
+Date:   Thu Jul 30 01:59:06 2026 +0800
 
-    wifi-scripts: fix rate settings
+    kernel: bump 6.12 to 6.12.100
     
-    hostapd changed the configuration of basic and supported rates to a
-    per-bss setting. This left the current phy global settings unapplied.
+    Changelog:
+    - https://cdn.kernel.org/pub/linux/kernel/v6.x/ChangeLog-6.12.99
+    - https://cdn.kernel.org/pub/linux/kernel/v6.x/ChangeLog-6.12.100
     
-    Apply the rate settings in uci on each VAP of a PHY.
-    
-    In the future, this setting can theoretically also be set per-bss
-    in uci. However it is not part of this patch.
-    
-    Link: https://git.w1.fi/cgit/hostap/commit/?id=f7be1b53852a069f0d15eb471a6f9158467ab117
-    
-    Signed-off-by: David Bauer <mail@david-bauer.net>
+    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
+    Link: https://github.com/openwrt/openwrt/pull/24476
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
