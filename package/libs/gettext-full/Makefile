@@ -118,6 +118,9 @@ define Host/Bootstrap
 		$(AM_TOOL_PATHS) \
 		./autogen.sh \
 	)
+	$(CP) \
+		$(HOST_BUILD_DIR)/gettext-tools/gnulib-lib/ctype.in.h~ \
+		$(HOST_BUILD_DIR)/gettext-tools/gnulib-lib/ctype.in.h
 endef
 
 define Host/Prepare

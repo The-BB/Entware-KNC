@@ -1,0 +1,214 @@
+./ctype.h:616:5: error: #if with no expression
+  616 | #if
+      |     ^
+./ctype.h:634:5: error: #if with no expression
+  634 | #if
+      |     ^
+./ctype.h:665:5: error: #if with no expression
+  665 | #if
+      |     ^
+./ctype.h:683:5: error: #if with no expression
+  683 | #if
+      |     ^
+./ctype.h:701:5: error: #if with no expression
+  701 | #if
+      |     ^
+./ctype.h:719:5: error: #if with no expression
+  719 | #if
+      |     ^
+./ctype.h:737:5: error: #if with no expression
+  737 | #if
+      |     ^
+./ctype.h:755:5: error: #if with no expression
+  755 | #if
+      |     ^
+./ctype.h:773:5: error: #if with no expression
+  773 | #if
+      |     ^
+./ctype.h:791:5: error: #if with no expression
+  791 | #if
+      |     ^
+./ctype.h:809:5: error: #if with no expression
+  809 | #if
+      |     ^
+./ctype.h:827:5: error: #if with no expression
+  827 | #if
+      |     ^
+./ctype.h:845:5: error: #if with no expression
+  845 | #if
+      |     ^
+./ctype.h:863:5: error: #if with no expression
+  863 | #if
+      |     ^
+
+---
+
+--- a/gettext-tools/gnulib-lib/ctype.in.h
++++ b/gettext-tools/gnulib-lib/ctype.in.h
+@@ -54,11 +54,7 @@
+  #error "Please include config.h first."
+ #endif
+ 
+-#if (@GNULIB_ISALNUM_L@ || @GNULIB_ISALPHA_L@ || @GNULIB_ISBLANK_L@ \
+-     || @GNULIB_ISCNTRL_L@ || @GNULIB_ISDIGIT_L@ || @GNULIB_ISGRAPH_L@ \
+-     || @GNULIB_ISLOWER_L@ || @GNULIB_ISPRINT_L@ || @GNULIB_ISPUNCT_L@ \
+-     || @GNULIB_ISSPACE_L@ || @GNULIB_ISUPPER_L@ || @GNULIB_ISXDIGIT_L@ \
+-     || @GNULIB_TOLOWER_L@ || @GNULIB_TOUPPER_L@)
++#if 1
+ /* Get locale_t.  */
+ # include <locale.h>
+ #endif
+@@ -70,8 +66,8 @@
+ /* The definition of _GL_WARN_ON_USE is copied here.  */
+ 
+ /* Return non-zero if c is alphanumeric.  */
+-#if @GNULIB_ISALNUM_L@
+-# if !@HAVE_ISALNUM_L@
++#if 1
++# if !1
+ _GL_FUNCDECL_SYS (isalnum_l, int, (int c, locale_t locale),
+                                   _GL_ARG_NONNULL ((2)));
+ # endif
+@@ -88,8 +84,8 @@ _GL_WARN_ON_USE (isalnum_l, "isalnum_l i
+ #endif
+ 
+ /* Return non-zero if c is alphabetic.  */
+-#if @GNULIB_ISALPHA_L@
+-# if !@HAVE_ISALPHA_L@
++#if 1
++# if !1
+ _GL_FUNCDECL_SYS (isalpha_l, int, (int c, locale_t locale),
+                                   _GL_ARG_NONNULL ((2)));
+ # endif
+@@ -119,8 +115,8 @@ _GL_WARN_ON_USE (isblank, "isblank is un
+ #endif
+ 
+ /* Return non-zero if c is a blank, i.e. a space or tab character.  */
+-#if @GNULIB_ISBLANK_L@
+-# if !@HAVE_ISBLANK_L@
++#if 1
++# if !1
+ _GL_FUNCDECL_SYS (isblank_l, int, (int c, locale_t locale),
+                                   _GL_ARG_NONNULL ((2)));
+ # endif
+@@ -137,8 +133,8 @@ _GL_WARN_ON_USE (isblank_l, "isblank_l i
+ #endif
+ 
+ /* Return non-zero if c is a control character.  */
+-#if @GNULIB_ISCNTRL_L@
+-# if !@HAVE_ISCNTRL_L@
++#if 1
++# if !1
+ _GL_FUNCDECL_SYS (iscntrl_l, int, (int c, locale_t locale),
+                                   _GL_ARG_NONNULL ((2)));
+ # endif
+@@ -155,8 +151,8 @@ _GL_WARN_ON_USE (iscntrl_l, "iscntrl_l i
+ #endif
+ 
+ /* Return non-zero if c is a digit.  */
+-#if @GNULIB_ISDIGIT_L@
+-# if !@HAVE_ISDIGIT_L@
++#if 1
++# if !1
+ _GL_FUNCDECL_SYS (isdigit_l, int, (int c, locale_t locale),
+                                   _GL_ARG_NONNULL ((2)));
+ # endif
+@@ -173,8 +169,8 @@ _GL_WARN_ON_USE (isdigit_l, "isdigit_l i
+ #endif
+ 
+ /* Return non-zero if c is graphic.  */
+-#if @GNULIB_ISGRAPH_L@
+-# if !@HAVE_ISGRAPH_L@
++#if 1
++# if !1
+ _GL_FUNCDECL_SYS (isgraph_l, int, (int c, locale_t locale),
+                                   _GL_ARG_NONNULL ((2)));
+ # endif
+@@ -191,8 +187,8 @@ _GL_WARN_ON_USE (isgraph_l, "isgraph_l i
+ #endif
+ 
+ /* Return non-zero if c is lowercase.  */
+-#if @GNULIB_ISLOWER_L@
+-# if !@HAVE_ISLOWER_L@
++#if 1
++# if !1
+ _GL_FUNCDECL_SYS (islower_l, int, (int c, locale_t locale),
+                                   _GL_ARG_NONNULL ((2)));
+ # endif
+@@ -209,8 +205,8 @@ _GL_WARN_ON_USE (islower_l, "islower_l i
+ #endif
+ 
+ /* Return non-zero if c is printable.  */
+-#if @GNULIB_ISPRINT_L@
+-# if !@HAVE_ISPRINT_L@
++#if 1
++# if !1
+ _GL_FUNCDECL_SYS (isprint_l, int, (int c, locale_t locale),
+                                   _GL_ARG_NONNULL ((2)));
+ # endif
+@@ -227,8 +223,8 @@ _GL_WARN_ON_USE (isprint_l, "isprint_l i
+ #endif
+ 
+ /* Return non-zero if c is a punctuation or symbol character.  */
+-#if @GNULIB_ISPUNCT_L@
+-# if !@HAVE_ISPUNCT_L@
++#if 1
++# if !1
+ _GL_FUNCDECL_SYS (ispunct_l, int, (int c, locale_t locale),
+                                   _GL_ARG_NONNULL ((2)));
+ # endif
+@@ -245,8 +241,8 @@ _GL_WARN_ON_USE (ispunct_l, "ispunct_l i
+ #endif
+ 
+ /* Return non-zero if c is white-space.  */
+-#if @GNULIB_ISSPACE_L@
+-# if !@HAVE_ISSPACE_L@
++#if 1
++# if !1
+ _GL_FUNCDECL_SYS (isspace_l, int, (int c, locale_t locale),
+                                   _GL_ARG_NONNULL ((2)));
+ # endif
+@@ -263,8 +259,8 @@ _GL_WARN_ON_USE (isspace_l, "isspace_l i
+ #endif
+ 
+ /* Return non-zero if c is uppercase.  */
+-#if @GNULIB_ISUPPER_L@
+-# if !@HAVE_ISUPPER_L@
++#if 1
++# if !1
+ _GL_FUNCDECL_SYS (isupper_l, int, (int c, locale_t locale),
+                                   _GL_ARG_NONNULL ((2)));
+ # endif
+@@ -281,8 +277,8 @@ _GL_WARN_ON_USE (isupper_l, "isupper_l i
+ #endif
+ 
+ /* Return non-zero if c is a hexadecimal digit.  */
+-#if @GNULIB_ISXDIGIT_L@
+-# if !@HAVE_ISXDIGIT_L@
++#if 1
++# if !1
+ _GL_FUNCDECL_SYS (isxdigit_l, int, (int c, locale_t locale),
+                                    _GL_ARG_NONNULL ((2)));
+ # endif
+@@ -299,8 +295,8 @@ _GL_WARN_ON_USE (isxdigit_l, "isxdigit_l
+ #endif
+ 
+ /* Map c to lowercase.  */
+-#if @GNULIB_TOLOWER_L@
+-# if !@HAVE_TOLOWER_L@
++#if 1
++# if !1
+ _GL_FUNCDECL_SYS (tolower_l, int, (int c, locale_t locale),
+                                   _GL_ARG_NONNULL ((2)));
+ # endif
+@@ -317,8 +313,8 @@ _GL_WARN_ON_USE (tolower_l, "tolower_l i
+ #endif
+ 
+ /* Map c to uppercase.  */
+-#if @GNULIB_TOUPPER_L@
+-# if !@HAVE_TOUPPER_L@
++#if 1
++# if !1
+ _GL_FUNCDECL_SYS (toupper_l, int, (int c, locale_t locale),
+                                   _GL_ARG_NONNULL ((2)));
+ # endif
