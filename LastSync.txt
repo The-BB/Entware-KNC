@@ -1,17 +1,81 @@
-commit d3191cb05603359991ecb8336662cc5408d9c2f9 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: John Audia <therealgraysky@proton.me>
-Date:   Fri Jul 31 15:46:26 2026 -0400
+commit cdc44e906ace23664ab5a19156d5f8470dddbaf1 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Guillaume RISCHARD <git@stereo.lu>
+Date:   Tue Apr 21 14:52:53 2026 -0400
 
-    kernel: bump 6.18 to 6.18.41
+    mediatek: filogic: add support for COMFAST CF-WA933
     
-    Changelog: https://cdn.kernel.org/pub/linux/kernel/v6.x/ChangeLog-6.18.41
+    The Comfast CF-WA933[1] is an outdoor dual-band WiFi 6 access
+    point/router. They also OEM their routers for other providers. This PR
+    adds support based on, and substantially updates, the downstream device
+    definition[2] from Wayru, one such white label client.
     
-    Update script ran/no patches required a refresh/updated checksums only.
+    It can be powered by a 12V DC barrel jack (standard 5.5x2.5mm, center
+    positive) or via 802.3af POE.
     
-    Build system: x86/64
-    Build-tested: x86/64-glibc
-    Run-tested: x86/64-glibc
+    Hardware summary:
+    - SoC: MediaTek MT7981A
+    - RAM: 256 MiB
+    - Flash: SPI-NAND 128 MiB (Factory uses 64M; see details below to use
+      the full 128M!)
+    - WiFi (MT7976DA): dual-band 802.11ax
+    - Ethernet (MT7531AE): 3x gigabit: 1x WAN + 2x LAN (labeled lan1/lan2).
+    - Button: reset
+    - LEDs: Power (always on), WLAN, WAN, LAN1, LAN2
+    - Serial: Internal header (Four unpopulated headers, clearly labeled)
     
-    Signed-off-by: John Audia <therealgraysky@proton.me>
-    Link: https://github.com/openwrt/openwrt/pull/24419
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    MAC addresses on the tested unit:
+    - Label:   40:a5:ef:f0:5e:0f
+    - LAN:     40:a5:ef:f0:5e:0f  Factory 0xe000
+    - WAN:     40:a5:ef:f0:5e:10  Factory 0xe000 + 1
+    - 2.4 GHz: 40:a5:ef:f0:5e:11  Factory 0x0004
+    - 5 GHz:   40:a5:ef:f0:5e:13  Factory 0x8000 + 1
+    
+    The serial number is stored as an ASCII string at Factory 0xe100.
+    
+    Disassembly:
+    
+    Unscrew the six 3mm hex bolts on the dome and the six 5mm bolts on the
+    side of the arm, then lift the dome. For reassembly, make sure the large
+    O ring is in the groove in the dome.
+    
+    OpenWrt installation:
+    
+    1. Connect to Ethernet on the WAN port. Manually set your IP address to
+    192.168.1.10 (important!)
+    2. Upload the OpenWrt sysupgrade image at http://192.168.1.1
+    
+    The default U-Boot partition layout does not expose the full flash
+    capacity. Change the mtdparts U-Boot environment variable before
+    rebooting and then installing the image for the 128 MiB variant through
+    the same bootloader recovery/upgrade page.
+    
+    Method 1: Using the serial console
+    
+    1. Disassemble the unit and connect to the serial console (115200 8N1).
+       Leave 3.3V disconnected.
+    2. On the boot loader, go straight to "0. U-Boot console"
+    3. Then enter:
+       setenv mtdparts 'nmbm0:1024k(bl2),512k(u-boot-env),2048k(factory),2048k(fip),117248k(ubi)'
+       saveenv
+       reset
+    
+    Method 2: From OpenWrt using uboot-envtools
+    
+    apk add uboot-envtools
+    fw_setenv mtdparts 'nmbm0:1024k(bl2),512k(u-boot-env),2048k(factory),2048k(fip),117248k(ubi)'
+    reboot
+    
+    Return to vendor firmware:
+    1. If you have changed the mtdparts environment variable, undo the
+       change by setting:
+       mtdparts 'nmbm0:1024k(bl2),512k(u-boot-env),2048k(factory),2048k(fip),65536k(ubi)'
+    2. Re-enter the same bootloader recovery/upgrade page.
+    3. Upload a stock COMFAST firmware image, e.g. from
+       http://www.comfast.com.cn/index.php?m=content&c=index&a=show&catid=85&id=773
+    
+    [1]: https://comfastgroup.com/product/cf-wa933/
+    [2]: https://github.com/Wayru-Network/wayru-os/tree/main/profiles/prometheus
+    
+    Signed-off-by: Guillaume RISCHARD <git@stereo.lu>
+    Link: https://github.com/openwrt/openwrt/pull/22379
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
