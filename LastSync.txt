@@ -1,15 +1,33 @@
-commit e9a6e45556e66067f7359509a7866cdbb8fe3f29 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Konstantin Demin <rockdrilla@gmail.com>
-Date:   Mon Aug 3 14:00:35 2026 +0300
+commit f4a7ae107e6ad41c37d0bfa152a35a6b2da79037 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Julius Bairaktaris <julius@bairaktaris.de>
+Date:   Sun Jul 26 11:45:30 2026 +0200
 
-    dropbear: bump to 2026.94
+    qualcommax: enable in-band signalling on the USXGMII ports
     
-    - update dropbear to latest stable 2026.94;
-      for the changes see https://matt.ucc.asn.au/dropbear/CHANGES
-    - server-side 2FA is no longer deprecated
-    - remove previously cherry-picked patches
-    - automatically refresh patches
+    USXGMII carries the line rate to the MAC in a Clause 37 code word, so the
+    link needs in-band signalling. Without "managed" the port is PHY managed,
+    phylink disables in-band on the PHY, and with the PCS now honouring
+    neg_mode neither end runs autonegotiation, so nothing crosses the system
+    interface.
     
-    Signed-off-by: Konstantin Demin <rockdrilla@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/24363
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Every USXGMII port in this target was missing the property: ten ports
+    across eight boards, all of them an Aquantia PHY on copper, none of them
+    an SFP cage. ipq8074-rt-ax89x already carried "in-band-status" on its
+    SGMII lan8, which is why a file-level search made it look covered.
+    
+    Only the two ports on ipq8072-301w have been tested on hardware. The
+    remaining eight are the same PHY family behind the same PCS, are broken
+    today for the same reason, and cannot regress from a state where they
+    pass no traffic, but they have not been confirmed on a board.
+    
+    That test ran on the 6.18 testing kernel, where phylink switches the PHY
+    side on through phy_config_inband(). On 6.12 the PHY has no such op and
+    0760-net-phy-aquantia-enable-USXGMII-MAC-autoneg.patch forces the same
+    bit unconditionally, so the end state matches, but no board has confirmed
+    it there.
+    
+    Tested-by: Rudy Andram <rmandrad@gmail.com>
+    Assisted-by: Claude:claude-opus-5
+    Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
+    Link: https://github.com/openwrt/openwrt/pull/24420
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
