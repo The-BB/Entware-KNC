@@ -1,16 +1,29 @@
-commit 15a2a6f46357ac7e5167bda0bcae17e0e5453b30 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Robert Marko <robert.marko@sartura.hr>
-Date:   Fri Aug 7 13:47:57 2026 +0200
+commit 29912055552480e5aedc9b81facc82709f1cf7d7 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Rustam Adilov <adilov@tutamail.com>
+Date:   Thu Aug 6 20:41:58 2026 +0500
 
-    airoha: pinctrl: fix AN7583 eMMC pinmux
+    realtek: board: some family check cleanups
     
-    The SCU IOMUX reset puts AN7583 pins 45-47 into GPIO mode. These pins
-    are shared with eMMC, but the generic eMMC function group only enables
-    the eMMC mode bit and leaves the GPIO overrides active, preventing the
-    card from initializing.
+    The prom initialization is a bit of a mess now with all these
+    model and soc family checks. And realtek_read_model() function
+    is the worst offender of all as it goes through all of the model
+    info register from different SoCs just to read details from one
+    of them.
     
-    Add an AN7583-specific eMMC function group that also clears the GPIO
-    mode bits for the shared pins.
+    We can make use of the .data property in realtek_of_match to
+    clean things up so that each soc family has its own way of
+    initialization and reading model details.
     
-    Fixes: d0110a25ed ("airoha: add pinctrl fixes for AN7581 and AN7583")
-    Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+    Create a struct that will be used for that and add all of the
+    soc data structs for all chip families.
+    
+    With all that, remove realtek_read_model() function and most
+    of the soc_info.family checks in various functions.
+    
+    In addition, add the rtl960x compatibles along as well so that
+    rtl960x model info details has somewhere to be used. RTL8198D
+    is also added as it is part of RTL9607C family.
+    
+    Signed-off-by: Rustam Adilov <adilov@tutamail.com>
+    Link: https://github.com/openwrt/openwrt/pull/24588
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
