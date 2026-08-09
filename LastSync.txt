@@ -1,29 +1,13 @@
-commit 29912055552480e5aedc9b81facc82709f1cf7d7 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Rustam Adilov <adilov@tutamail.com>
-Date:   Thu Aug 6 20:41:58 2026 +0500
+commit 83e93e04b4fd30b8e054c4fa623f013b415439d2 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Carlo Szelinsky <github@szelinsky.de>
+Date:   Sat Aug 8 12:02:28 2026 +0200
 
-    realtek: board: some family check cleanups
+    realtek: dts: add missing soc compatible to two Hasivo boards
     
-    The prom initialization is a bit of a mess now with all these
-    model and soc family checks. And realtek_read_model() function
-    is the worst offender of all as it goes through all of the model
-    info register from different SoCs just to read details from one
-    of them.
+    Both boards only list their board compatible in the root node, so they
+    do not match the realtek MIPS machine and hang early during boot.
     
-    We can make use of the .data property in realtek_of_match to
-    clean things up so that each soc family has its own way of
-    initialization and reading model details.
-    
-    Create a struct that will be used for that and add all of the
-    soc data structs for all chip families.
-    
-    With all that, remove realtek_read_model() function and most
-    of the soc_info.family checks in various functions.
-    
-    In addition, add the rtl960x compatibles along as well so that
-    rtl960x model info details has somewhere to be used. RTL8198D
-    is also added as it is part of RTL9607C family.
-    
-    Signed-off-by: Rustam Adilov <adilov@tutamail.com>
-    Link: https://github.com/openwrt/openwrt/pull/24588
+    Fixes: 7cc31af7bdd4 ("realtek: convert to generic machine initialization")
+    Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
+    Link: https://github.com/openwrt/openwrt/pull/24615
     Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
