@@ -1,13 +1,23 @@
-commit 83e93e04b4fd30b8e054c4fa623f013b415439d2 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Carlo Szelinsky <github@szelinsky.de>
-Date:   Sat Aug 8 12:02:28 2026 +0200
+commit 486b4a4b3ede480635a185234fc624c969426f13 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: xiao bo <peterwillcn@gmail.com>
+Date:   Sun Aug 9 22:44:59 2026 +0800
 
-    realtek: dts: add missing soc compatible to two Hasivo boards
+    arm-trusted-firmware-airoha: sync an7581-bl31 BUILD_DEVICES with bl2
     
-    Both boards only list their board compatible in the root node, so they
-    do not match the realtek MIPS machine and hang early during boot.
+    an7581-bl31 BUILD_DEVICES list was incomplete and missed:
+     - airoha_an7581-evb-emmc-eagle
+     - airoha_an7581-evb-emmc-kite
+     - nokia_valyrian
+     - nokia_xg-040g-md-ubi
     
-    Fixes: 7cc31af7bdd4 ("realtek: convert to generic machine initialization")
-    Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
-    Link: https://github.com/openwrt/openwrt/pull/24615
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    These devices are present in an7581-bl2 but missing for bl31.
+    When building these targets, an7581‑bl31 package is never built,
+    causes FIP failure "fopen ...an7581‑bl31.lzma: No such file or directory".
+    
+    Sync an7581‑bl31 BUILD_DEVICES to exactly match an7581‑bl2.
+    
+    Fixes: https://github.com/openwrt/openwrt/commit/467c5b90ba1140dcdabc2e2e203c1d91fca9963e
+    
+    Signed-off-by: xiao bo <peterwillcn@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/24626
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
