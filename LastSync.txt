@@ -1,11 +1,20 @@
-commit 82e2e4f492d58b5b6afaf5b55d8286c58da9c224 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-Date:   Sun Aug 9 21:39:30 2026 +0300
+commit a27a3fea752e12b68253baafb93864b29fa46896 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Myeongjae SONG <devparlair@outlook.com>
+Date:   Wed Aug 5 01:35:08 2026 +0900
 
-    uboot-airoha: update an7583 patches
+    ramips: iptime,t5004: fix U-Boot environment size
     
-    The same patches were submitted to upstream U-Boot.
+    The U-Boot environment data on the ipTIME T5004 occupies one
+    128 KiB NAND erase block.
     
-    Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-    Link: https://github.com/openwrt/openwrt/pull/24646
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    The nvmem layout specified an environment size of 0x1000.
+    This caused CRC32 validation to fail and prevented the MAC
+    address cells from being created.
+    
+    Set env-size to 0x20000 to match the U-Boot environment data
+    size used for CRC validation.
+    
+    Fixes: 8dd95cc6b532 ("ramips: iptime,t5004: use nvmem for ubootenv")
+    Signed-off-by: Myeongjae SONG <devparlair@outlook.com>
+    Link: https://github.com/openwrt/openwrt/pull/24530
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
