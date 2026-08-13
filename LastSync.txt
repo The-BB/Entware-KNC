@@ -1,20 +1,13 @@
-commit a27a3fea752e12b68253baafb93864b29fa46896 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Myeongjae SONG <devparlair@outlook.com>
-Date:   Wed Aug 5 01:35:08 2026 +0900
+commit 9f3157aa2ad5481de947bbfbba3e2eb065486a26 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Aleksander Jan Bajkowski <olek2@wp.pl>
+Date:   Mon Apr 29 14:12:04 2024 +0200
 
-    ramips: iptime,t5004: fix U-Boot environment size
+    lantiq: xrx200: skip DSL configuration on AVM 5490/5491
     
-    The U-Boot environment data on the ipTIME T5004 occupies one
-    128 KiB NAND erase block.
+    Skip the DSL configuration since AVM 5490 and 5491 support fiber instead
+    of DSL. The DSL configuration overwrites the WAN port configuration.
     
-    The nvmem layout specified an environment size of 0x1000.
-    This caused CRC32 validation to fail and prevented the MAC
-    address cells from being created.
-    
-    Set env-size to 0x20000 to match the U-Boot environment data
-    size used for CRC validation.
-    
-    Fixes: 8dd95cc6b532 ("ramips: iptime,t5004: use nvmem for ubootenv")
-    Signed-off-by: Myeongjae SONG <devparlair@outlook.com>
-    Link: https://github.com/openwrt/openwrt/pull/24530
-    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+    Fixes: 48b2df5a4164 ("lantiq: add support for AVM Fritzbox 5490/5491")
+    Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
+    Link: https://github.com/openwrt/openwrt/pull/24652
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
