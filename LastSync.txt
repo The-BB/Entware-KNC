@@ -1,13 +1,26 @@
-commit 9f3157aa2ad5481de947bbfbba3e2eb065486a26 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Aleksander Jan Bajkowski <olek2@wp.pl>
-Date:   Mon Apr 29 14:12:04 2024 +0200
+commit f6bc2a3b294b3d6b298cf5a625e9923459d64edd (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Semih Baskan <strst.gs@gmail.com>
+Date:   Mon Aug 3 05:44:59 2026 +0300
 
-    lantiq: xrx200: skip DSL configuration on AVM 5490/5491
+    kernel: xhci: fix USB3 port events with a single roothub
     
-    Skip the DSL configuration since AVM 5490 and 5491 support fiber instead
-    of DSL. The DSL configuration overwrites the WAN port configuration.
+    USB3 port events are dropped whenever the controller has only one roothub.
+    The check that guards them treats a missing shared hcd as proof the hcd was
+    removed, which stopped being true with upstream commit 4736ebd7fcaf ("usb:
+    host: xhci-plat: omit shared hcd if either root hub has no ports"). A
+    controller whose USB2 root hub has no ports gets a single roothub and never
+    has a shared one, so every SuperSpeed event is thrown away and nothing
+    enumerates even though the port reports the device:
     
-    Fixes: 48b2df5a4164 ("lantiq: add support for AVM Fritzbox 5490/5491")
-    Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
-    Link: https://github.com/openwrt/openwrt/pull/24652
+      0x006a1203 Powered Connected Enabled Link:U0 PortSpeed:4
+    
+    Broadcom Northstar is such a controller. USB3 works there up to 5.15 and
+    stops from 5.19 onwards.
+    
+    Tested on an Asus RT-N18U with kernel 6.18, seven SuperSpeed enumerations,
+    USB2 unaffected on both ports.
+    
+    Link: https://github.com/openwrt/openwrt/issues/19592
+    Signed-off-by: Semih Baskan <strst.gs@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/24547
     Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
