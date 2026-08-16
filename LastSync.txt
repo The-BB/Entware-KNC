@@ -1,26 +1,21 @@
-commit f6bc2a3b294b3d6b298cf5a625e9923459d64edd (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Semih Baskan <strst.gs@gmail.com>
-Date:   Mon Aug 3 05:44:59 2026 +0300
+commit 20d94d5a2b27a25ea92b1d59f36f685b25e6a98b (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Matt Eaton <git@divinehawk.com>
+Date:   Sun Aug 16 11:30:20 2026 +0200
 
-    kernel: xhci: fix USB3 port events with a single roothub
+    ipq40xx: enable display feature on generic subtarget
     
-    USB3 port events are dropped whenever the controller has only one roothub.
-    The check that guards them treats a missing shared hcd as proof the hcd was
-    removed, which stopped being true with upstream commit 4736ebd7fcaf ("usb:
-    host: xhci-plat: omit shared hcd if either root hub has no ports"). A
-    controller whose USB2 root hub has no ports gets a single roothub and never
-    has a shared one, so every SuperSpeed event is thrown away and nothing
-    enumerates even though the port reports the device:
+    The Ubiquiti UniFi Travel Router lists kmod-drm-panel-mipi-dbi and
+    kmod-backlight-pwm in DEVICE_PACKAGES. Both resolve through packages
+    gated on @DISPLAY_SUPPORT, which is only selected when the target
+    advertises the 'display' feature. Without it those packages are never
+    built, and the image step fails with:
     
-      0x006a1203 Powered Connected Enabled Link:U0 PortSpeed:4
+      ERROR: unable to select packages:
+        kmod-backlight-pwm (no such package)
+        kmod-drm-panel-mipi-dbi (no such package)
     
-    Broadcom Northstar is such a controller. USB3 works there up to 5.15 and
-    stops from 5.19 onwards.
+    This has broken every ipq40xx/generic snapshot build since r35795.
     
-    Tested on an Asus RT-N18U with kernel 6.18, seven SuperSpeed enumerations,
-    USB2 unaffected on both ports.
-    
-    Link: https://github.com/openwrt/openwrt/issues/19592
-    Signed-off-by: Semih Baskan <strst.gs@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/24547
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Signed-off-by: Matt Eaton <git@divinehawk.com>
+    Link: https://github.com/openwrt/openwrt/pull/24757
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
