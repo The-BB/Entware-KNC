@@ -1,21 +1,19 @@
-commit 20d94d5a2b27a25ea92b1d59f36f685b25e6a98b (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Matt Eaton <git@divinehawk.com>
-Date:   Sun Aug 16 11:30:20 2026 +0200
+commit 56c66549576307f4c88cee6d1096471c6d6953ae (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Peter Polonec <polonec.devel@pm.me>
+Date:   Fri Aug 14 18:25:19 2026 +0200
 
-    ipq40xx: enable display feature on generic subtarget
+    tools: zip: fix command injection in -T
     
-    The Ubiquiti UniFi Travel Router lists kmod-drm-panel-mipi-dbi and
-    kmod-backlight-pwm in DEVICE_PACKAGES. Both resolve through packages
-    gated on @DISPLAY_SUPPORT, which is only selected when the target
-    advertises the 'display' feature. Without it those packages are never
-    built, and the image step fails with:
+    [backport from Debian zip 3.0-16]
+    https://sources.debian.org/data/main/z/zip/3.0-16/debian/patches/fix-command-injection.patch
     
-      ERROR: unable to select packages:
-        kmod-backlight-pwm (no such package)
-        kmod-drm-panel-mipi-dbi (no such package)
+    Info-ZIP 3.0 builds a shell command with the archive name when -T tests
+    an archive. A crafted archive name can inject additional shell commands.
     
-    This has broken every ipq40xx/generic snapshot build since r35795.
+    Backport Debian's fix. Quote the archive name before it is added to the
+    test command.
     
-    Signed-off-by: Matt Eaton <git@divinehawk.com>
-    Link: https://github.com/openwrt/openwrt/pull/24757
+    Link: https://sintonen.fi/advisories/infozip-test-option-command-injection.txt
+    Signed-off-by: Peter Polonec <polonec.devel@pm.me>
+    Link: https://github.com/openwrt/openwrt/pull/24730
     Signed-off-by: Robert Marko <robimarko@gmail.com>
