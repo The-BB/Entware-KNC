@@ -1,19 +1,9 @@
-commit 56c66549576307f4c88cee6d1096471c6d6953ae (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Peter Polonec <polonec.devel@pm.me>
-Date:   Fri Aug 14 18:25:19 2026 +0200
+commit cf198ccb5daf731f3d9f73b0d7786c6d11295384 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Robert Marko <robert.marko@sartura.hr>
+Date:   Tue Aug 18 16:22:16 2026 +0200
 
-    tools: zip: fix command injection in -T
+    microchipsw: use upstreamed QSPI support
     
-    [backport from Debian zip 3.0-16]
-    https://sources.debian.org/data/main/z/zip/3.0-16/debian/patches/fix-command-injection.patch
+    Use the upstreamed QSPI support instead of local patches.
     
-    Info-ZIP 3.0 builds a shell command with the archive name when -T tests
-    an archive. A crafted archive name can inject additional shell commands.
-    
-    Backport Debian's fix. Quote the archive name before it is added to the
-    test command.
-    
-    Link: https://sintonen.fi/advisories/infozip-test-option-command-injection.txt
-    Signed-off-by: Peter Polonec <polonec.devel@pm.me>
-    Link: https://github.com/openwrt/openwrt/pull/24730
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Signed-off-by: Robert Marko <robert.marko@sartura.hr>
