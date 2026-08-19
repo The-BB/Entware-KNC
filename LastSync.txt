@@ -1,9 +1,14 @@
-commit cf198ccb5daf731f3d9f73b0d7786c6d11295384 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Robert Marko <robert.marko@sartura.hr>
-Date:   Tue Aug 18 16:22:16 2026 +0200
+commit 7b7cf1454abe88463560f4c9463e578baab4276a (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Aleksander Jan Bajkowski <olek2@wp.pl>
+Date:   Wed Aug 12 13:06:35 2026 +0200
 
-    microchipsw: use upstreamed QSPI support
+    lantiq: xrx200: fix fiber led on AVM FRITZ!Box 5490/5491
     
-    Use the upstreamed QSPI support instead of local patches.
+    The AVM 5490 and 5491 do not have Internet, LAN and DSL LEDs. Instead,
+    they have a fiber and FON LED. This commit adds a trigger for the fiber
+    LED and removes triggers for the LAN, DSL and Internet LEDs.
     
-    Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+    Fixes: 48b2df5a4164 ("lantiq: add support for AVM Fritzbox 5490/5491")
+    Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
+    Link: https://github.com/openwrt/openwrt/pull/24771
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
