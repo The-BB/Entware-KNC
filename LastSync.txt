@@ -1,14 +1,19 @@
-commit 7b7cf1454abe88463560f4c9463e578baab4276a (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Aleksander Jan Bajkowski <olek2@wp.pl>
-Date:   Wed Aug 12 13:06:35 2026 +0200
+commit 725cbf11ff7b034eedd25856bdd2353ed37bbd7e (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Mikhail Zhilkin <csharper2005@gmail.com>
+Date:   Tue Aug 4 22:35:36 2026 +0300
 
-    lantiq: xrx200: fix fiber led on AVM FRITZ!Box 5490/5491
+    mediatek: drop kmod-switch-rtl8367s package
     
-    The AVM 5490 and 5491 do not have Internet, LAN and DSL LEDs. Instead,
-    they have a fiber and FON LED. This commit adds a trigger for the fiber
-    LED and removes triggers for the LAN, DSL and Internet LEDs.
+    Dropping kmod-switch-rtl8367s leaves it with zero in-tree users. Clean up
+    the tree by removing its definition in modules.mk.
     
-    Fixes: 48b2df5a4164 ("lantiq: add support for AVM Fritzbox 5490/5491")
-    Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
-    Link: https://github.com/openwrt/openwrt/pull/24771
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Keep Realtek SDK located under
+    target/linux/mediatek/files/drivers/net/phy/rtk/ untouched since it's
+    necessary for mt7622 devices:
+    - totolink,a8000ru
+    - elecom,wrc-2533gent
+    - buffalo,wsr-2533dhp2
+    
+    Signed-off-by: Mikhail Zhilkin <csharper2005@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/24435
+    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
