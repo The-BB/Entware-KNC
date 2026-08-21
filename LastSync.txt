@@ -1,19 +1,17 @@
-commit 725cbf11ff7b034eedd25856bdd2353ed37bbd7e (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Mikhail Zhilkin <csharper2005@gmail.com>
-Date:   Tue Aug 4 22:35:36 2026 +0300
+commit f1bf2d18392ef7b9f5f7bc6773055cfbddde371b (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Enrico Mioso <mrkiko.rs@gmail.com>
+Date:   Thu Aug 20 18:48:27 2026 +0200
 
-    mediatek: drop kmod-switch-rtl8367s package
+    mediatek: filogic: fix GatoNetworks GDSP GPIOs exports
     
-    Dropping kmod-switch-rtl8367s leaves it with zero in-tree users. Clean up
-    the tree by removing its definition in modules.mk.
+    DTS GPIOs export properties handling changed in commit
+    0ca78951739a1e6e2f569438764381bd5fdb5190. Update the devicetree
+    accordingly. This commit has been tested on single-modem and
+    multi-modem versions of the device.
+    Thanks a lot to Rosen Penev for pointing this out.
     
-    Keep Realtek SDK located under
-    target/linux/mediatek/files/drivers/net/phy/rtk/ untouched since it's
-    necessary for mt7622 devices:
-    - totolink,a8000ru
-    - elecom,wrc-2533gent
-    - buffalo,wsr-2533dhp2
-    
-    Signed-off-by: Mikhail Zhilkin <csharper2005@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/24435
+    Signed-off-by: Enrico Mioso <mrkiko.rs@gmail.com>
+    CC: Rosen Penev <rosenp@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/24176#issuecomment-5074386039
+    Link: https://lists.openwrt.org/pipermail/openwrt-devel/2026-August/044986.html
     Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
