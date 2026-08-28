@@ -1,91 +1,13 @@
-commit 6c12b87ffc36974b3b24ebc767e8e92023351093 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Julius Bairaktaris <julius@bairaktaris.de>
-Date:   Tue Jul 14 19:42:39 2026 +0200
+commit 1ad2e78e6a3797e0242d13096ceb27c15b7f235d (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Harshal Gohel <hg@simonwunderlich.de>
+Date:   Wed Aug 26 15:00:49 2026 +0200
 
-    qualcommax: qca_ppe: report hardware MIB counters in port statistics
+    realtek: dsa: trap EAPOL frames to the CPU on RTL93xx
     
-    The PPE forwards traffic between its ports in hardware, so frames that are
-    bridged from one port to another never reach the host. The per-port
-    software counters only ever account for the frames that were punted to the
-    CPU, and the interface statistics consequently under-report bridged traffic
-    by several orders of magnitude: transferring 1.10 GB between two ports of
-    the same bridge on an IPQ8074 board leaves the receiving port reporting
-    2724 transmitted bytes. Routed traffic crosses the host on its way between
-    the two ports and is counted correctly, which is why this mostly goes
-    unnoticed.
+    EAPOL frames must not be forwarded to other ports. Trap them to the CPU so
+    that an 802.1X authenticator such as hostapd can handle them. RTL83xx
+    already does this via SPCL_TRAP_EAPOL_CTRL.
     
-    Every frame does cross the port's MAC, which maintains its own MIB
-    counters, and the driver already reads those for ethtool -S. Report them
-    through get_stats64 as well, so that the interface counters reflect what
-    actually crossed the wire, no matter which engine forwarded it. mt7530 and
-    ar9331 report their port statistics from the hardware the same way, as do
-    the ssdk and nss-dp vendor drivers for this hardware.
-    
-    A port is not bound to one MAC. Ports 5 and above drive either the GMAC the
-    port number names or an XGMAC, and whichever block is idle reads back zero,
-    so one MIB address per counter answers with zeroes for half the mux
-    positions. Each row of the table therefore carries its counter twice, as
-    the GMAC expresses it and as the XGMAC MMC block does, because the two
-    disagree on address and on width: the GMAC keeps most counters in a single
-    32-bit register and the XGMAC in a low/high pair. Where the XGMAC has no
-    equivalent the row carries offset 0 and the counter reads zero, which is
-    the honest answer for the collision counters, the alignment errors and the
-    bad receive byte count - the XGMAC is full duplex and exposes only a
-    good+bad octet total, and deriving a bad count by subtracting the good one
-    would invent a counter the hardware does not keep. Two names shift meaning
-    on such a port: the XGMAC lumps 1519-and-up into its 1024-to-max bin, so
-    rx_1024_1518byte and tx_1024_1518byte hold the whole 1024-to-max range
-    there and the 1519_maxbyte pair reads zero.
-    
-    Both MIBs are free running and the GMAC keeps most of its counters in 32
-    bits, so the register value is not what rtnl_link_stats64 has to present: a
-    port at line rate with minimum-sized frames wraps a packet counter in under
-    49 minutes at 1G and in under five at 10G, and a total taken straight from
-    the register steps backwards there. Each port therefore keeps a 64-bit
-    total per counter alongside the raw value that total was last brought up to
-    date from, and a fold adds the difference in at the width of the register
-    it came from. get_stats64 and ethtool -S both fold before they answer, so
-    neither lags the hardware and the two agree, and a delayed work folds every
-    user port every 30 seconds so that a counter nothing reads cannot wrap
-    twice unobserved.
-    
-    A difference is only meaningful across a counter that kept running, so two
-    things take a baseline instead of a difference, and both take it at the
-    moment the counter they read stops being the one the total was built from.
-    qca_ppe_mac_config() asserts the port reset, which zeroes the MIB that port
-    owns: the counters are banked before the reset, the rebase is held across
-    it so that a fold arriving from another CPU cannot consume it while the
-    counters are still running, and the baseline is taken from the cleared MIB
-    as soon as the reset is released, while the MAC is still stopped. Deferring
-    it to the periodic fold instead would discard everything the port counted
-    from link-up. Left unguarded the reset lands every 32-bit counter on 2^32
-    plus its true value and every 64-bit one back on zero, which is what the
-    difference against a stale baseline comes to in each width.
-    
-    A port muxed to its XGMAC likewise starts reading a second MAC's counters,
-    which advance independently of the first. qca_ppe_mac_link_up() banks what
-    the MAC the port is leaving counted, changes the bank under mib_lock, and
-    baselines the one it arrives on in the same critical section, so that the
-    change costs neither the tail of the old MAC's counting nor the head of the
-    new one's.
-    
-    The MIB block is reached through an MMIO regmap, whose accesses are
-    spinlock protected and therefore safe in the atomic callers of
-    ndo_get_stats64 - dev_get_stats() is reachable under a spinlock from
-    bond_get_stats(). Every site takes mib_lock with softirqs disabled, so the
-    lock has one acquisition mode rather than two. The two halves of a 64-bit
-    counter are read in separate statements so that the order is not left to
-    the compiler, low half first,
-    which is the order the reference ssdk driver uses for them
-    (adpt_hppe_get_mib_info(), adpt/hppe/adpt_hppe_mib.c,
-    NHSS.QSDK.14.0.r8-00026-O). Nothing added here consumes the counters it
-    reads: setup writes PPE_MIB_EN without PPE_MIB_RD_CLR, and MMC_CONTROL's
-    reset value leaves RSTONRD clear.
-    
-    The XGMAC arm is inspection-only: there is no XGMAC port on the bench. The
-    GMAC arm is what the board's copper ports exercise.
-    
-    Assisted-by: Claude:claude-opus-5
-    Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
-    Link: https://github.com/openwrt/openwrt/pull/24229
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Signed-off-by: Harshal Gohel <hg@simonwunderlich.de>
+    Link: https://github.com/openwrt/openwrt/pull/21775
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
