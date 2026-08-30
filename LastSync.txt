@@ -1,13 +1,37 @@
-commit 1ad2e78e6a3797e0242d13096ceb27c15b7f235d (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Harshal Gohel <hg@simonwunderlich.de>
-Date:   Wed Aug 26 15:00:49 2026 +0200
+commit 93cf01b0b6fe169492be255db8613016b9d0c3cd (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Ivan Rainbolt <ivan@github.ivanthegeek.com>
+Date:   Wed Aug 26 08:52:15 2026 +0000
 
-    realtek: dsa: trap EAPOL frames to the CPU on RTL93xx
+    mediatek: filogic: light the WAN LED on Cudy WR3000P v1
     
-    EAPOL frames must not be forwarded to other ports. Trap them to the CPU so
-    that an 802.1X authenticator such as hostapd can handle them. RTL83xx
-    already does this via SPCL_TRAP_EAPOL_CTRL.
+    The WR3000P's front-panel WAN lamp is wired to the LED1 pin of the
+    RTL8221B 2.5G WAN PHY, not to a SoC GPIO. With rtl822x PHY LED support
+    backported (previous commit), declare it properly: add a "leds" node
+    under the WAN PHY (phy6) describing the white WAN LED, and a board.d
+    netdev entry so the lamp is driven by the standard netdev trigger on
+    the wan interface, with no raw register writes.
     
-    Signed-off-by: Harshal Gohel <hg@simonwunderlich.de>
-    Link: https://github.com/openwrt/openwrt/pull/21775
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Use the generic "link" mode rather than the per-speed
+    "link_10 link_100 link_1000 link_2500" list. The per-speed netdev
+    attributes are created dynamically from the PHY's reported supported
+    modes, so at early boot - PHY still probing, wan link still down -
+    they may not exist yet and /etc/init.d/led silently skips them,
+    leaving the lamp lit only at 2.5G (a 1G WAN would boot dark). The
+    generic "link" attribute always exists and the offload driver maps it
+    to all speed bits, so the lamp lights at any link speed. This matches
+    the stock firmware, which programs the LED1 speed-select register
+    (0xd034) to light at every speed.
+    
+    Tested on a WR3000P v1 (RTL8221B-VB-CG, phy_id 0x001cc849): after a
+    config-wipe sysupgrade (-n) and cold boot the board.d entry is applied
+    automatically and the kernel programs 0xd034=0x0027 (all speeds) plus
+    0xd040=0x391f (blink), with no mdio hook or other out-of-tree helper
+    involved. The lamp lights and blinks on traffic at 10, 100, 1000 and
+    2500 Mb.
+    
+    Depends on the phantom led-wan removal in "mediatek: filogic: drop
+    bogus WAN and LAN LEDs on Cudy WR3000P v1".
+    
+    Signed-off-by: Ivan Rainbolt <ivan@github.ivanthegeek.com>
+    Link: https://github.com/openwrt/openwrt/pull/24913
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
