@@ -1,25 +1,31 @@
-commit 347ea96b26eeeb6f46da9b880f35caf292f643ca (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Rustam Adilov <adilov@tutamail.com>
-Date:   Fri Aug 28 21:50:55 2026 +0500
+commit 928bb37350d20a2a7737e3a3b5329261572ca533 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Gennaro Cimmino <gcimmino@rayonra.net>
+Date:   Tue Sep 1 01:16:46 2026 +0200
 
-    realtek: fix PCI IO map panic with set_io_port_base(KSEG1)
+    realtek: dsa: support changing the MTU on RTL83xx ports
     
-    When the realtek target changed to generic mips initialization
-    the set_io_port_base(KSEG1); from plat_mem_setup wasn't brought
-    over to the realtek board file. This results in boot hang when
-    trying to load PCIE driver on RTL9607C machine as it panics
-    after devm_pci_alloc_host_bridge due to lack of mips_io_port_base
-    definition.
+    Both families limit the frame length of the whole switch in a single
+    register instead of one per port, so the operation programs it from the
+    largest MTU of any user port rather than from the port it is handed.
+    Lowering one port therefore lowers the limit only once no other port
+    asks for more. RTL838x mirrors that register in a second one and the
+    vendor SDK writes both, in dal_maple_switch_maxPktLenLinkSpeed_set(),
+    so this does the same.
     
-    Fix it by adding set_io_port_base(KSEG1) to realtek_fixup_fdt.
-    Generic MIPS calls fixup_fdt during plat_mem_setup so that
-    roughly matches that of an old initialization from before.
+    These are the first users of the switch-wide path the infrastructure
+    came with. With their entries in place an MTU can be set on any port of
+    any of the four families, and the maxima are the ones the ethernet
+    driver already uses: 10000 on RTL838x, which is what its datasheet gives
+    and what its rmon range counts, and 12288 on RTL839x.
     
-    As this changes the board file, refresh the 300-03 patch to
-    align with the new changes.
+    Nothing programmed these registers until now, so a port keeps whatever
+    value it comes up with, and a switch that today forwards frames larger
+    than its ports announce stops doing so once they are programmed at the
+    default MTU. Asking for them by configuring the MTU works from here on.
     
-    Reported-by: Michael Zavertkin <misha.zavertkin@mail.ru>
-    Fixes: 7cc31af7bdd4 ("realtek: convert to generic machine initialization")
-    Signed-off-by: Rustam Adilov <adilov@tutamail.com>
-    Link: https://github.com/openwrt/openwrt/pull/24942
+    Not tested on hardware: no RTL838x or RTL839x here.
+    
+    Assisted-by: Claude:claude-opus-5
+    Signed-off-by: Gennaro Cimmino <gcimmino@rayonra.net>
+    Link: https://github.com/openwrt/openwrt/pull/24400
     Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
