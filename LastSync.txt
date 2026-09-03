@@ -1,31 +1,13 @@
-commit 928bb37350d20a2a7737e3a3b5329261572ca533 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Gennaro Cimmino <gcimmino@rayonra.net>
-Date:   Tue Sep 1 01:16:46 2026 +0200
+commit 897533e4886e008e994980ea1339cff44e5a405e (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Daniel Golle <daniel@makrotopia.org>
+Date:   Thu Sep 3 12:05:19 2026 +0100
 
-    realtek: dsa: support changing the MTU on RTL83xx ports
+    linux-firmware: mark aeonsemi-as21xxx-firmware as 'nonshared'
     
-    Both families limit the frame length of the whole switch in a single
-    register instead of one per port, so the operation programs it from the
-    largest MTU of any user port rather than from the port it is handed.
-    Lowering one port therefore lowers the limit only once no other port
-    asks for more. RTL838x mirrors that register in a second one and the
-    vendor SDK writes both, in dal_maple_switch_maxPktLenLinkSpeed_set(),
-    so this does the same.
+    In order for the firmware package to depend on the corresponding kmod it
+    needs to be built within the same builtbot phase for the dependency to
+    land in the package metadata. Select 'nonshared' to force the firmware to
+    also get built as part of phase1.
     
-    These are the first users of the switch-wide path the infrastructure
-    came with. With their entries in place an MTU can be set on any port of
-    any of the four families, and the maxima are the ones the ethernet
-    driver already uses: 10000 on RTL838x, which is what its datasheet gives
-    and what its rmon range counts, and 12288 on RTL839x.
-    
-    Nothing programmed these registers until now, so a port keeps whatever
-    value it comes up with, and a switch that today forwards frames larger
-    than its ports announce stops doing so once they are programmed at the
-    default MTU. Asking for them by configuring the MTU works from here on.
-    
-    Not tested on hardware: no RTL838x or RTL839x here.
-    
-    Assisted-by: Claude:claude-opus-5
-    Signed-off-by: Gennaro Cimmino <gcimmino@rayonra.net>
-    Link: https://github.com/openwrt/openwrt/pull/24400
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Fixes: 1446eff887 ("mediatek: filogic: bpi-r4-pro-8x: add aeonsemi phy to bpi-r4-pro-8x")
+    Signed-off-by: Daniel Golle <daniel@makrotopia.org>
