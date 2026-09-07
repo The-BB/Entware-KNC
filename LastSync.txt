@@ -1,16 +1,11 @@
-commit 93d975fe9c098e39e19f1248c8eabee2e7c66db8 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: David Bauer <mail@david-bauer.net>
-Date:   Sat Sep 5 23:59:50 2026 +0200
+commit 7b396007440c94f8e54fd2507c813571de170be6 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Robert Marko <robimarko@gmail.com>
+Date:   Mon Sep 7 16:13:53 2026 +0200
 
-    wifi-scripts: iface: set auth_type on unset encryption
+    qualcommax: qca_ppe: align define values
     
-    parse_encryption returns leaves config.auth_type unset in case
-    encryption is unset. However, the owe_transition_iface config option for
-    the unencrypted network is currently only set in case encryption is
-    explicitly set to 'none'.
+    Align all macro replacement values in qca_ppe.h with the header's dominant tab stop.
     
-    These two should be identical in their behavior. Set the encryption to
-    "none" in case it is unset and do not return. This aligns the behavior
-    of unset encryption with encryption explicitly set to 'none'.
+    This is a whitespace-only cleanup.
     
-    Signed-off-by: David Bauer <mail@david-bauer.net>
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
