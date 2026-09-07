@@ -1,16 +1,16 @@
-commit 3809dfe5c69b43bc9b39f7b75fa493bbc2ad57ac (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Shine- GH <4c.fce2@proton.me>
-Date:   Fri Aug 28 11:25:55 2026 +0200
+commit 93d975fe9c098e39e19f1248c8eabee2e7c66db8 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: David Bauer <mail@david-bauer.net>
+Date:   Sat Sep 5 23:59:50 2026 +0200
 
-    packages: uboot-tools: add env config for Sophos RED 15w
+    wifi-scripts: iface: set auth_type on unset encryption
     
-    Uboot-Envtools is installed by default on the mpc85xx target.
+    parse_encryption returns leaves config.auth_type unset in case
+    encryption is unset. However, the owe_transition_iface config option for
+    the unencrypted network is currently only set in case encryption is
+    explicitly set to 'none'.
     
-    Add the proper configuration for the Sophos RED 15w, so the fw_*env
-    commands will actually work.
+    These two should be identical in their behavior. Set the encryption to
+    "none" in case it is unset and do not return. This aligns the behavior
+    of unset encryption with encryption explicitly set to 'none'.
     
-    Fix alphabetic sorting in the case statement while we're at it.
-    
-    Signed-off-by: Shine- GH <4c.fce2@proton.me>
-    Link: https://github.com/openwrt/openwrt/pull/24939
-    Signed-off-by: Jonas Jelonek <jelonek.jonas@gmail.com>
+    Signed-off-by: David Bauer <mail@david-bauer.net>
