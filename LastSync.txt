@@ -1,11 +1,30 @@
-commit 7b396007440c94f8e54fd2507c813571de170be6 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Robert Marko <robimarko@gmail.com>
-Date:   Mon Sep 7 16:13:53 2026 +0200
+commit 769116266bb9d67b5d0cd30c7eb018e796d6aa7e (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Gennaro Cimmino <gcimmino@rayonra.net>
+Date:   Tue Sep 8 21:14:31 2026 +0200
 
-    qualcommax: qca_ppe: align define values
+    realtek: dsa: rtl931x: fix the single collisions offset
     
-    Align all macro replacement values in qca_ppe.h with the header's dominant tab stop.
+    .single_collisions carries offset 35, which is word 17 of the standard
+    counter table, DOT1DTPPORTINDISCARDS. The counter the field names,
+    DOT3STATSSINGLECOLLISIONFRAMES, is at lsp 1088 in the GPL SDK field
+    list (src/hal/chipdef/mango/rtk_mango_tableField_list.c), so the offset
+    is 34 and the word 18.
     
-    This is a whitespace-only cleanup.
+    A port therefore reports one counter under two names: as
+    dot1dTpPortInDiscards in ethtool -S, which reads offset 35 from the
+    same table, and as SingleCollisionFrames in the eth-mac group, which
+    takes .single_collisions from the counter poll.
     
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    The offset stays inside the table, so it produced a plausible number
+    rather than a read outside the window, and nothing in the driver
+    reports either case.
+    
+    Source analysis only, against the GPL SDK. No RTL9310 was available to
+    read the counter before and after.
+    
+    Compile-tested on realtek/rtl931x.
+    
+    Assisted-by: Claude:claude-opus-5
+    Signed-off-by: Gennaro Cimmino <gcimmino@rayonra.net>
+    Link: https://github.com/openwrt/openwrt/pull/25083
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
