@@ -1,30 +1,26 @@
-commit 769116266bb9d67b5d0cd30c7eb018e796d6aa7e (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Gennaro Cimmino <gcimmino@rayonra.net>
-Date:   Tue Sep 8 21:14:31 2026 +0200
+commit f3614686abca9e37249c9203822858a5cdbef8ce (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Ahmed Naseef <naseefkm@gmail.com>
+Date:   Wed Sep 9 20:16:21 2026 +0400
 
-    realtek: dsa: rtl931x: fix the single collisions offset
+    econet: en7528: offload the LAN LEDs to the built-in GPHYs
     
-    .single_collisions carries offset 35, which is word 17 of the standard
-    counter table, DOT1DTPPORTINDISCARDS. The counter the field names,
-    DOT3STATSSINGLECOLLISIONFRAMES, is at lsp 1088 in the GPL SDK field
-    list (src/hal/chipdef/mango/rtk_mango_tableField_list.c), so the offset
-    is 34 and the word 18.
+    The LAN LEDs of the EN7528 boards are wired to the LED pins of the GPHYs
+    sitting behind the switch ports, but were described as plain GPIOs, so
+    they were left under software control and stayed dark.
     
-    A port therefore reports one counter under two names: as
-    dot1dTpPortInDiscards in ethtool -S, which reads offset 35 from the
-    same table, and as SingleCollisionFrames in the eth-mac group, which
-    takes .single_collisions from the counter poll.
+    Add the LED nodes to the GPHYs of the SoC .dtsi, mux the LED pins to the
+    matching phyN_ledM function of the pin controller, and replace the
+    gpio-leds nodes of the LAN LEDs with references to the PHY LEDs. The
+    LEDs are then driven by the PHY itself, without any CPU involvement.
     
-    The offset stays inside the table, so it produced a plausible number
-    rather than a read outside the window, and nothing in the driver
-    reports either case.
+    The JioFiber boards have both LED pins of every GPHY wired up, giving a
+    bicolour LED per socket. The H660GM-A boards only have the LED1 pins
+    wired, as the LED0 pins are used as GPIOs for the other LEDs and for the
+    WPS button; the amber LEDs of the generic variant stay plain GPIOs.
     
-    Source analysis only, against the GPL SDK. No RTL9310 was available to
-    read the counter before and after.
+    Add board.d/01_leds to hook the LEDs up to the netdev trigger, which the
+    PHY driver offloads to the hardware.
     
-    Compile-tested on realtek/rtl931x.
-    
-    Assisted-by: Claude:claude-opus-5
-    Signed-off-by: Gennaro Cimmino <gcimmino@rayonra.net>
-    Link: https://github.com/openwrt/openwrt/pull/25083
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Signed-off-by: Ahmed Naseef <naseefkm@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/25098
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
