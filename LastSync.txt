@@ -1,26 +1,20 @@
-commit f3614686abca9e37249c9203822858a5cdbef8ce (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Ahmed Naseef <naseefkm@gmail.com>
-Date:   Wed Sep 9 20:16:21 2026 +0400
+commit 7e7d8a4d194100c0f9e5f3d322110d123d67c814 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Mark Abe <github@mab.wien>
+Date:   Thu Sep 10 22:48:02 2026 +0200
 
-    econet: en7528: offload the LAN LEDs to the built-in GPHYs
+    realtek: dsa: rtl83xx: convert the tc flower prints to dev_*()
     
-    The LAN LEDs of the EN7528 boards are wired to the LED pins of the GPHYs
-    sitting behind the switch ports, but were described as plain GPIOs, so
-    they were left under software control and stayed dark.
+    The tc flower parse / add / configure / delete / stats path still logged
+    through pr_debug() / pr_err() / pr_info() with a bare "%s"/__func__
+    prefix. Every one of these functions already has the switch priv in
+    scope, so switch them to dev_dbg() / dev_err() on priv->dev and replace
+    the __func__ tag with a short message describing what is happening. The
+    one netdev_info() in rtl83xx_parse_fwd() loses its __func__ tag the same
+    way.
     
-    Add the LED nodes to the GPHYs of the SoC .dtsi, mux the LED pins to the
-    matching phyN_ledM function of the pin controller, and replace the
-    gpio-leds nodes of the LAN LEDs with references to the PHY LEDs. The
-    LEDs are then driven by the PHY itself, without any CPU involvement.
+    No functional change.
     
-    The JioFiber boards have both LED pins of every GPHY wired up, giving a
-    bicolour LED per socket. The H660GM-A boards only have the LED1 pins
-    wired, as the LED0 pins are used as GPIOs for the other LEDs and for the
-    WPS button; the amber LEDs of the generic variant stay plain GPIOs.
-    
-    Add board.d/01_leds to hook the LEDs up to the netdev trigger, which the
-    PHY driver offloads to the hardware.
-    
-    Signed-off-by: Ahmed Naseef <naseefkm@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/25098
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Assisted-by: Claude Code (Anthropic Claude Sonnet 5)
+    Signed-off-by: Mark Abe <github@mab.wien>
+    Link: https://github.com/openwrt/openwrt/pull/24994
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
