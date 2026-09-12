@@ -1,20 +1,15 @@
-commit 7e7d8a4d194100c0f9e5f3d322110d123d67c814 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Mark Abe <github@mab.wien>
-Date:   Thu Sep 10 22:48:02 2026 +0200
+commit e59c7876229e53afd1d74ade086b2f069f841427 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Julius Bairaktaris <julius@bairaktaris.de>
+Date:   Fri Sep 11 12:10:38 2026 +0200
 
-    realtek: dsa: rtl83xx: convert the tc flower prints to dev_*()
+    airoha: add the missing PHY_AIROHA_AN7583_PCIE config symbol
     
-    The tc flower parse / add / configure / delete / stats path still logged
-    through pr_debug() / pr_err() / pr_info() with a bare "%s"/__func__
-    prefix. Every one of these functions already has the switch priv in
-    scope, so switch them to dev_dbg() / dev_err() on priv->dev and replace
-    the __func__ tag with a short message describing what is happening. The
-    one netdev_info() in rtl83xx_parse_fwd() loses its __func__ tag the same
-    way.
+    The AN7583 PCIe PHY driver adds a Kconfig symbol that neither subtarget
+    config carries, so syncconfig prompts for it and every airoha kernel
+    build fails. Enable it on an7583 and leave it off on an7581.
     
-    No functional change.
-    
-    Assisted-by: Claude Code (Anthropic Claude Sonnet 5)
-    Signed-off-by: Mark Abe <github@mab.wien>
-    Link: https://github.com/openwrt/openwrt/pull/24994
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Fixes: 443e267bdb92 ("airoha: add support for AN7583 PCIe Gen3 PHY")
+    Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
+    Assisted-by: Claude:Opus 5
+    Link: https://github.com/openwrt/openwrt/pull/25132
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
