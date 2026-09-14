@@ -1,15 +1,14 @@
-commit e59c7876229e53afd1d74ade086b2f069f841427 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Julius Bairaktaris <julius@bairaktaris.de>
-Date:   Fri Sep 11 12:10:38 2026 +0200
+commit e8d18579c17d5a56363dadd8f47f939f741e3a7c (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Daniel Golle <daniel@makrotopia.org>
+Date:   Mon Sep 14 00:50:31 2026 +0100
 
-    airoha: add the missing PHY_AIROHA_AN7583_PCIE config symbol
+    uboot-sifiveu: disable mkeficapsule host tool
     
-    The AN7583 PCIe PHY driver adds a Kconfig symbol that neither subtarget
-    config carries, so syncconfig prompts for it and every airoha kernel
-    build fails. Enable it on an7583 and leave it off on an7581.
+    Since the bump to 2026.04, tools/Kconfig defaults TOOLS_MKEFICAPSULE to
+    y whenever EFI_LOADER is set, which both SiFive configs enable. The host
+    tool includes <gnutls/gnutls.h>, which the build system does not provide,
+    so the package fails to compile. Disable the tool, as the other U-Boot
+    packages carrying an EFI_LOADER config already do.
     
-    Fixes: 443e267bdb92 ("airoha: add support for AN7583 PCIe Gen3 PHY")
-    Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
-    Assisted-by: Claude:Opus 5
-    Link: https://github.com/openwrt/openwrt/pull/25132
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Fixes: 5b2c9ce8bf63 ("uboot-sifiveu: bump to 2026.04")
+    Signed-off-by: Daniel Golle <daniel@makrotopia.org>
