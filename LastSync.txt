@@ -1,14 +1,21 @@
-commit e8d18579c17d5a56363dadd8f47f939f741e3a7c (HEAD -> master, origin/master, origin/main, origin/HEAD)
+commit 0f8cceb46912d9af3f522edff69870fdc6d4b617 (HEAD -> master, origin/master, origin/main, origin/HEAD)
 Author: Daniel Golle <daniel@makrotopia.org>
-Date:   Mon Sep 14 00:50:31 2026 +0100
+Date:   Tue Sep 15 22:34:33 2026 +0100
 
-    uboot-sifiveu: disable mkeficapsule host tool
+    generic: mikrotik: avoid 64-bit module breakage
     
-    Since the bump to 2026.04, tools/Kconfig defaults TOOLS_MKEFICAPSULE to
-    y whenever EFI_LOADER is set, which both SiFive configs enable. The host
-    tool includes <gnutls/gnutls.h>, which the build system does not provide,
-    so the package fails to compile. Disable the tool, as the other U-Boot
-    packages carrying an EFI_LOADER config already do.
+    The use of a modulo operation on 64-bit integers broke the build on
+    32-bit targets which do not provide such operations.
     
-    Fixes: 5b2c9ce8bf63 ("uboot-sifiveu: bump to 2026.04")
+    Seen on the buildbots as:
+    mips-openwrt-linux-musl-ld: drivers/mtd/parsers/routerbootpart.o:
+    in function `routerboot_partitions_parse':
+    drivers/mtd/parsers/routerbootpart.c:
+    (.text.routerboot_partitions_parse+0x58c):
+    undefined reference to `__umoddi3'
+    
+    Fix this by using mtd_mod_by_eb() instead of open-coding the alginment
+    check.
+    
+    Fixes: ada1dcb2b4 ("generic: mikrotik: size RouterBoot partitions so they are usable")
     Signed-off-by: Daniel Golle <daniel@makrotopia.org>
