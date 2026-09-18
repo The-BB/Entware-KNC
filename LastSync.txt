@@ -1,21 +1,18 @@
-commit 0f8cceb46912d9af3f522edff69870fdc6d4b617 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Daniel Golle <daniel@makrotopia.org>
-Date:   Tue Sep 15 22:34:33 2026 +0100
+commit 536969968412b34e4856435ef6b5a0ff2f01afd9 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Paweł Owoc <frut3k7@gmail.com>
+Date:   Thu Sep 17 18:14:17 2026 +0200
 
-    generic: mikrotik: avoid 64-bit module breakage
+    qualcommax: ipq8072: partial revert NVMEM MAC addresses for Linksys MX5300
     
-    The use of a modulo operation on 64-bit integers broke the build on
-    32-bit targets which do not provide such operations.
+    Partially revert commit e8c74e8f1e6deb94fb93a5de53f9198cb7992586.
     
-    Seen on the buildbots as:
-    mips-openwrt-linux-musl-ld: drivers/mtd/parsers/routerbootpart.o:
-    in function `routerboot_partitions_parse':
-    drivers/mtd/parsers/routerbootpart.c:
-    (.text.routerboot_partitions_parse+0x58c):
-    undefined reference to `__umoddi3'
+    Assigning LAN MAC addresses incremented by one causes a conflict
+    with the addresses for the 2.4G wireless interface.
     
-    Fix this by using mtd_mod_by_eb() instead of open-coding the alginment
-    check.
+    Additionally, invalid wireless network interface assignments are revoked.
     
-    Fixes: ada1dcb2b4 ("generic: mikrotik: size RouterBoot partitions so they are usable")
-    Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+    Retain the change setting label-mac-device to &swport5 WAN port
+    
+    Signed-off-by: Paweł Owoc <frut3k7@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/25239
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
