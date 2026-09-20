@@ -1,18 +1,16 @@
-commit 536969968412b34e4856435ef6b5a0ff2f01afd9 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Paweł Owoc <frut3k7@gmail.com>
-Date:   Thu Sep 17 18:14:17 2026 +0200
+commit d9fcbfc5850f1faafd266b81af2ffeb17faf91dd (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Stefan Reisinger <dev@stefan-reisinger.at>
+Date:   Wed Sep 16 09:17:50 2026 +0200
 
-    qualcommax: ipq8072: partial revert NVMEM MAC addresses for Linksys MX5300
+    uboot-envtools: fix BPI-R2 boot device
     
-    Partially revert commit e8c74e8f1e6deb94fb93a5de53f9198cb7992586.
+    Resolve the production partition through fit.sh so the generated
+    environment configuration uses the actual MMC block device.
     
-    Assigning LAN MAC addresses incremented by one causes a conflict
-    with the addresses for the 2.4G wireless interface.
+    Migrate legacy /dev/p1 device fields in place while preserving custom
+    geometry, additional entries, and unrelated configurations.
     
-    Additionally, invalid wireless network interface assignments are revoked.
-    
-    Retain the change setting label-mac-device to &swport5 WAN port
-    
-    Signed-off-by: Paweł Owoc <frut3k7@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/25239
+    Fixes: de2df0f2c5b7 ("base-files: remove fitblk_get_bootdev() from /lib/upgrade/common.sh")
+    Signed-off-by: Stefan Reisinger <dev@stefan-reisinger.at>
+    Link: https://github.com/openwrt/openwrt/pull/25197
     Signed-off-by: Robert Marko <robimarko@gmail.com>
