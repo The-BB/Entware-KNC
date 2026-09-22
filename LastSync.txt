@@ -1,16 +1,14 @@
-commit d9fcbfc5850f1faafd266b81af2ffeb17faf91dd (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Stefan Reisinger <dev@stefan-reisinger.at>
-Date:   Wed Sep 16 09:17:50 2026 +0200
+commit c618c6a353f2adafab4c182224739d3687896e49 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Robert Marko <robimarko@gmail.com>
+Date:   Mon Sep 21 13:28:57 2026 +0200
 
-    uboot-envtools: fix BPI-R2 boot device
+    qualcommax: ipq807x: ax89x: use lan1 for failsafe
     
-    Resolve the production partition through fit.sh so the generated
-    environment configuration uses the actual MMC block device.
+    The default failsafe script just takes the first interface from the UCI LAN
+    inteface list, so its currently using the SFP interface in failsafe.
     
-    Migrate legacy /dev/p1 device fields in place while preserving custom
-    geometry, additional entries, and unrelated configurations.
+    Since this is not convenient at all, change the order so that lan1 will now
+    be used for failsafe instead.
     
-    Fixes: de2df0f2c5b7 ("base-files: remove fitblk_get_bootdev() from /lib/upgrade/common.sh")
-    Signed-off-by: Stefan Reisinger <dev@stefan-reisinger.at>
-    Link: https://github.com/openwrt/openwrt/pull/25197
+    Fixes: #23633
     Signed-off-by: Robert Marko <robimarko@gmail.com>
