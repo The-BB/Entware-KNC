@@ -1,14 +1,12 @@
-commit c618c6a353f2adafab4c182224739d3687896e49 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Robert Marko <robimarko@gmail.com>
-Date:   Mon Sep 21 13:28:57 2026 +0200
+commit 3ab520425b127d66617bfeb1e2805b4f20109f95 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Daniel Golle <daniel@makrotopia.org>
+Date:   Sat Sep 26 00:50:53 2026 +0100
 
-    qualcommax: ipq807x: ax89x: use lan1 for failsafe
+    procd: jail/seccomp: complete the pre-main syscall allowlists
     
-    The default failsafe script just takes the first interface from the UCI LAN
-    inteface list, so its currently using the SFP interface in failsafe.
+    Add missing syscall names needed on 32-bit platforms to the pre-main
+    pre-main syscall allowlists.
     
-    Since this is not convenient at all, change the order so that lan1 will now
-    be used for failsafe instead.
-    
-    Fixes: #23633
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Fixes: #25392
+    Fixes: ee526dbf01 ("procd: update to git HEAD of 2026-09-13")
+    Signed-off-by: Daniel Golle <daniel@makrotopia.org>
