@@ -5,7 +5,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=openssl
-PKG_VERSION:=3.5.6
+PKG_VERSION:=3.5.8
 PKG_RELEASE:=1
 
 PKG_BASE:=$(subst $(space),.,$(wordlist 1,2,$(subst .,$(space),$(PKG_VERSION))))
@@ -14,13 +14,14 @@ PKG_SOURCE_URL:= \
 		https://www.openssl.org/source/ \
 		https://www.openssl.org/source/old/$(PKG_BASE)/ \
 		https://github.com/openssl/openssl/releases/download/$(PKG_NAME)-$(PKG_VERSION)/
-PKG_HASH:=deae7c80cba99c4b4f940ecadb3c3338b13cb77418409238e57d7f31f2a3b736
+PKG_HASH:=a8f84a39918ec6415ce765d9b429d313ba97b8143169c172e734b9514464f5b2
 
 PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE.txt
 PKG_CPE_ID:=cpe:/a:openssl:openssl
 
 HOST_BUILD_PARALLEL:=1
+HOST_CONFIGURE_CACHE:=1
 
 include $(INCLUDE_DIR)/host-build.mk
 

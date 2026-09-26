@@ -1,6 +1,6 @@
 --- a/exporters/pkg-config/libcrypto.pc.in
 +++ b/exporters/pkg-config/libcrypto.pc.in
-@@ -17,8 +17,7 @@ modulesdir=${libdir}/{- $OpenSSL::safe::
+@@ -18,8 +18,7 @@ modulesdir=${libdir}/{- $OpenSSL::safe::
  Name: OpenSSL-libcrypto
  Description: OpenSSL cryptography library
  Version: {- $OpenSSL::safe::installdata::VERSION -}
