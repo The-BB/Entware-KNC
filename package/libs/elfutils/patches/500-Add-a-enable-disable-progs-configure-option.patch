@@ -45,7 +45,7 @@ Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
  	     COPYING COPYING-GPLV2 COPYING-LGPLV3 CONDUCT
 --- a/configure.ac
 +++ b/configure.ac
-@@ -453,6 +453,12 @@ AS_HELP_STRING([--enable-tests-rpath],[b
+@@ -470,6 +470,12 @@ AS_HELP_STRING([--enable-tests-rpath],[b
  	       [tests_use_rpath=$enableval], [tests_use_rpath=no])
  AM_CONDITIONAL(TESTS_RPATH, test "$tests_use_rpath" = yes)
  
