@@ -1,12 +1,26 @@
-commit 3ab520425b127d66617bfeb1e2805b4f20109f95 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Daniel Golle <daniel@makrotopia.org>
-Date:   Sat Sep 26 00:50:53 2026 +0100
+commit ab58ca8fc0e36c526d3590b97f9ef6f90828cd7f (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Rustam Adilov <adilov@tutamail.com>
+Date:   Sat Sep 26 18:44:25 2026 +0500
 
-    procd: jail/seccomp: complete the pre-main syscall allowlists
+    realtek: phy: add delay to fix pcie link up failures
     
-    Add missing syscall names needed on 32-bit platforms to the pre-main
-    pre-main syscall allowlists.
+    The current pcie phy driver results in inconsistent failures on PCIe linkup,
+    different from one boot to another. Doing some testing, it has became clear
+    that mdio operations are at fault. The mdio seem to require an additional
+    delay after it has completed an operation and reported status of done. The
+    mdio ready bit however, is unchanged and so doesn't have any connection to
+    this "after completion" delay.
     
-    Fixes: #25392
-    Fixes: ee526dbf01 ("procd: update to git HEAD of 2026-09-13")
-    Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+    Fix the issue by adding an additional delay after regmap polling and remove
+    MDIO_READY from cond variable as it is unrelated. Change the function name
+    to rtk_phy_poll_done_and_delay() to go along with the changes. Mostly as a
+    guess but 10 us is enough delay to fix the inconsistent failures. Tested by
+    booting an image on rtl9607c machine 4 times and no failed link ups happen.
+    
+    Add the fsleep() after regmap_read() in rtk_phy_read() as it also triggers
+    something in phy mdio controller that require the same delay.
+    
+    Fixes: bb00e9f0974f ("realtek: phy: add support for rtl9607c pcie phy")
+    Signed-off-by: Rustam Adilov <adilov@tutamail.com>
+    Link: https://github.com/openwrt/openwrt/pull/25412
+    Signed-off-by: Jonas Jelonek <jonas@jonasjelonek.de>
