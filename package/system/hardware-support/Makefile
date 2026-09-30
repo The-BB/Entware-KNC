@@ -17,15 +17,15 @@ include $(INCLUDE_DIR)/package.mk
 define Package/hardware-support/Default
   SECTION:=hardware
   CATEGORY:=Hardware support
-  DEPENDS:=+procd
+#  DEPENDS:=+procd
   DEFAULT:=m if ALL||ALL_KMODS
   PKGARCH:=all
 endef
 
 # 1: destination, 2: fragment file name
 define InstallFragment
-	$(INSTALL_DIR) $(1)/etc/hotplug.json.d
-	$(INSTALL_CONF) ./files/$(2) $(1)/etc/hotplug.json.d/
+#	$(INSTALL_DIR) $(1)/etc/hotplug.json.d
+#	$(INSTALL_CONF) ./files/$(2) $(1)/etc/hotplug.json.d/
 endef
 
 define Package/audio-support
@@ -186,12 +186,12 @@ endef
 define Build/Compile
 endef
 
-#$(eval $(call BuildPackage,audio-support))
-#$(eval $(call BuildPackage,video-support))
-#$(eval $(call BuildPackage,accel-support))
-#$(eval $(call BuildPackage,input-support))
-#$(eval $(call BuildPackage,dvb-support))
-#$(eval $(call BuildPackage,kvm-support))
-#$(eval $(call BuildPackage,printer-support))
-#$(eval $(call BuildPackage,scanner-support))
-#$(eval $(call BuildPackage,hidraw-support))
+$(eval $(call BuildPackage,audio-support))
+$(eval $(call BuildPackage,video-support))
+$(eval $(call BuildPackage,accel-support))
+$(eval $(call BuildPackage,input-support))
+$(eval $(call BuildPackage,dvb-support))
+$(eval $(call BuildPackage,kvm-support))
+$(eval $(call BuildPackage,printer-support))
+$(eval $(call BuildPackage,scanner-support))
+$(eval $(call BuildPackage,hidraw-support))
