@@ -1,10 +1,25 @@
-commit 5c8e736980fbc2fee00a9f13a0b94e1a29fc6189 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Sander van Deijck <sander@vandeijck.com>
-Date:   Tue Sep 29 18:22:15 2026 +0200
+commit c759267c92b0697a6fd6f369164a5ed4c1a6a03c (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Gennaro Cimmino <gcimmino@rayonra.net>
+Date:   Wed Sep 30 12:03:39 2026 +0200
 
-    kirkwood: drop kernel 6.12 support
+    realtek: eth: rtl93xx: say that the RMA setup traps
     
-    The target has  switched to kernel 6.18 a while ago.
-    Remove the now unused 6.12 config and patches
+    rteth_930x_set_rx_mode() and rteth_931x_set_rx_mode() say they flood
+    every class of RMA address while the conduit is promiscuous, like the
+    RTL838x version. All three write 3 into every 2-bit action field of
+    RMA_CTRL_0..2. In the GPL SDK that is flood on RTL838x
+    (dal_maple_trap_rmaGroupAction_set()), but trap to the master CPU on
+    RTL930x and RTL931x (dal_longan_trap_rmaAction_set(),
+    dal_mango_trap_rmaAction_set()), which have no flood action for these
+    addresses at all. On an RTL9303, frames to 01:80:C2:00:00:0B and
+    01:80:C2:00:00:21 reach the CPU with the trapped-RMA reason, 28.
     
-    Signed-off-by: Sander van Deijck <sander@vandeijck.com>
+    Trapping is also what fits here: whether such a frame goes any further
+    is for the bridge to decide. Keep the values and correct the comments.
+    
+    No functional change.
+    
+    Assisted-by: Claude:claude-opus-5-5
+    Signed-off-by: Gennaro Cimmino <gcimmino@rayonra.net>
+    Link: https://github.com/openwrt/openwrt/pull/25499
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
