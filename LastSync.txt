@@ -1,25 +1,19 @@
-commit c759267c92b0697a6fd6f369164a5ed4c1a6a03c (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Gennaro Cimmino <gcimmino@rayonra.net>
-Date:   Wed Sep 30 12:03:39 2026 +0200
+commit 3f26ab3d4d973fdbd3a1593a68e8186f5cc58dbd (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Johan Alvarado <contact@c127.dev>
+Date:   Wed Sep 30 13:25:14 2026 -0500
 
-    realtek: eth: rtl93xx: say that the RMA setup traps
+    base-files: keep kernel and rootfs UBI volume IDs with provisioning
     
-    rteth_930x_set_rx_mode() and rteth_931x_set_rx_mode() say they flood
-    every class of RMA address while the conduit is promiscuous, like the
-    RTL838x version. All three write 3 into every 2-bit action field of
-    RMA_CTRL_0..2. In the GPL SDK that is flood on RTL838x
-    (dal_maple_trap_rmaGroupAction_set()), but trap to the master CPU on
-    RTL930x and RTL931x (dal_longan_trap_rmaAction_set(),
-    dal_mango_trap_rmaAction_set()), which have no flood action for these
-    addresses at all. On an RTL9303, frames to 01:80:C2:00:00:0B and
-    01:80:C2:00:00:21 reach the CPU with the trapped-RMA reason, 28.
+    Since sysupgrade creates the provisioning volume by default, it takes the
+    lowest free volume ID before the kernel and rootfs volumes are created.
+    This shifts their IDs by one, so devices that hardcode the rootfs volume
+    in root= (e.g. root=/dev/ubiblock0_1) no longer boot after a sysupgrade.
     
-    Trapping is also what fits here: whether such a frame goes any further
-    is for the bridge to decide. Keep the values and correct the comments.
+    Create the provisioning volume with the last volume ID instead.
     
-    No functional change.
+    A provisioning volume that already exists at a low ID is kept and has to
+    be removed by hand.
     
-    Assisted-by: Claude:claude-opus-5-5
-    Signed-off-by: Gennaro Cimmino <gcimmino@rayonra.net>
-    Link: https://github.com/openwrt/openwrt/pull/25499
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Fixes: 725a1dc534a1 ("base-files: create the provisioning partition on sysupgrade by default")
+    Fixes: https://github.com/openwrt/openwrt/issues/25501
+    Signed-off-by: Johan Alvarado <contact@c127.dev>
