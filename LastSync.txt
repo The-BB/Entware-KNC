@@ -1,19 +1,19 @@
-commit 3f26ab3d4d973fdbd3a1593a68e8186f5cc58dbd (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Johan Alvarado <contact@c127.dev>
-Date:   Wed Sep 30 13:25:14 2026 -0500
+commit 79bc56cb7483bc716da07c369530b792631904b4 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Ryan Leung <untilscour@protonmail.com>
+Date:   Sun Oct 4 17:17:42 2026 +0800
 
-    base-files: keep kernel and rootfs UBI volume IDs with provisioning
+    u-boot: add project's new download source
     
-    Since sysupgrade creates the provisioning volume by default, it takes the
-    lowest free volume ID before the kernel and rootfs volumes are created.
-    This shifts their IDs by one, so devices that hardcode the rootfs volume
-    in root= (e.g. root=/dev/ubiblock0_1) no longer boot after a sysupgrade.
+    Das U-Boot project is transitioning their infrastructure [1],[2] and now publishes releases on their
+    GitLab [3]. Add it as the first download source and keep the existing sources which are currently
+    still available for historical releases.
     
-    Create the provisioning volume with the last volume ID instead.
+    Also update the U-Boot project web page [1] for the package URL and bump PKG_RELEASE for uboot-tools
     
-    A provisioning volume that already exists at a low ID is kept and has to
-    be removed by hand.
+    [1]: https://lore.kernel.org/u-boot/20260511174116.GJ1858239@bill-the-cat/
+    [2]: https://lore.kernel.org/u-boot/20260727224922.GB1188@bill-the-cat/
+    [3]: https://git.u-boot-project.org/u-boot/u-boot/-/releases/
     
-    Fixes: 725a1dc534a1 ("base-files: create the provisioning partition on sysupgrade by default")
-    Fixes: https://github.com/openwrt/openwrt/issues/25501
-    Signed-off-by: Johan Alvarado <contact@c127.dev>
+    Signed-off-by: Ryan Leung <untilscour@protonmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/25343
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
