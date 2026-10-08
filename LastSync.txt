@@ -1,19 +1,14 @@
-commit 79bc56cb7483bc716da07c369530b792631904b4 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Ryan Leung <untilscour@protonmail.com>
-Date:   Sun Oct 4 17:17:42 2026 +0800
+commit ad1802486260568778bdf45cbf3125029fc8029f (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Julius Bairaktaris <julius@bairaktaris.de>
+Date:   Wed Oct 7 22:23:10 2026 +0200
 
-    u-boot: add project's new download source
+    ppp: build the PPPoA plugin without libatm
     
-    Das U-Boot project is transitioning their infrastructure [1],[2] and now publishes releases on their
-    GitLab [3]. Add it as the first download source and keep the existing sources which are currently
-    still available for historical releases.
+    The PPPoA plugin only uses text2atm() and text2qos() from libatm. ppp
+    ships copies of both and uses them unless configured --with-atm, so
+    link the bundled copies and drop the dependency on linux-atm.
     
-    Also update the U-Boot project web page [1] for the package URL and bump PKG_RELEASE for uboot-tools
-    
-    [1]: https://lore.kernel.org/u-boot/20260511174116.GJ1858239@bill-the-cat/
-    [2]: https://lore.kernel.org/u-boot/20260727224922.GB1188@bill-the-cat/
-    [3]: https://git.u-boot-project.org/u-boot/u-boot/-/releases/
-    
-    Signed-off-by: Ryan Leung <untilscour@protonmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/25343
+    Assisted-by: Claude:claude-opus-5-5
+    Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
+    Link: https://github.com/openwrt/openwrt/pull/25707
     Signed-off-by: Robert Marko <robimarko@gmail.com>
