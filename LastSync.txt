@@ -1,24 +1,32 @@
-commit 53ec2d05a487e6011cfa096de9211d15197c501b (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Julius Bairaktaris <julius@bairaktaris.de>
-Date:   Fri Oct 9 08:59:45 2026 +0200
+commit 5d9fa156476c332f6597edf68fcca4dc6c114c69 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Gennaro Cimmino <gcimmino@rayonra.net>
+Date:   Sat Oct 10 09:16:14 2026 +0200
 
-    qualcommax: qca_ppe: add 10 and 100 Mbps half duplex
+    realtek: eth: drop the RTL839x L2 notification code
     
-    The ports list only full duplex in their MAC capabilities, so the PHY
-    advertises no half-duplex mode. A link partner with autonegotiation off
-    is found by parallel detection, which resolves to half duplex, and the
-    port does not link.
+    On RTL839x the ethernet driver turns on the L2 notification engine and
+    passes its learn and age events to the bridge. It reports them against
+    the conduit, which is not a bridge port, so br_switchdev_event() drops
+    every one of them. Nothing else reads them. RTL838x, RTL930x and
+    RTL931x run without this code.
     
-    Add MAC_10HD and MAC_100HD to ports 1-6. The GMAC programs half duplex;
-    USXGMII runs on the XGMAC, which has no duplex setting, so
-    mac_get_caps() removes both modes for that interface.
+    Drop the notification setup, its interrupt handling and ring, and the
+    NIC reset code that preserved them. The vendor SDK defines no
+    interrupt in the mask bits this code also set on the other families:
+    bits 20-22 of DMA_IF_INTR_MSK on RTL838x, bits 4-6 of
+    DMA_IF_INTR_TX_DONE_MSK on RTL930x and RTL931x.
     
-    On a Xiaomi AX3600 (QCA8075) with the partner forced to 10 or 100 Mbps,
-    the port stays down before the change and links at half duplex after
-    it, 3/3 runs each.
+    Tested on an HPE 1920-48G (RTL8393):
+    - after boot, L2_NOTIFICATION_CTRL reads 0x00001002 (engine off) and
+      DMA_IF_INTR_MSK has none of bits 20-22 set;
+    - the switch still learns the hosts behind its ports;
+    - a route offloaded with IPv4 forwarding off still delivers 8 of 8
+      echoes.
     
-    Closes: https://github.com/openwrt/openwrt/issues/25657
+    This does not stop the resets on a full bridge fdb show on that switch:
+    they happen with or without this code.
+    
     Assisted-by: Claude:claude-opus-5-5
-    Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
-    Link: https://github.com/openwrt/openwrt/pull/25750
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    Signed-off-by: Gennaro Cimmino <gcimmino@rayonra.net>
+    Link: https://github.com/openwrt/openwrt/pull/25776
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
