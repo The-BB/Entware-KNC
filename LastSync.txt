@@ -1,43 +1,24 @@
-commit 0ef832f34e309fd060b1eb6b9aa78e6b4c5d1c77
-Author: Gennaro Cimmino <gcimmino@rayonra.net>
-Date:   Fri Oct 9 14:36:33 2026 +0200
+commit 53ec2d05a487e6011cfa096de9211d15197c501b (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Julius Bairaktaris <julius@bairaktaris.de>
+Date:   Fri Oct 9 08:59:45 2026 +0200
 
-    realtek: l3: trap main routes inside a local IPv6 prefix
+    qualcommax: qca_ppe: add 10 and 100 Mbps half duplex
     
-    With more than one IPv6 table, the kernel also looks the local table up
-    before main, so a local IPv6 prefix (AnyIP: ip -6 route add local ...
-    table local) takes the destinations of a longer main route inside it.
-    The switch matches the longest prefix and forwards them. Commit
-    bf54d898c7 ("realtek: l3: trap main routes inside a local prefix") made
-    such a route trap for IPv4 only.
+    The ports list only full duplex in their MAC capabilities, so the PHY
+    advertises no half-duplex mode. A link partner with autonegotiation off
+    is found by parallel detection, which resolves to half duplex, and the
+    port does not link.
     
-    otto_l3_local_covers() now looks at local prefixes of both families. So
-    that a local prefix that comes or goes is seen for IPv6 too,
-    otto_l3_route_inside(), otto_l3_gw_seen() and
-    otto_l3_local_prefix_check() take the struct fib_notifier_info both
-    notifier infos start with, and tell the family from it. The IPv6 FIB
-    work calls otto_l3_local_prefix_check() after an add or a delete, and
-    the check no longer skips a prefix of length zero: otto_l3_fib_trap_v6()
-    gives a local ::/0 a row, which otto_l3_local_covers() counts as
-    covering every main route. An IPv4 local default route gets no row from
-    otto_l3_fib_trap_v4(), so for it the check only resolves the gateways
-    again and every route stays as it was. Without IPV6_MULTIPLE_TABLES the
-    local routes are in main, where the kernel matches the longest prefix
-    as the switch does, and they are not taken for local ones. Otherwise
-    IPv4 behaves as before.
+    Add MAC_10HD and MAC_100HD to ports 1-6. The GMAC programs half duplex;
+    USXGMII runs on the XGMAC, which has no duplex setting, so
+    mac_get_caps() removes both modes for that interface.
     
-    Tested on a Hasivo S1100W-8XGT-SE (RTL9303), with 2001:db8:1:0:1::/80
-    via a gateway on switch.3 and echo requests to eight addresses inside
-    it captured at the gateway. With ip -6 route add local 2001:db8:1::/64
-    dev lo table local, main kept the row forwarding and all 8/8 reached the
-    gateway, whether the local prefix came before or after the route. With
-    this change the row traps and 0/8 reach it, in both orders. Without the
-    local prefix both forward 8/8. The same run of the IPv4 case traps on
-    both, as before. That run predates the zero-length part. In a run of
-    the final change, a local ::/0 made the row trap with 0/8 reaching the
-    gateway, and once it went the row forwarded 8/8 again.
+    On a Xiaomi AX3600 (QCA8075) with the partner forced to 10 or 100 Mbps,
+    the port stays down before the change and links at half duplex after
+    it, 3/3 runs each.
     
+    Closes: https://github.com/openwrt/openwrt/issues/25657
     Assisted-by: Claude:claude-opus-5-5
-    Signed-off-by: Gennaro Cimmino <gcimmino@rayonra.net>
-    Link: https://github.com/openwrt/openwrt/pull/25753
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
+    Link: https://github.com/openwrt/openwrt/pull/25750
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
