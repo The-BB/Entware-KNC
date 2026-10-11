@@ -1,32 +1,27 @@
-commit 5d9fa156476c332f6597edf68fcca4dc6c114c69 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+commit baf6e5319bd6cea270475f37649d280c9695e525 (HEAD -> master, origin/master, origin/main, origin/HEAD)
 Author: Gennaro Cimmino <gcimmino@rayonra.net>
-Date:   Sat Oct 10 09:16:14 2026 +0200
+Date:   Sat Oct 10 19:59:42 2026 +0200
 
-    realtek: eth: drop the RTL839x L2 notification code
+    realtek: pie: rtl839x: place the log index at bit 6
     
-    On RTL839x the ethernet driver turns on the L2 notification engine and
-    passes its learn and age events to the bridge. It reports them against
-    the conduit, which is not a bridge port, so br_switchdev_event() drops
-    every one of them. Nothing else reads them. RTL838x, RTL930x and
-    RTL931x run without this code.
+    A PIE rule on RTL839x counts the packets it matches into the counter
+    named by its LOG_IDX field, bits 80:70 of the entry (Realtek GPL SDK,
+    rtk_cypress_tableField_list.c), which are bits 16:6 of r[14]. The
+    writer puts the index at bits 14:4, so the hardware reads it divided
+    by four, and bit 0 of the index lands in MIR_IDX.
+    The reader shifts the same way, so the route dump in debugfs reads the
+    counter the driver allocated rather than the one the hardware fills.
     
-    Drop the notification setup, its interrupt handling and ring, and the
-    NIC reset code that preserved them. The vendor SDK defines no
-    interrupt in the mask bits this code also set on the other families:
-    bits 20-22 of DMA_IF_INTR_MSK on RTL838x, bits 4-6 of
-    DMA_IF_INTR_TX_DONE_MSK on RTL930x and RTL931x.
+    Write and read the index at bit 6.
     
-    Tested on an HPE 1920-48G (RTL8393):
-    - after boot, L2_NOTIFICATION_CTRL reads 0x00001002 (engine off) and
-      DMA_IF_INTR_MSK has none of bits 20-22 set;
-    - the switch still learns the hosts behind its ports;
-    - a route offloaded with IPv4 forwarding off still delivers 8 of 8
-      echoes.
-    
-    This does not stop the resets on a full bridge fdb show on that switch:
-    they happen with or without this code.
+    Tested on an HPE 1920-48G (RTL8393) with two offloaded routes, which
+    got packet counters 0 and 1, and 8 echo requests through one route at
+    a time. Before, the requests through the second route added 8 to the
+    first route's counter and nothing to its own. After, each route's
+    counter grew by 8 for its own requests and stayed put for the other's.
+    Counters above 1 were not exercised.
     
     Assisted-by: Claude:claude-opus-5-5
     Signed-off-by: Gennaro Cimmino <gcimmino@rayonra.net>
-    Link: https://github.com/openwrt/openwrt/pull/25776
+    Link: https://github.com/openwrt/openwrt/pull/25795
     Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
