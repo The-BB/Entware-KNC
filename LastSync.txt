@@ -1,27 +1,24 @@
-commit baf6e5319bd6cea270475f37649d280c9695e525 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Gennaro Cimmino <gcimmino@rayonra.net>
-Date:   Sat Oct 10 19:59:42 2026 +0200
+commit 1daf1410c575360bc4ec4896281f0140d528d34d (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Paul Spooren <mail@aparcar.org>
+Date:   Sun Oct 11 17:46:15 2026 +0200
 
-    realtek: pie: rtl839x: place the log index at bit 6
+    ramips: tp-link: use a temporary file per image for OKLI images
     
-    A PIE rule on RTL839x counts the packets it matches into the counter
-    named by its LOG_IDX field, bits 80:70 of the entry (Realtek GPL SDK,
-    rtk_cypress_tableField_list.c), which are bits 16:6 of r[14]. The
-    writer puts the index at bits 14:4, so the hardware reads it divided
-    by four, and bit 0 of the index lands in MIR_IDX.
-    The reader shifts the same way, so the route dump in debugfs reads the
-    counter the driver allocated rather than the one the hardware fills.
+    The squashfs images of the TP-Link RE200 v1 and RE210 v1 differ between
+    builds; the uncompressed kernel of the RE200 one was 271 bytes larger,
+    from its device tree on:
     
-    Write and read the index at bit 6.
+      -00001040: 6d00 0080 00cb 1a9e 0000 0000 0000 006f
+      +00001040: 6d00 0080 00da 1b9e 0000 0000 0000 006f
     
-    Tested on an HPE 1920-48G (RTL8393) with two offloaded routes, which
-    got packet counters 0 and 1, and 8 echo requests through one route at
-    a time. Before, the requests through the second route added 8 to the
-    first route's counter and nothing to its own. After, each route's
-    counter grew by 8 for its own requests and stayed put for the other's.
-    Counters above 1 were not exercised.
+    The RE210 device tree is exactly 271 bytes larger than the RE200 one, so
+    the RE200 image carried the kernel of the RE210.
     
-    Assisted-by: Claude:claude-opus-5-5
-    Signed-off-by: Gennaro Cimmino <gcimmino@rayonra.net>
-    Link: https://github.com/openwrt/openwrt/pull/25795
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    tplink-v1-okli-image puts kernel and rootfs together in
+    $(IMAGE_ROOTFS).factory or .sysupgrade, a name shared by all devices with
+    the same rootfs. Both devices are built at the same time, so one can
+    overwrite the file of the other between cp, cat and mktplinkfw, and an
+    image can end up with the kernel and device tree of the other device.
+    
+    Link: https://github.com/openwrt/openwrt/pull/25816
+    Signed-off-by: Paul Spooren <mail@aparcar.org>
