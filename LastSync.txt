@@ -1,13 +1,26 @@
-commit 0ad1348fb2a7f49c9c5941d4d8c98f88b6974e8d (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Shiji Yang <yangshiji66@outlook.com>
-Date:   Fri Sep 18 19:49:30 2026 +0800
+commit b909154ce2ac90853028ed22fd2222623f0b6009 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Harm Kroon <hhhkroon@hotmail.com>
+Date:   Tue Oct 13 16:43:43 2026 +0200
 
-    libnetfilter-conntrack: update to version 1.1.1
+    realtek: rtl839x: trap slow protocols to the cpu
     
-    Changes: https://www.netfilter.org/pub/libnetfilter_conntrack/changes-libnetfilter_conntrack-1.1.1.txt
+    The switch drops frames to 01-80-C2-00-00-02 (slow protocols). On
+    RTL839x the RMA action is FORWARD (0) normally and FLOOD (3) with
+    promisc/allmulti. Neither reaches the CPU. This breaks LACP bonding.
     
-    The apk size changes from 32884 to 32964 on mipsel_24kc target.
+    This improved code always sets the action for 01-80-C2-00-00-02 to
+    TRAP2CPU (2) and always sets the STP and VLAN bypass. So STP and VLAN
+    filtering do not drop them.
     
-    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
-    Link: https://github.com/openwrt/openwrt/pull/25251
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    With promisc/allmulti, all RMA addresses are now trapped instead of
+    flooded, as flooded frames do not reach the CPU either.
+    
+    The registers are now updated with regmap_update_bits(), so the
+    reserved bits of RMA_CTRL_0 and the bits above 9 of RMA_CTRL_3 are no
+    longer cleared. RMA_CTRL_3 is now also set in allmulti mode, so the
+    promisc bypass bits do not stay set after a change to allmulti.
+    
+    Authored-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+    Signed-off-by: Harm Kroon <hhhkroon@hotmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/25765
+    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
