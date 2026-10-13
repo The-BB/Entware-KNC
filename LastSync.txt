@@ -1,24 +1,13 @@
-commit 1daf1410c575360bc4ec4896281f0140d528d34d (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Paul Spooren <mail@aparcar.org>
-Date:   Sun Oct 11 17:46:15 2026 +0200
+commit 0ad1348fb2a7f49c9c5941d4d8c98f88b6974e8d (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Shiji Yang <yangshiji66@outlook.com>
+Date:   Fri Sep 18 19:49:30 2026 +0800
 
-    ramips: tp-link: use a temporary file per image for OKLI images
+    libnetfilter-conntrack: update to version 1.1.1
     
-    The squashfs images of the TP-Link RE200 v1 and RE210 v1 differ between
-    builds; the uncompressed kernel of the RE200 one was 271 bytes larger,
-    from its device tree on:
+    Changes: https://www.netfilter.org/pub/libnetfilter_conntrack/changes-libnetfilter_conntrack-1.1.1.txt
     
-      -00001040: 6d00 0080 00cb 1a9e 0000 0000 0000 006f
-      +00001040: 6d00 0080 00da 1b9e 0000 0000 0000 006f
+    The apk size changes from 32884 to 32964 on mipsel_24kc target.
     
-    The RE210 device tree is exactly 271 bytes larger than the RE200 one, so
-    the RE200 image carried the kernel of the RE210.
-    
-    tplink-v1-okli-image puts kernel and rootfs together in
-    $(IMAGE_ROOTFS).factory or .sysupgrade, a name shared by all devices with
-    the same rootfs. Both devices are built at the same time, so one can
-    overwrite the file of the other between cp, cat and mktplinkfw, and an
-    image can end up with the kernel and device tree of the other device.
-    
-    Link: https://github.com/openwrt/openwrt/pull/25816
-    Signed-off-by: Paul Spooren <mail@aparcar.org>
+    Signed-off-by: Shiji Yang <yangshiji66@outlook.com>
+    Link: https://github.com/openwrt/openwrt/pull/25251
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
