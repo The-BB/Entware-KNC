@@ -1,21 +1,28 @@
-commit 7af0c0f531be0c181767fc3e5cc5ecc8de76d61b (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Markus Stockhausen <markus.stockhausen@gmx.de>
-Date:   Tue Oct 13 14:41:15 2026 +0200
+commit 38c956868e21fd2f7957f3cd79b68d764faac733 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Quinn O'Shea <qoshea@gmail.com>
+Date:   Fri Oct 2 18:37:28 2026 -0500
 
-    realtek: dsa: convert direct LAG register accesses to regmap
+    realtek: l3: report IPv4 offload state per route
     
-    The LAG code still uses raw switch register accessors despite the
-    regmap already available in the switch private data.
+    The IPv4 path sets RTNH_F_OFFLOAD on the fib_nh when a route is added
+    and clears it when one is deleted. Every route through the same gateway
+    shares that fib_nh, so the flag says nothing about the route it is
+    printed on. On RTL9303, with 600 prefix routes through one gateway, all
+    600 show as offloaded although the table holds 476 of them. Delete the
+    first 150 and the other 450 show nothing, although 350 of them still
+    forward in hardware. Routes whose entry sends the traffic to the CPU,
+    because their gateway is gone or not resolved yet, show as offloaded
+    too.
     
-    Replace direct register accesses with regmap operations through
-    priv->map. Pass priv to the local group, local port and table refresh
-    callbacks, updating their declarations and callers accordingly.
+    Keep the route's fib_info and set the flags on the route alias from the
+    code that programs it, as the IPv6 path does: offload when the route
+    forwards in hardware, trap when its entry sends the traffic to the CPU
+    (gateway gone or not resolved yet, a local address, a connected prefix),
+    offload_failed when the table has no room for it. The same 600 routes
+    then show 476 offload and 124 offload_failed, and after the delete 350
+    offload and 100 offload_failed.
     
-    Use regmap_write_bits() to preserve unconditional masked writes and
-    include all set bits in the mask to retain sw_w32_mask() semantics.
-    Convert refresh polling to regmap_read_poll_timeout() while keeping
-    the existing polling interval and timeout.
-    
-    Assisted-by: ChatGPT (OpenAI GPT-6 Astra)
-    Link: https://github.com/openwrt/openwrt/pull/25874
+    Assisted-by: Claude:claude-opus-5-5
+    Signed-off-by: Quinn O'Shea <qoshea@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/25887
     Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
