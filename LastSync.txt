@@ -1,26 +1,21 @@
-commit b909154ce2ac90853028ed22fd2222623f0b6009 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Harm Kroon <hhhkroon@hotmail.com>
-Date:   Tue Oct 13 16:43:43 2026 +0200
+commit 7af0c0f531be0c181767fc3e5cc5ecc8de76d61b (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Markus Stockhausen <markus.stockhausen@gmx.de>
+Date:   Tue Oct 13 14:41:15 2026 +0200
 
-    realtek: rtl839x: trap slow protocols to the cpu
+    realtek: dsa: convert direct LAG register accesses to regmap
     
-    The switch drops frames to 01-80-C2-00-00-02 (slow protocols). On
-    RTL839x the RMA action is FORWARD (0) normally and FLOOD (3) with
-    promisc/allmulti. Neither reaches the CPU. This breaks LACP bonding.
+    The LAG code still uses raw switch register accessors despite the
+    regmap already available in the switch private data.
     
-    This improved code always sets the action for 01-80-C2-00-00-02 to
-    TRAP2CPU (2) and always sets the STP and VLAN bypass. So STP and VLAN
-    filtering do not drop them.
+    Replace direct register accesses with regmap operations through
+    priv->map. Pass priv to the local group, local port and table refresh
+    callbacks, updating their declarations and callers accordingly.
     
-    With promisc/allmulti, all RMA addresses are now trapped instead of
-    flooded, as flooded frames do not reach the CPU either.
+    Use regmap_write_bits() to preserve unconditional masked writes and
+    include all set bits in the mask to retain sw_w32_mask() semantics.
+    Convert refresh polling to regmap_read_poll_timeout() while keeping
+    the existing polling interval and timeout.
     
-    The registers are now updated with regmap_update_bits(), so the
-    reserved bits of RMA_CTRL_0 and the bits above 9 of RMA_CTRL_3 are no
-    longer cleared. RMA_CTRL_3 is now also set in allmulti mode, so the
-    promisc bypass bits do not stay set after a change to allmulti.
-    
-    Authored-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-    Signed-off-by: Harm Kroon <hhhkroon@hotmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/25765
+    Assisted-by: ChatGPT (OpenAI GPT-6 Astra)
+    Link: https://github.com/openwrt/openwrt/pull/25874
     Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
