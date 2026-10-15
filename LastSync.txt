@@ -1,28 +1,30 @@
-commit 38c956868e21fd2f7957f3cd79b68d764faac733 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Quinn O'Shea <qoshea@gmail.com>
-Date:   Fri Oct 2 18:37:28 2026 -0500
+commit b3d6d595fff76fd42be7333f0e6dba2ffa1295d2 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Bertrand d'Hérouville <bertrand.dherouville@gmail.com>
+Date:   Wed Oct 14 08:22:48 2026 +0200
 
-    realtek: l3: report IPv4 offload state per route
+    realtek: rtl839x: gs750e: add SFP cages
     
-    The IPv4 path sets RTNH_F_OFFLOAD on the fib_nh when a route is added
-    and clears it when one is deleted. Every route through the same gateway
-    shares that fib_nh, so the flag says nothing about the route it is
-    printed on. On RTL9303, with 600 prefix routes through one gateway, all
-    600 show as offloaded although the table holds 476 of them. Delete the
-    first 150 and the other 450 show nothing, although 350 of them still
-    forward in hardware. Routes whose entry sends the traffic to the CPU,
-    because their gateway is gone or not resolved yet, show as offloaded
-    too.
+    The two SFP cages of the Netgear GS750E (front panel ports 49 and 50)
+    are wired to the RTL8393M GPIOs: each cage has its own bit-banged I2C
+    bus plus mod-def0, LOS and tx-disable lines. Describe them so the sfp
+    driver can read the module EEPROM, detect insertion and removal, and
+    let phylink manage the link.
     
-    Keep the route's fib_info and set the flags on the route alias from the
-    code that programs it, as the IPv6 path does: offload when the route
-    forwards in hardware, trap when its entry sends the traffic to the CPU
-    (gateway gone or not resolved yet, a local address, a connected prefix),
-    offload_failed when the table has no room for it. The same 600 routes
-    then show 476 offload and 124 offload_failed, and after the delete 350
-    offload and 100 offload_failed.
+    The pin map was recovered from the vendor firmware (V1.0.1.10):
     
-    Assisted-by: Claude:claude-opus-5-5
-    Signed-off-by: Quinn O'Shea <qoshea@gmail.com>
-    Link: https://github.com/openwrt/openwrt/pull/25887
-    Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+      cage  SCL  SDA  mod-def0  LOS  tx-disable
+      49    17   18   16        21   19
+      50    12   13   2         22   14
+    
+    Tested on hardware with two GLC-SX-MMD-C 1000BASE-SX modules and the
+    stock "boota" bootcmd after a cold power cycle: both modules are
+    detected, EEPROM and DDM (hwmon) are read, and both links come up at
+    1 Gbps and pass traffic. Unplugging the fibre drops the link and it
+    comes back on reconnect. Pulling a module reports its removal, and on
+    reinsertion it is probed again and the link recovers (hotplug tested
+    with a backport to 25.12.5). The reset key and gpio-restart still work.
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+    Signed-off-by: Bertrand d'Hérouville <bertrand.dherouville@gmail.com>
+    Link: https://github.com/openwrt/openwrt/pull/25898
+    Signed-off-by: Jonas Jelonek <jonas@jonasjelonek.de>
