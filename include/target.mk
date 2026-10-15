@@ -77,10 +77,15 @@ else
   endif
 endif
 
-# Entware specific: drop unused: procd-ujail
+# Entware specific: drop unused: procd-ujail, partx-utils
 # include ujail on systems with enough storage
 #ifeq ($(filter small_flash,$(FEATURES)),)
 #  DEFAULT_PACKAGES+=procd-ujail
+#endif
+
+# legacy-sdcard upgrades need partx after writing the full image
+#ifneq ($(filter legacy-sdcard,$(FEATURES)),)
+#  DEFAULT_PACKAGES+=partx-utils
 #endif
 
 # Add device specific packages (here below to allow device type set from subtarget)
