@@ -1,11 +1,10 @@
-commit 814759483bbcfecd7b2741838e897693b07433f4 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Sander van Deijck <sander@vandeijck.com>
-Date:   Sat Oct 17 21:58:49 2026 +0200
+commit c4fbb6337a693864f422c018b7bf470d2ea7cfff (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Robert Marko <robimarko@gmail.com>
+Date:   Sun Oct 18 20:50:31 2026 +0200
 
-    at91: drop kernel 6.12 support
+    ipq-wifi: update to Git HEAD (2026-10-18)
     
-    The target has been switched to kernel 6.18. Remove the now unused 6.12 configs.
+    83858ada8948 ipq5018: add BDF for ZTE T5400
+    0f8eb5d74be3 qcn9074: add BDF for ZTE T5400
     
-    Signed-off-by: Sander van Deijck <sander@vandeijck.com>
-    Link: https://github.com/openwrt/openwrt/pull/25961
-    Signed-off-by: Jonas Jelonek <jonas@jonasjelonek.de>
+    Signed-off-by: Robert Marko <robimarko@gmail.com>
