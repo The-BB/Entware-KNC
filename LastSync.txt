@@ -1,10 +1,15 @@
-commit c4fbb6337a693864f422c018b7bf470d2ea7cfff (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Robert Marko <robimarko@gmail.com>
-Date:   Sun Oct 18 20:50:31 2026 +0200
+commit 63f702f1c0cebe2587aac10b63a02e964fc2a558 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Hauke Mehrtens <hauke@hauke-m.de>
+Date:   Wed Oct 21 01:07:45 2026 +0200
 
-    ipq-wifi: update to Git HEAD (2026-10-18)
+    ca-certificates: blacklist "emSign ECC Root CA - G3"
     
-    83858ada8948 ipq5018: add BDF for ZTE T5400
-    0f8eb5d74be3 qcn9074: add BDF for ZTE T5400
+    This blacklists the "emSign ECC Root CA - G3" CA certificate which
+    issued some intermediate CA certificates for eMudhra with 8 bit private
+    keys between 0 and 255.
     
-    Signed-off-by: Robert Marko <robimarko@gmail.com>
+    "Comodo AAA Services root" is also blacklisted by Debian, but already
+    removed in update 20260223.
+    
+    Link: https://github.com/openwrt/openwrt/pull/26066
+    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
