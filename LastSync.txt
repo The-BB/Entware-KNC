@@ -1,15 +1,24 @@
-commit 63f702f1c0cebe2587aac10b63a02e964fc2a558 (HEAD -> master, origin/master, origin/main, origin/HEAD)
-Author: Hauke Mehrtens <hauke@hauke-m.de>
-Date:   Wed Oct 21 01:07:45 2026 +0200
+commit a31dd90f6974a935b16aea8c7c31eeec1aac18c1 (HEAD -> master, origin/master, origin/main, origin/HEAD)
+Author: Julius Bairaktaris <julius@bairaktaris.de>
+Date:   Sat Oct 17 12:17:06 2026 +0200
 
-    ca-certificates: blacklist "emSign ECC Root CA - G3"
+    qualcommax: ipq60xx: apply the 512 MB memory layout on 512 MB boards
     
-    This blacklists the "emSign ECC Root CA - G3" CA certificate which
-    issued some intermediate CA certificates for eMudhra with 8 bit private
-    keys between 0 and 255.
+    ipq6018-cp-cpu.dtsi includes ipq6018-mp5496.dtsi, which includes
+    ipq6018.dtsi again and restores the 85 MB q6_region over the 55 MB one
+    from ipq6018-512m.dtsi. The 360 V6, AP120C-AX, FAP650, MR7500, RBR350
+    and RBS350 lose 30 MB of RAM this way. The MR7350 and WAX214 have
+    512 MB and set qcom,ath11k-fw-memory-mode = <1>, but do not include the
+    512 MB layout at all.
     
-    "Comodo AAA Services root" is also blacklisted by Debian, but already
-    removed in update 20260223.
+    Drop the SoC include from ipq6018-512m.dtsi and include the layout after
+    ipq6018-cp-cpu.dtsi. The q6_region size is the only change in the
+    compiled device trees of these boards; the trees of the other IPQ60xx
+    boards do not change.
     
-    Link: https://github.com/openwrt/openwrt/pull/26066
-    Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
+    Not run on these boards, which are not available here.
+    
+    Assisted-by: Claude:claude-opus-5-5
+    Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
+    Link: https://github.com/openwrt/openwrt/pull/25952
+    Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
